@@ -153,14 +153,15 @@ void SystemHealthCheck(entt::registry& registry)
 			// TODO: Inform them they died with -newHealth being the amount of overkill.
 		}
 	}
+}
 
 
-	// ***
-	// *** Chi System
-	// ***
+// ***
+// *** Chi System
+// ***
 
 
-}void SystemApplyQiUtilisation(entt::registry& registry)
+void SystemApplyQiUtilisation(entt::registry& registry)
 {
 	// Apply any qi usage to the modifiers.
 	auto view = registry.view<ECS::UtiliseQi, ECS::SourceAndTarget>();

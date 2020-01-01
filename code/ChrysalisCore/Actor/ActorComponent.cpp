@@ -866,7 +866,7 @@ void CActorComponent::OnActionInteractionStart()
 					int index {1};
 					for (auto& verb : verbs)
 					{
-						CryLogAlways("%d) %s", index, verb);
+						CryLogAlways("%d) %s", index, verb.c_str());
 						index++;
 					}
 
@@ -874,7 +874,7 @@ void CActorComponent::OnActionInteractionStart()
 
 					// #HACK: Another test - just calling the interaction directly instead.
 					m_pInteraction = pInteractor->GetInteraction(verb).lock();
-					CryLogAlways("Player started interacting with: %s", m_pInteraction->GetVerbUI());
+					CryLogAlways("Player started interacting with: %s", m_pInteraction->GetVerbUI().c_str());
 					m_pInteraction->OnInteractionStart(*this);
 				}
 			}
@@ -887,7 +887,7 @@ void CActorComponent::OnActionInteractionTick()
 {
 	if (m_pInteraction)
 	{
-		CryWatch("Interacting with: %s", m_pInteraction->GetVerbUI());
+		CryWatch("Interacting with: %s", m_pInteraction->GetVerbUI().c_str());
 		m_pInteraction->OnInteractionTick(*this);
 	}
 	else
@@ -901,7 +901,7 @@ void CActorComponent::OnActionInteractionEnd()
 {
 	if (m_pInteraction)
 	{
-		CryLogAlways("Player stopped interacting with: %s", m_pInteraction->GetVerbUI());
+		CryLogAlways("Player stopped interacting with: %s", m_pInteraction->GetVerbUI().c_str());
 		m_pInteraction->OnInteractionComplete(*this);
 	}
 	else
@@ -942,55 +942,55 @@ TagID CActorComponent::GetStanceTagId(EActorStance actorStance)
 
 	switch (actorStance)
 	{
-	case EActorStance::eAS_Crawling:
+	case EActorStance::crawling:
 		tagId = m_actorMannequinParams->tagIDs.Crawling;
 		break;
 
-	case EActorStance::eAS_Prone:
+	case EActorStance::prone:
 		tagId = m_actorMannequinParams->tagIDs.Prone;
 		break;
 
-	case EActorStance::eAS_Crouching:
+	case EActorStance::crouching:
 		tagId = m_actorMannequinParams->tagIDs.Crouching;
 		break;
 
-	case EActorStance::eAS_Falling:
+	case EActorStance::falling:
 		tagId = m_actorMannequinParams->tagIDs.Falling;
 		break;
 
-	case EActorStance::eAS_Flying:
+	case EActorStance::flying:
 		tagId = m_actorMannequinParams->tagIDs.Flying;
 		break;
 
-	case EActorStance::eAS_Kneeling:
+	case EActorStance::kneeling:
 		tagId = m_actorMannequinParams->tagIDs.Kneeling;
 		break;
 
-	case EActorStance::eAS_Landing:
+	case EActorStance::landing:
 		tagId = m_actorMannequinParams->tagIDs.Landing;
 		break;
 
-	case EActorStance::eAS_SittingChair:
+	case EActorStance::sittingChair:
 		tagId = m_actorMannequinParams->tagIDs.SittingChair;
 		break;
 
-	case EActorStance::eAS_SittingFloor:
+	case EActorStance::sittingFloor:
 		tagId = m_actorMannequinParams->tagIDs.SittingFloor;
 		break;
 
-	case EActorStance::eAS_Sleeping:
+	case EActorStance::sleeping:
 		tagId = m_actorMannequinParams->tagIDs.Sleeping;
 		break;
 
-	case EActorStance::eAS_Spellcasting:
+	case EActorStance::spellcasting:
 		tagId = m_actorMannequinParams->tagIDs.Spellcasting;
 		break;
 
-	case EActorStance::eAS_Standing:
+	case EActorStance::standing:
 		tagId = m_actorMannequinParams->tagIDs.Standing;
 		break;
 
-	case EActorStance::eAS_Swimming:
+	case EActorStance::swimming:
 		tagId = m_actorMannequinParams->tagIDs.Swimming;
 		break;
 	}
@@ -1005,51 +1005,51 @@ TagID CActorComponent::GetPostureTagId(EActorPosture actorPosture)
 
 	switch (actorPosture)
 	{
-	case EActorPosture::eAP_Aggressive:
+	case EActorPosture::aggressive:
 		tagId = m_actorMannequinParams->tagIDs.Aggressive;
 		break;
 
-	case EActorPosture::eAP_Alerted:
+	case EActorPosture::alerted:
 		tagId = m_actorMannequinParams->tagIDs.Alerted;
 		break;
 
-	case EActorPosture::eAP_Bored:
+	case EActorPosture::bored:
 		tagId = m_actorMannequinParams->tagIDs.Bored;
 		break;
 
-	case EActorPosture::eAP_Dazed:
+	case EActorPosture::dazed:
 		tagId = m_actorMannequinParams->tagIDs.Dazed;
 		break;
 
-	case EActorPosture::eAP_Depressed:
+	case EActorPosture::depressed:
 		tagId = m_actorMannequinParams->tagIDs.Depressed;
 		break;
 
-	case EActorPosture::eAP_Distracted:
+	case EActorPosture::distracted:
 		tagId = m_actorMannequinParams->tagIDs.Distracted;
 		break;
 
-	case EActorPosture::eAP_Excited:
+	case EActorPosture::excited:
 		tagId = m_actorMannequinParams->tagIDs.Excited;
 		break;
 
-	case EActorPosture::eAP_Interested:
+	case EActorPosture::interested:
 		tagId = m_actorMannequinParams->tagIDs.Interested;
 		break;
 
-	case EActorPosture::eAP_Neutral:
+	case EActorPosture::neutral:
 		tagId = m_actorMannequinParams->tagIDs.Neutral;
 		break;
 
-	case EActorPosture::eAP_Passive:
+	case EActorPosture::passive:
 		tagId = m_actorMannequinParams->tagIDs.Passive;
 		break;
 
-	case EActorPosture::eAP_Suspicious:
+	case EActorPosture::suspicious:
 		tagId = m_actorMannequinParams->tagIDs.Suspicious;
 		break;
 
-	case EActorPosture::eAP_Unaware:
+	case EActorPosture::unaware:
 		tagId = m_actorMannequinParams->tagIDs.Unaware;
 		break;
 	}

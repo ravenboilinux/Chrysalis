@@ -27,7 +27,7 @@ public:
 	float m_watch_text_render_fxscale { 13.0f };
 
 	// Camera manager
-	ICVar* m_cameraManagerDebugViewOffset;
+	ICVar* m_cameraManagerDebugViewOffset {nullptr};
 	int m_cameraManagerDefaultCamera { 1 };
 
 	// Action RPG Camera

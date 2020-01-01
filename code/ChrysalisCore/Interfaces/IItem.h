@@ -268,6 +268,6 @@ public:
 	Provides a means of customisation. NOTE: This is here as a reminder I need a way to customise
 	components. That will need to be polymorphic.
 	**/
-	IItemCustomisation* m_pItemCustomisation;
+	IItemCustomisation* m_pItemCustomisation {nullptr};
 };
 }

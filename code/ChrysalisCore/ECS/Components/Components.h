@@ -171,14 +171,14 @@ struct AttributeType
 	}
 
 	/** Represents the attribute without any modifiers applied to it. */
-	TYPE base;
+	TYPE base {0};
 
 	/** This modifier makes changes to the base value, instead of the frame value. Typical use would be for a health / strength 
 	buff that increases the base value of the attribute. */
-	TYPE baseModifiers;
+	TYPE baseModifiers {0};
 
 	/** Modifiers for this frame. Should be calculated each frame prior to calculating the current value. */
-	TYPE modifiers;
+	TYPE modifiers {0};
 };
 
 
@@ -279,10 +279,10 @@ struct SourceAndTarget : public IComponent
 	}
 
 	/** The source of the heal. */
-	entt::entity sourceEntity;
+	entt::entity sourceEntity {entt::null};
 
 	/** The target that will receive the heal - require a Health component. */
-	entt::entity targetEntity;
+	entt::entity targetEntity {entt::null};
 };
 
 

@@ -41,7 +41,7 @@ public:
 private:
 	static FragmentID FindFragmentId(const SAnimationContext& context);
 
-	const struct SMannequinInteractionParams* m_interactionParams;
+	const struct SMannequinInteractionParams* m_interactionParams {nullptr};
 
 	// Tags for controlling the animation.
 	std::vector<string> m_tags;

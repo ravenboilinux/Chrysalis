@@ -32,10 +32,10 @@ struct SFogVolume : public ISharedParams
 	Vec3 color;
 
 	/** Global density.*/
-	float globalDensity;
+	float globalDensity {0.0f};
 
 	/** Density offset.*/
-	float densityOffset;
+	float densityOffset {0.0f};
 };
 
 DECLARE_SHARED_POINTERS(SFogVolume);

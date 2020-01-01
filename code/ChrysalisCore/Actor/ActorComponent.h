@@ -224,7 +224,7 @@ private:
 	CActorControllerComponent* m_pActorControllerComponent {nullptr};
 
 	/**	A dynamic response proxy. **/
-	IEntityDynamicResponseComponent* m_pDrsComponent;
+	IEntityDynamicResponseComponent* m_pDrsComponent {nullptr};
 
 	/** If a player is controlling this character, this pointer will be valid. */
 	CPlayerComponent* m_pPlayer {nullptr};

@@ -100,7 +100,7 @@ struct UtiliseQi : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 };
 
 
@@ -152,7 +152,7 @@ struct UtiliseQiOverTime : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 
 	/** Limit the duration for this modifier. Given as remaining time in seconds. */
 	float duration {10.0f};
@@ -213,7 +213,7 @@ struct ReplenishQi : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 };
 
 
@@ -265,7 +265,7 @@ struct ReplenishQiOverTime : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 
 	/** Limit the duration for this modifier. Given as remaining time in seconds. */
 	float duration {10.0f};

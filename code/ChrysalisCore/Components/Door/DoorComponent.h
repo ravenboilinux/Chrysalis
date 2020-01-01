@@ -61,13 +61,11 @@ public:
 			Serialization::SContext characterInstanceContext(ar, pCharacterInstance);
 			ar(Serialization::JointName(jointName), "JointName", "Joint Name");
 			ar(Serialization::AttachmentName(attachmentName), "AttachmentName", "Attachment Name");
-			ar(floatyMcFloatFace, "floatyMcFloatFace", "floatyMcFloatFace");			
 		}
 
 		string jointName;
 		string attachmentName;
 
-		float floatyMcFloatFace;
 		Vec3 axis{ 0.0f, 1.0f, 0.0f };
 		Schematyc::Range<0, 360> needleValue = 0.0f;
 	};

@@ -32,10 +32,10 @@ struct SDynamicLight : public ISharedParams
 	float radius { 10.0f };
 
 	/** Control the strength of the specular brightness.*/
-	float specularMultiplier;
+	float specularMultiplier {1.0f};
 
 	/** Control the strength of the diffuse color.*/
-	float diffuseMultiplier;
+	float diffuseMultiplier {1.0f};
 
 	/** Specifies the radius of the area light bulb.*/
 	float attenuationRadius { 5.0f };

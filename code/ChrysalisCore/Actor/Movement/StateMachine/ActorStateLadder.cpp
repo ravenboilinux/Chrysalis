@@ -558,7 +558,7 @@ void CActorStateLadder::InterruptCurrentAnimation()
 
 void CActorStateLadder::QueueLadderAction(CActorControllerComponent& actorControllerComponent, CLadderAction* action)
 {
-	LadderLog("Queuing %s ladder anim '%s'", actorControllerComponent.GetEntity()->GetEntityTextDescription(), action ? action->GetName() : "nullptr");
+	LadderLog("Queuing %s ladder anim '%s'", actorControllerComponent.GetEntity()->GetEntityTextDescription().c_str(), action ? action->GetName() : "nullptr");
 	LadderLogIndent();
 
 	if (action)

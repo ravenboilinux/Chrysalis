@@ -74,10 +74,10 @@ public:
 private:
 
 	/** The actor is currently in this stance, or moving into this stance. */
-	EActorStance m_stance {eAS_Standing};
+	EActorStance m_stance {EActorStance::standing};
 
 	/** The actor's posture, which should indicate their state of mind, or game conditions they presently have e.g. sapped. */
-	EActorPosture m_posture {eAP_Neutral};
+	EActorPosture m_posture {EActorPosture::neutral};
 };
 
 
@@ -209,10 +209,10 @@ public:
 	bool IsJogging() const { return m_isJogging; }
 
 	/** Duration the actor has been in the air. May not be in use yet. */
-	float durationInAir;
+	float durationInAir {0.0f};
 
 	/** Duration the actor has been on the ground. May not be in use yet. */
-	float durationOnGround;
+	float durationOnGround {0.0f};
 
 	const CActorComponent* GetActor() { return m_pActorComponent; };
 
@@ -221,7 +221,7 @@ private:
 	CActorComponent* m_pActorComponent {nullptr};
 
 	/** true if this object is controlled by an AI. */
-	bool m_isAIControlled;
+	bool m_isAIControlled {false};
 
 	/** The look target. */
 	Vec3 m_lookTarget {ZERO};

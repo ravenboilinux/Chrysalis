@@ -445,7 +445,7 @@ float CActorControllerComponent::GetMovementBaseSpeed(TInputFlags movementDirect
 
 	switch (GetStance())
 	{
-		case EActorStance::eAS_Standing:
+		case EActorStance::standing:
 			// Work out a base for walking, jogging or sprinting.
 			if (IsSprinting())
 			{
@@ -460,27 +460,27 @@ float CActorControllerComponent::GetMovementBaseSpeed(TInputFlags movementDirect
 			}
 			break;
 
-		case EActorStance::eAS_Crawling:
+		case EActorStance::crawling:
 			baseSpeed = crawlBaseSpeed;
 			break;
 
-		case EActorStance::eAS_Prone:
+		case EActorStance::prone:
 			baseSpeed = proneBaseSpeed;
 			break;
 
-		case EActorStance::eAS_Crouching:
+		case EActorStance::crouching:
 			baseSpeed = crouchBaseSpeed;
 			break;
 
-		case EActorStance::eAS_Swimming:
+		case EActorStance::swimming:
 			baseSpeed = walkBaseSpeed;
 			break;
 
-		case EActorStance::eAS_Flying:
+		case EActorStance::flying:
 			baseSpeed = jogBaseSpeed;
 			break;
 
-		case EActorStance::eAS_Spellcasting:
+		case EActorStance::spellcasting:
 			baseSpeed = walkBaseSpeed;
 			break;
 
@@ -540,37 +540,37 @@ float CActorControllerComponent::GetMovementBaseSpeed(TInputFlags movementDirect
 
 void CActorControllerComponent::OnActionCrouchToggle()
 {
-	if (GetStance() == EActorStance::eAS_Crouching)
-		SetStance(EActorStance::eAS_Standing);
+	if (GetStance() == EActorStance::crouching)
+		SetStance(EActorStance::standing);
 	else
-		SetStance(EActorStance::eAS_Crouching);
+		SetStance(EActorStance::crouching);
 }
 
 
 void CActorControllerComponent::OnActionCrawlToggle()
 {
-	if (GetStance() == EActorStance::eAS_Crawling)
-		SetStance(EActorStance::eAS_Standing);
+	if (GetStance() == EActorStance::crawling)
+		SetStance(EActorStance::standing);
 	else
-		SetStance(EActorStance::eAS_Crawling);
+		SetStance(EActorStance::crawling);
 }
 
 
 void CActorControllerComponent::OnActionKneelToggle()
 {
-	if (GetStance() == EActorStance::eAS_Kneeling)
-		SetStance(EActorStance::eAS_Standing);
+	if (GetStance() == EActorStance::kneeling)
+		SetStance(EActorStance::standing);
 	else
-		SetStance(EActorStance::eAS_Kneeling);
+		SetStance(EActorStance::kneeling);
 }
 
 
 void CActorControllerComponent::OnActionSitToggle()
 {
-	if (GetStance() == EActorStance::eAS_SittingFloor)
-		SetStance(EActorStance::eAS_Standing);
+	if (GetStance() == EActorStance::sittingFloor)
+		SetStance(EActorStance::standing);
 	else
-		SetStance(EActorStance::eAS_SittingFloor);
+		SetStance(EActorStance::sittingFloor);
 }
 
 CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterActorControllerComponent)

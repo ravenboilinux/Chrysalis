@@ -91,7 +91,7 @@ IInteractionWeakPtr CEntityInteractionComponent::GetInteraction(string verb)
 		}
 	}
 
-	CryLogAlways("There's no interaction verb for %s", verb);
+	CryLogAlways("There's no interaction verb for %s", verb.c_str());
 
 	return std::weak_ptr<IInteraction>();
 }

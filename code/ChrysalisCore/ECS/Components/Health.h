@@ -103,10 +103,10 @@ struct Damage : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 
 	/** The type of damage. */
-	DamageType damageType;
+	DamageType damageType {DamageType::acid};
 };
 
 
@@ -161,10 +161,10 @@ struct DamageOverTime : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 
 	/** The type of damage. */
-	DamageType damageType;
+	DamageType damageType {DamageType::acid};
 
 	/** Limit the duration for this modifier. Given as remaining time in seconds. */
 	float duration {10.0f};
@@ -225,7 +225,7 @@ struct Heal : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 };
 
 
@@ -277,7 +277,7 @@ struct HealOverTime : public IComponent
 	}
 
 	/** Modify an attribute by this amount. */
-	float quantity;
+	float quantity {0.0f};
 
 	/** Limit the duration for this modifier. Given as remaining time in seconds. */
 	float duration {10.0f};

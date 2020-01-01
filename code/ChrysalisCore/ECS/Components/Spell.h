@@ -75,6 +75,6 @@ struct Spell : public IComponent
 	SpellRewire spellRewire {SpellRewire::damage};
 
 	/** Maximum range at which this can be cast. */
-	float range;
+	float range {20.0f};
 };
 }

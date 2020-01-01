@@ -59,7 +59,7 @@ struct SItemBaseParameter : public ISharedParams
 	float mass { 1.0f };
 
 	/** The impulse to apply when the item is dropped. */
-	float dropImpulse;
+	float dropImpulse {10.0f};
 
 	/** Should the entity be removed from the game when it's dropped. */
 	bool shouldRemoveOnDrop { false };
