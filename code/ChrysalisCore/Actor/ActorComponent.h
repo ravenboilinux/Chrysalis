@@ -10,6 +10,7 @@
 #include <Components/Player/Input/PlayerInputComponent.h>
 #include <Entities/Interaction/IEntityInteraction.h>
 #include <Interfaces/IActor.h>
+#include <Interfaces/ISpell.h>
 
 
 namespace Chrysalis
@@ -64,7 +65,7 @@ enum EActorClassType
 /** Base class for any components that wish to provide actor services. */
 
 struct CActorComponent
-	: public IEntityComponent, public IActor
+	: public IEntityComponent, public IActor, public ISpellParticipant
 {
 protected:
 	// IEntityComponent
@@ -72,6 +73,10 @@ protected:
 	void ProcessEvent(const SEntityEvent& event) override;
 	Cry::Entity::EventFlags GetEventMask() const override { return EEntityEvent::Update | EEntityEvent::Remove; }
 	// ~IEntityComponent
+
+	// ISpellParticipant
+	const entt::entity GetECSEntity() const override { return m_ecsEntity; };
+	// ~ISpellParticipant
 
 	virtual void Update(SEntityUpdateContext* pCtx);
 
@@ -185,10 +190,6 @@ public:
 	CActorControllerComponent* GetControllerComponent() const { return m_pActorControllerComponent; }
 
 	ICharacterInstance* GetCharacter() const override;
-
-	/** Get access to the ECS entity, which opens up access to the components it holds and allows you
-	to pass this handle around for reference purposes. */
-	entt::entity GetECSEntity() const override { return m_ecsEntity; };
 
 protected:
 	CActorAnimationComponent* m_pActorAnimationComponent {nullptr};

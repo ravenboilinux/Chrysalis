@@ -7,15 +7,8 @@ namespace Chrysalis::ECS
 {
 struct ItemClass : public IComponent
 {
-	inline bool operator==(const ItemClass& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{94DD7258-D128-4CAC-B1A5-EB1820A55751}"_cry_guid;
-
-		return guid;
-	}
+	ItemClass() = default;
+	virtual ~ItemClass() = default;
 
 
 	virtual const entt::hashed_string& GetHashedName() const
@@ -23,14 +16,6 @@ struct ItemClass : public IComponent
 		static constexpr entt::hashed_string nameHS {"item-class"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<ItemClass>& desc)
-	{
-		desc.SetGUID(ItemClass().GetGuid());
-		desc.SetLabel("Item Class");
-		desc.SetDescription("");
 	}
 
 

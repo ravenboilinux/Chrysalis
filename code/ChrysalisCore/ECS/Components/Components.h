@@ -116,23 +116,15 @@ struct IComponent
 	IComponent() = default;
 	virtual ~IComponent() = default;
 
-	// This should be pure virtual but the ECS needs to be able to instantiate the struct, so...here's nothing.
-	virtual bool Serialize(Serialization::IArchive& archive) { return true; };
-
-	virtual const CryGUID& GetGuid() const
-	{
-		static CryGUID guid = "{DEADDEAD-DEAD-DEAD-DEAD-DEADDEADDEAD}"_cry_guid;
-
-		return guid;
-	}
-
-
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"icomponent"_hs};
 
 		return nameHS;
 	}
+
+	// This should be pure virtual but the ECS needs to be able to instantiate the struct, so...here's nothing.
+	virtual bool Serialize(Serialization::IArchive& archive) { return true; };
 };
 
 
@@ -171,7 +163,7 @@ struct AttributeType
 	}
 
 	/** Represents the attribute without any modifiers applied to it. */
-	TYPE base {0};
+	TYPE base {100.0f};
 
 	/** This modifier makes changes to the base value, instead of the frame value. Typical use would be for a health / strength 
 	buff that increases the base value of the attribute. */
@@ -193,30 +185,11 @@ struct Name : public IComponent
 	}
 	
 
-	inline bool operator==(const Name& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{8BEB64DA-F589-4671-96E9-D136A5E5DED7}"_cry_guid;
-
-		return guid;
-	}
-
-
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"name"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<Name>& desc)
-	{
-		desc.SetGUID(Name().GetGuid());
-		desc.SetLabel("Name");
-		desc.SetDescription("Name");
 	}
 
 
@@ -246,30 +219,11 @@ struct SourceAndTarget : public IComponent
 	{
 	}
 
-	inline bool operator==(const SourceAndTarget& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{CCE7B371-EF45-413F-B726-557A2EC427E5}"_cry_guid;
-
-		return guid;
-	}
-
-
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"source-and-target"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<SourceAndTarget>& desc)
-	{
-		desc.SetGUID(SourceAndTarget().GetGuid());
-		desc.SetLabel("SourceAndTarget");
-		desc.SetDescription("SourceAndTarget");
 	}
 
 

@@ -1,6 +1,13 @@
 <entities>
  <entity>
   <components>
+   <name CryXmlVersion="2" name="Open Door" displayName="Open Door"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="25"/>
+   <open-door CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
    <name CryXmlVersion="2" name="Innervate" displayName="Innervate"/>
    <utilise-qi CryXmlVersion="2" quantity="20"/>
    <replenish-qi-over-time CryXmlVersion="2" quantity="4" duration="10" interval="2"/>

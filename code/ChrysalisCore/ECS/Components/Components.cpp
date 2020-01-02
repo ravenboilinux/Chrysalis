@@ -6,7 +6,8 @@
 #include "ECS/Components/Inventory.h"
 #include "ECS/Components/Items.h"
 #include "ECS/Components/Qi.h"
-#include "ECS/Components/Spell.h"
+#include "ECS/Components/Spells/Spell.h"
+#include "ECS/Components/Spells/SpellActions.h"
 
 
 namespace Chrysalis::ECS
@@ -132,6 +133,12 @@ void RegisterComponentsWithMeta()
 		.base<ECS::IComponent>()
 		.type(ECS::Spell().GetHashedName())
 		.ctor<&assign<ECS::Spell>, entt::as_alias_t>();
+
+	// Spell actions.
+	entt::meta<ECS::SpellActionOpenDoor>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionOpenDoor().GetHashedName())
+		.ctor<&assign<ECS::SpellActionOpenDoor>, entt::as_alias_t>();
 
 	// Items.
 	entt::meta<ECS::ItemClass>()

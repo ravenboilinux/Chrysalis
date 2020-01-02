@@ -315,8 +315,14 @@ add_sources("Components_uber.cpp"
 		"ECS/Components/Inventory.h"
 		"ECS/Components/Items.h"
 		"ECS/Components/Qi.h"
-		"ECS/Components/Spell.h"
-		"ECS/Components/Spell.cpp"
+)
+add_sources("Components_Spells_uber.cpp"
+    PROJECTS Chrysalis
+    SOURCE_GROUP "ECS\\\\Components\\\\Spells"
+		"ECS/Components/Spells/Spell.h"
+		"ECS/Components/Spells/Spell.cpp"
+		"ECS/Components/Spells/SpellActions.h"
+		"ECS/Components/Spells/SpellActions.cpp"
 )
 add_sources("Systems_uber.cpp"
     PROJECTS Chrysalis
@@ -366,6 +372,7 @@ add_sources("Interfaces_uber.cpp"
 		"Interfaces/IEquipment.h"
 		"Interfaces/IInventory.h"
 		"Interfaces/IItem.h"
+		"Interfaces/ISpell.h"
 )
 add_sources("Item_uber.cpp"
     PROJECTS Chrysalis
@@ -430,6 +437,18 @@ add_sources("SharedParameters_uber.cpp"
 		"SharedParameters/DynamicLight.h"
 		"SharedParameters/FogVolume.h"
 		"SharedParameters/SharedParameters.h"
+)
+add_sources("Spells_uber.cpp"
+    PROJECTS Chrysalis
+    SOURCE_GROUP "Spells"
+		"Spells/Spells.cpp"
+		"Spells/Spells.h"
+)
+add_sources("SpellActions_uber.cpp"
+    PROJECTS Chrysalis
+    SOURCE_GROUP "Spells\\\\SpellActions"
+		"Spells/SpellActions/SpellActionOpenDoor.cpp"
+		"Spells/SpellActions/SpellActionOpenDoor.h"
 )
 add_sources("Snaplocks_uber.cpp"
     PROJECTS Chrysalis

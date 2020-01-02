@@ -33,7 +33,7 @@
 #include "ECS/Systems/ECSSimulation.h"
 #include "ECS/Components/Health.h"
 #include "ECS/Components/Qi.h"
-#include "ECS/Components/Spell.h"
+#include "ECS/Components/Spells/Spell.h"
 #include "ECS/ECS.h"
 
 

@@ -65,4 +65,12 @@
   </components>
  </entity>
 
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Open Door" displayName="Open Door"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="25"/>
+   <open-door CryXmlVersion="2"/>
+  </components>
+ </entity>
+
 </entities>

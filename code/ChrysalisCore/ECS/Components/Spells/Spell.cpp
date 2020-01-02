@@ -16,7 +16,7 @@ SERIALIZATION_ENUM(SpellRewire::crowdControl, "crowd-control", "crowd-control")
 SERIALIZATION_ENUM(SpellRewire::custom, "custom", "custom")
 SERIALIZATION_ENUM_END()
 
-// Spell Rewire.
+// Spell Casting Style.
 SERIALIZATION_ENUM_BEGIN(SpellCastStyle, "Spell Cast Style")
 SERIALIZATION_ENUM(SpellCastStyle::instant, "instant", "instant")
 SERIALIZATION_ENUM(SpellCastStyle::movementAllowed, "movementAllowed", "movementAllowed")

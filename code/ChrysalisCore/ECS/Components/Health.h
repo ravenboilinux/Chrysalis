@@ -15,30 +15,12 @@ struct Health : public IComponent
 	{
 	}
 
-	inline bool operator==(const Health& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{8788DADD-08B8-4BE8-B519-E0BD5D61E932}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"health"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<Health>& desc)
-	{
-		desc.SetGUID(Health().GetGuid());
-		desc.SetLabel("Health");
-		desc.SetDescription("Health");
 	}
 
 
@@ -67,30 +49,12 @@ struct Damage : public IComponent
 	{
 	}
 
-	inline bool operator==(const Damage& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{FD6F9B82-06A7-436E-9268-008A567ADF3C}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"damage"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<Damage>& desc)
-	{
-		desc.SetGUID(Damage().GetGuid());
-		desc.SetLabel("Damage");
-		desc.SetDescription("Damage");
 	}
 
 
@@ -123,16 +87,6 @@ struct DamageOverTime : public IComponent
 		ticksRemaining = duration / interval;
 	}
 
-	inline bool operator==(const DamageOverTime& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{E0DC02B3-3BC8-4E72-99F3-B3D59CEC3433}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
@@ -142,18 +96,10 @@ struct DamageOverTime : public IComponent
 	}
 
 
-	static void ReflectType(Schematyc::CTypeDesc<DamageOverTime>& desc)
-	{
-		desc.SetGUID(DamageOverTime().GetGuid());
-		desc.SetLabel("DamageOverTime");
-		desc.SetDescription("DamageOverTime");
-	}
-
-
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
 		archive(quantity, "quantity", "quantity");
-		archive(damageType, "damageType", "Damage Type");
+		archive(damageType, "damageType", "damageType");
 		archive(duration, "duration", "duration");
 		archive(interval, "interval", "interval");
 
@@ -190,30 +136,12 @@ struct Heal : public IComponent
 	{
 	}
 
-	inline bool operator==(const Heal& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{1389ECC0-2BDF-492F-966A-2FC7C83CBA5F}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"heal"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<Heal>& desc)
-	{
-		desc.SetGUID(Heal().GetGuid());
-		desc.SetLabel("Heal");
-		desc.SetDescription("Heal");
 	}
 
 
@@ -240,30 +168,12 @@ struct HealOverTime : public IComponent
 	{
 	}
 
-	inline bool operator==(const HealOverTime& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{B24CD70D-0D25-412D-93C9-072FE20736B4}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"heal-over-time"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<HealOverTime>& desc)
-	{
-		desc.SetGUID(HealOverTime().GetGuid());
-		desc.SetLabel("HealOverTime");
-		desc.SetDescription("HealOverTime");
 	}
 
 

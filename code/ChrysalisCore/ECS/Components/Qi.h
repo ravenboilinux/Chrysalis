@@ -16,30 +16,11 @@ struct Qi : public IComponent
 	}
 
 
-	inline bool operator==(const Qi& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{A5F65B14-983A-4BAA-BD59-381AFCEE6D76}"_cry_guid;
-
-		return guid;
-	}
-
-
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"qi"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<Qi>& desc)
-	{
-		desc.SetGUID(Qi().GetGuid());
-		desc.SetLabel("Qi");
-		desc.SetDescription("Qi");
 	}
 
 
@@ -65,30 +46,12 @@ struct UtiliseQi : public IComponent
 	{
 	}
 
-	inline bool operator==(const UtiliseQi& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{80E8F5BA-4765-4B81-BBF1-3ACAA6D6F596}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"utilise-qi"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<UtiliseQi>& desc)
-	{
-		desc.SetGUID(UtiliseQi().GetGuid());
-		desc.SetLabel("UtiliseQi");
-		desc.SetDescription("UtiliseQi");
 	}
 
 
@@ -115,30 +78,12 @@ struct UtiliseQiOverTime : public IComponent
 	{
 	}
 
-	inline bool operator==(const UtiliseQiOverTime& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{0764C388-CE73-406B-9B49-6616D661129F}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"utilise-qi-over-time"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<UtiliseQiOverTime>& desc)
-	{
-		desc.SetGUID(UtiliseQiOverTime().GetGuid());
-		desc.SetLabel("UtiliseQiOverTime");
-		desc.SetDescription("UtiliseQiOverTime");
 	}
 
 
@@ -178,30 +123,12 @@ struct ReplenishQi : public IComponent
 	{
 	}
 
-	inline bool operator==(const ReplenishQi& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{BA94E0D1-890C-421E-995F-0B548818EDDA}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"replenish-qi"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<ReplenishQi>& desc)
-	{
-		desc.SetGUID(ReplenishQi().GetGuid());
-		desc.SetLabel("ReplenishQi");
-		desc.SetDescription("ReplenishQi");
 	}
 
 
@@ -228,30 +155,12 @@ struct ReplenishQiOverTime : public IComponent
 	{
 	}
 
-	inline bool operator==(const ReplenishQiOverTime& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{4F1E267E-EEB3-4243-B36D-DE5CF1E25B9E}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"replenish-qi-over-time"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<ReplenishQiOverTime>& desc)
-	{
-		desc.SetGUID(ReplenishQiOverTime().GetGuid());
-		desc.SetLabel("ReplenishQiOverTime");
-		desc.SetDescription("ReplenishQiOverTime");
 	}
 
 

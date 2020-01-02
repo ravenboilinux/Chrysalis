@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Components.h"
+#include "ECS//Components/Components.h"
 
 
 namespace Chrysalis::ECS
@@ -36,30 +36,12 @@ struct Spell : public IComponent
 	Spell() = default;
 	virtual ~Spell() = default;
 
-	inline bool operator==(const Spell& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
-
-
-	const CryGUID& GetGuid() const override final
-	{
-		static CryGUID guid = "{58CA55D0-2B66-4910-9135-29D196E53EFB}"_cry_guid;
-
-		return guid;
-	}
-
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
 		static constexpr entt::hashed_string nameHS {"spell"_hs};
 
 		return nameHS;
-	}
-
-
-	static void ReflectType(Schematyc::CTypeDesc<Spell>& desc)
-	{
-		desc.SetGUID(Spell().GetGuid());
-		desc.SetLabel("Spell");
-		desc.SetDescription("Spell");
 	}
 
 

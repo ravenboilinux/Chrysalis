@@ -7,7 +7,8 @@
 #include "ECS/Components/Inventory.h"
 #include "ECS/Components/Items.h"
 #include "ECS/Components/Qi.h"
-#include "ECS/Components/Spell.h"
+#include "ECS/Components/Spells/Spell.h"
+#include "ECS/Components/Spells/SpellActions.h"
 #include "ECS/Systems/Systems.h"
 #include "ECS/Systems/XMLSerializer.h"
 #include <entt/entt.hpp>
@@ -174,7 +175,8 @@ void ECSSimulation::SaveSimulationData()
 		.component<ECS::Name,
 		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
 		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-		ECS::Spell>(spellSerial);
+		ECS::Spell,
+		ECS::SpellActionOpenDoor>(spellSerial);
 
 	spellSerial.SaveToFile("chrysalis/parameters/spells/spells-snapshot.xml");
 }

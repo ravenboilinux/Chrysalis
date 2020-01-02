@@ -55,14 +55,6 @@ struct IActor
 
 
 	/**
-	Gets the ECS entity identifier for this actor.
-
-	\return entt::null if it fails, else the entity identifier.
-	**/
-	virtual entt::entity GetECSEntity() const = 0;
-
-
-	/**
 	Gets this instance's local-space eye position (for a human, this is typically Vec3 (0, 0, 1.76f)).
 
 	The code will first attempt to return a "Camera" helper if there is one. If only one eye is available (left_eye,
