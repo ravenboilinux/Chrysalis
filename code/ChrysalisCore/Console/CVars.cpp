@@ -5,7 +5,6 @@
 #include "Components/Player/PlayerComponent.h"
 #include <Actor/ActorComponent.h>
 #include <Actor/Animation/Actions/ActorAnimationActionEmote.h>
-#include <Actor/Character/CharacterComponent.h>
 #include <ObjectID/ObjectId.h>
 #include <ObjectID/ObjectIdMasterFactory.h>
 #include <Plugin/ChrysalisCorePlugin.h>

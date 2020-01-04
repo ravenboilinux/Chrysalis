@@ -58,22 +58,6 @@ add_sources("Actions_uber.cpp"
 		"Actor/Animation/Actions/ActorAnimationActionLooking.h"
 		"Actor/Animation/Actions/ActorAnimationActionLookPose.h"
 )
-add_sources("Character_uber.cpp"
-    PROJECTS Chrysalis
-    SOURCE_GROUP "Actor\\\\Character"
-		"Actor/Character/CharacterAttributes.cpp"
-		"Actor/Character/CharacterAttributesComponent.cpp"
-		"Actor/Character/CharacterComponent.cpp"
-		"Actor/Character/CharacterAttributes.h"
-		"Actor/Character/CharacterAttributesComponent.h"
-		"Actor/Character/CharacterComponent.h"
-)
-add_sources("Mount_uber.cpp"
-    PROJECTS Chrysalis
-    SOURCE_GROUP "Actor\\\\Mount"
-		"Actor/Mount/Mount.cpp"
-		"Actor/Mount/Mount.h"
-)
 add_sources("Movement_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "Actor\\\\Movement"
@@ -102,12 +86,6 @@ add_sources("StateMachine_uber.cpp"
 		"Actor/Movement/StateMachine/ActorStateSwim.h"
 		"Actor/Movement/StateMachine/ActorStateSwimWaterTestProxy.h"
 		"Actor/Movement/StateMachine/ActorStateUtility.h"
-)
-add_sources("Pet_uber.cpp"
-    PROJECTS Chrysalis
-    SOURCE_GROUP "Actor\\\\Pet"
-		"Actor/Pet/Pet.cpp"
-		"Actor/Pet/Pet.h"
 )
 add_sources("Animation_uber.cpp"
     PROJECTS Chrysalis

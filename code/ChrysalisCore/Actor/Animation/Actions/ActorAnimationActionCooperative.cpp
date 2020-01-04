@@ -269,7 +269,7 @@ void CActorAnimationActionCooperative::RemoveTargetFromSlaveContext()
 
 void CActorAnimationActionCooperative::SendStateEventCoopAnim()
 {
-	// TODO: We have moved the state machine for movement up to derived classes, like CCharacterComponent. I need to investigate this code
+	// TODO: We have moved the state machine for movement up to derived classes. I need to investigate this code
 	// to determine if it's needed, and if so, add a method(s) to IActor to fire off events like these.
 	//m_sourceActor.StateMachineHandleEventMovement(SStateEventCoopAnim(m_targetEntityId));
 }

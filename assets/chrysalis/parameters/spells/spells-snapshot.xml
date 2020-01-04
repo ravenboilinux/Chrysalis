@@ -1,8 +1,69 @@
 <entities>
  <entity>
   <components>
+   <name CryXmlVersion="2" name="xxxxxxxx" displayName="xxxxxxxx"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Examine" displayName="Examine"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Inspect" displayName="Inspect"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Unlock" displayName="Unlock"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Lock" displayName="Lock"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Close" displayName="Close"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Open" displayName="Open"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Collect" displayName="Collect"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Use" displayName="Use"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Close Door" displayName="Close Door"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
+   <open-door CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
    <name CryXmlVersion="2" name="Open Door" displayName="Open Door"/>
-   <spell CryXmlVersion="2" spell-rewire="custom" range="25"/>
+   <spell CryXmlVersion="2" spell-rewire="custom" range="1"/>
    <open-door CryXmlVersion="2"/>
   </components>
  </entity>

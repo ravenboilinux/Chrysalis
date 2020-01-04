@@ -1,76 +1,174 @@
 <entities>
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Fireball" displayName="Fireball"/>
-   <spell CryXmlVersion="2" spell-rewire="damage" range="30"/>
-   <damage CryXmlVersion="2" quantity="14" damageType="fire"/>
-   <utilise-qi CryXmlVersion="2" quantity="7"/>
-  </components>
- </entity>
+  <!-- Actor / class / spells. -->
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Shadow Word Pain" displayName="Shadow Word Pain"/>
-   <spell CryXmlVersion="2" spell-rewire="damage" range="25"/>
-   <damage-over-time CryXmlVersion="2" quantity="2" damageType="unholy" duration="10" interval="1.5"/>
-   <utilise-qi CryXmlVersion="2" quantity="6"/>
-  </components>
- </entity>
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Fireball" displayName="Fireball"/>
+      <spell CryXmlVersion="2" spell-rewire="damage" range="30"/>
+      <damage CryXmlVersion="2" quantity="14" damageType="fire"/>
+      <utilise-qi CryXmlVersion="2" quantity="7"/>
+    </components>
+  </entity>
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
-   <spell CryXmlVersion="2" spell-rewire="damage" range="25"/>
-   <damage CryXmlVersion="2" quantity="12" damageType="fire"/>
-   <damage-over-time CryXmlVersion="2" quantity="2" damageType="fire" duration="10" interval="1.5"/>
-   <utilise-qi CryXmlVersion="2" quantity="11"/>
-  </components>
- </entity>
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Shadow Word Pain" displayName="Shadow Word Pain"/>
+      <spell CryXmlVersion="2" spell-rewire="damage" range="25"/>
+      <damage-over-time CryXmlVersion="2" quantity="2" damageType="unholy" duration="10" interval="1.5"/>
+      <utilise-qi CryXmlVersion="2" quantity="6"/>
+    </components>
+  </entity>
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Heal" displayName="Heal"/>
-   <spell CryXmlVersion="2" spell-rewire="heal" range="25"/>
-   <heal CryXmlVersion="2" quantity="17"/>
-   <utilise-qi CryXmlVersion="2" quantity="8"/>
-  </components>
- </entity>
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
+      <spell CryXmlVersion="2" spell-rewire="damage" range="25"/>
+      <damage CryXmlVersion="2" quantity="12" damageType="fire"/>
+      <damage-over-time CryXmlVersion="2" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+      <utilise-qi CryXmlVersion="2" quantity="11"/>
+    </components>
+  </entity>
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Renew" displayName="Renew"/>
-   <spell CryXmlVersion="2" spell-rewire="heal" range="25"/>
-   <heal-over-time CryXmlVersion="2" quantity="3" duration="10" interval="2"/>
-   <utilise-qi CryXmlVersion="2" quantity="8"/>
-  </components>
- </entity>
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Heal" displayName="Heal"/>
+      <spell CryXmlVersion="2" spell-rewire="heal" range="25"/>
+      <heal CryXmlVersion="2" quantity="17"/>
+      <utilise-qi CryXmlVersion="2" quantity="8"/>
+    </components>
+  </entity>
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="HealAndRenew" displayName="HealAndRenew"/>
-   <spell CryXmlVersion="2" spell-rewire="heal" range="25"/>
-   <heal CryXmlVersion="2" quantity="12"/>
-   <heal-over-time CryXmlVersion="2" quantity="2" duration="10" interval="2"/>
-   <utilise-qi CryXmlVersion="2" quantity="12"/>
-  </components>
- </entity>
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Renew" displayName="Renew"/>
+      <spell CryXmlVersion="2" spell-rewire="heal" range="25"/>
+      <heal-over-time CryXmlVersion="2" quantity="3" duration="10" interval="2"/>
+      <utilise-qi CryXmlVersion="2" quantity="8"/>
+    </components>
+  </entity>
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Innervate" displayName="Innervate"/>
-   <spell CryXmlVersion="2" spell-rewire="regenerate" range="25"/>
-   <replenish-qi-over-time CryXmlVersion="2" quantity="4" duration="10" interval="2"/>
-   <utilise-qi CryXmlVersion="2" quantity="20"/>
-  </components>
- </entity>
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="HealAndRenew" displayName="HealAndRenew"/>
+      <spell CryXmlVersion="2" spell-rewire="heal" range="25"/>
+      <heal CryXmlVersion="2" quantity="12"/>
+      <heal-over-time CryXmlVersion="2" quantity="2" duration="10" interval="2"/>
+      <utilise-qi CryXmlVersion="2" quantity="12"/>
+    </components>
+  </entity>
 
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Open Door" displayName="Open Door"/>
-   <spell CryXmlVersion="2" spell-rewire="custom" range="25"/>
-   <open-door CryXmlVersion="2"/>
-  </components>
- </entity>
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Innervate" displayName="Innervate"/>
+      <spell CryXmlVersion="2" spell-rewire="regenerate" range="25"/>
+      <replenish-qi-over-time CryXmlVersion="2" quantity="4" duration="10" interval="2"/>
+      <utilise-qi CryXmlVersion="2" quantity="20"/>
+    </components>
+  </entity>
+
+  <!-- Action spells. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Open Door" displayName="Open Door"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <open-door CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Close Door" displayName="Close Door"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <open-door CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <!-- Generic interaction for anything that has a 'use' ability. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Use" displayName="Use"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <!-- Grab an item and place it in your inventory. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Collect" displayName="Collect"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <!-- Generic interaction for anything that can be opened and closed. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Open" displayName="Open"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Close" displayName="Close"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <!-- Generic interaction for anything that can be opened and closed. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Lock" displayName="Lock"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Unlock" displayName="Unlock"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <!-- Take a closer look at some environmental feature e.g. a time clock for punching into work. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Inspect" displayName="Inspect"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <!-- Examine an item while holding it in your hands. You should be close enough to pick it up before you can examine it. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="Examine" displayName="Examine"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
+
+  <!-- XXX. -->
+
+  <entity>
+    <components>
+      <name CryXmlVersion="2" name="xxxxxxxx" displayName="xxxxxxxx"/>
+      <spell CryXmlVersion="2" spell-rewire="custom" range="1.0"/>
+      <xxxxxxxx CryXmlVersion="2"/>
+    </components>
+  </entity>
 
 </entities>
