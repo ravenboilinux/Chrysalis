@@ -8,7 +8,7 @@ namespace Chrysalis::ECS
 {
 // Spell Rewire.
 SERIALIZATION_ENUM_BEGIN(SpellRewire, "Spell Rewire")
-SERIALIZATION_ENUM(SpellRewire::simple, "simple", "simple")
+SERIALIZATION_ENUM(SpellRewire::none, "none", "none")
 SERIALIZATION_ENUM(SpellRewire::damage, "damage", "damage")
 SERIALIZATION_ENUM(SpellRewire::heal, "heal", "heal")
 SERIALIZATION_ENUM(SpellRewire::regenerate, "regenerate", "regenerate")

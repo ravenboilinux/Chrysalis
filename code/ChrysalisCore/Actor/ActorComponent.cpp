@@ -676,7 +676,7 @@ entt::entity GetSpellByName(entt::registry* registry, const char* spellName)
 {
 	auto view = registry->view<ECS::Name>();
 
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		auto& name = view.get<ECS::Name>(entity);
 

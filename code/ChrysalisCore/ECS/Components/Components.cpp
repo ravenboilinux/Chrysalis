@@ -135,10 +135,71 @@ void RegisterComponentsWithMeta()
 		.ctor<&assign<ECS::Spell>, entt::as_alias_t>();
 
 	// Spell actions.
-	entt::meta<ECS::SpellActionOpenDoor>()
+	//entt::meta<ECS::SpellActionOpenDoor>()
+	//	.base<ECS::IComponent>()
+	//	.type(ECS::SpellActionOpenDoor().GetHashedName())
+	//	.ctor<&assign<ECS::SpellActionOpenDoor>, entt::as_alias_t>();
+
+	// Spell actions.
+	entt::meta<ECS::SpellActionSchematyc>()
 		.base<ECS::IComponent>()
-		.type(ECS::SpellActionOpenDoor().GetHashedName())
-		.ctor<&assign<ECS::SpellActionOpenDoor>, entt::as_alias_t>();
+		.type(ECS::SpellActionSchematyc().GetHashedName())
+		.ctor<&assign<ECS::SpellActionSchematyc>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionDRS>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionDRS().GetHashedName())
+		.ctor<&assign<ECS::SpellActionDRS>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionInspect>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionInspect().GetHashedName())
+		.ctor<&assign<ECS::SpellActionInspect>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionExamine>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionExamine().GetHashedName())
+		.ctor<&assign<ECS::SpellActionExamine>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionTake>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionTake().GetHashedName())
+		.ctor<&assign<ECS::SpellActionTake>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionDrop>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionDrop().GetHashedName())
+		.ctor<&assign<ECS::SpellActionDrop>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionThrow>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionThrow().GetHashedName())
+		.ctor<&assign<ECS::SpellActionThrow>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionSwitch>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionSwitch().GetHashedName())
+		.ctor<&assign<ECS::SpellActionSwitch>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionOpen>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionOpen().GetHashedName())
+		.ctor<&assign<ECS::SpellActionOpen>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionClose>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionClose().GetHashedName())
+		.ctor<&assign<ECS::SpellActionClose>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionUnlock>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionUnlock().GetHashedName())
+		.ctor<&assign<ECS::SpellActionUnlock>, entt::as_alias_t>();
+
+	entt::meta<ECS::SpellActionLock>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellActionLock().GetHashedName())
+		.ctor<&assign<ECS::SpellActionLock>, entt::as_alias_t>();
 
 	// Items.
 	entt::meta<ECS::ItemClass>()

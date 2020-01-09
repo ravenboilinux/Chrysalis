@@ -33,7 +33,7 @@ const entt::entity GetHero(entt::registry& registry)
 {
 	auto view = registry.view<ECS::Name>();
 
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		auto& name = view.get<ECS::Name>(entity);
 
@@ -52,7 +52,7 @@ const entt::entity GetVillain(entt::registry& registry)
 {
 	auto view = registry.view<ECS::Name>();
 
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		auto& name = view.get<ECS::Name>(entity);
 
@@ -176,7 +176,12 @@ void ECSSimulation::SaveSimulationData()
 		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
 		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
 		ECS::Spell,
-		ECS::SpellActionOpenDoor>(spellSerial);
+		ECS::SpellActionSchematyc, ECS::SpellActionDRS,
+		ECS::SpellActionInspect, ECS::SpellActionExamine,
+		ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
+		ECS::SpellActionSwitch,
+		ECS::SpellActionOpen, ECS::SpellActionClose, 
+		ECS::SpellActionUnlock, ECS::SpellActionLock>(spellSerial);
 
 	spellSerial.SaveToFile("chrysalis/parameters/spells/spells-snapshot.xml");
 }

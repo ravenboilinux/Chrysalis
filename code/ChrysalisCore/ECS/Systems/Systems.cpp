@@ -18,7 +18,7 @@ void SystemApplyDamage(entt::registry& registry)
 {
 	// Apply any damage to the damage modifiers.
 	auto view = registry.view<ECS::Damage, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components.
 		auto& damage = view.get<ECS::Damage>(entity);
@@ -38,7 +38,7 @@ void SystemApplyDamageOverTime(float dt, entt::registry& registry)
 {
 	// Apply any damage to the damage modifiers.
 	auto view = registry.view<ECS::DamageOverTime, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& damage = view.get<ECS::DamageOverTime>(entity);
@@ -68,7 +68,7 @@ void SystemApplyHeal(entt::registry& registry)
 {
 	// Apply any heals to the health modifiers.
 	auto view = registry.view<ECS::Heal, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& heal = view.get<ECS::Heal>(entity);
@@ -97,7 +97,7 @@ void SystemApplyHealOverTime(float dt, entt::registry& registry)
 {
 	// Apply any heal to the health modifiers.
 	auto view = registry.view<ECS::HealOverTime, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& heal = view.get<ECS::HealOverTime>(entity);
@@ -139,7 +139,7 @@ void SystemHealthCheck(entt::registry& registry)
 	// Update each health component, applying the modifier to it's base to calculate the current health.
 	// Update death status if appropriate.
 	auto view = registry.view<ECS::Health, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& health = view.get<ECS::Health>(entity);
@@ -165,7 +165,7 @@ void SystemApplyQiUtilisation(entt::registry& registry)
 {
 	// Apply any qi usage to the modifiers.
 	auto view = registry.view<ECS::UtiliseQi, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& qi = view.get<ECS::UtiliseQi>(entity);
@@ -185,7 +185,7 @@ void SystemApplyQiUtilisationOverTime(float dt, entt::registry& registry)
 {
 	// Apply any qi to the modifiers.
 	auto view = registry.view<ECS::UtiliseQiOverTime, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& qi = view.get<ECS::UtiliseQiOverTime>(entity);
@@ -215,7 +215,7 @@ void SystemApplyQiReplenishment(entt::registry& registry)
 {
 	// Apply any replenishment to the qi modifiers.
 	auto view = registry.view<ECS::ReplenishQi, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& replenish = view.get<ECS::ReplenishQi>(entity);
@@ -244,7 +244,7 @@ void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& registry)
 {
 	// Apply any replenishment to the qi modifiers.
 	auto view = registry.view<ECS::ReplenishQiOverTime, ECS::SourceAndTarget>();
-	for (auto entity : view)
+	for (auto& entity : view)
 	{
 		// Get the components..
 		auto& replenish = view.get<ECS::ReplenishQiOverTime>(entity);

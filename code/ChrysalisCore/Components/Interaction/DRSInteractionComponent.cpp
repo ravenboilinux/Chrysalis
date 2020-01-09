@@ -91,7 +91,7 @@ void CDRSInteractionComponent::OnInteractionDRS()
 		pContextVariableCollection->CreateVariable("Verb", CHashedString(m_drsResponse.c_str()));
 
 		// Add each key, value to the DRS variable collection.
-		//for (auto it : m_drsProperties)
+		//for (auto& it : m_drsProperties)
 		//{
 		//	pContextVariableCollection->CreateVariable(CHashedString(it.key.c_str()), CHashedString(it.value.c_str()));
 		//}
