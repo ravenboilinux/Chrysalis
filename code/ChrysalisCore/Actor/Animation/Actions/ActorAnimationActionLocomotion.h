@@ -2,7 +2,7 @@
 
 #include "ICryMannequin.h"
 #include <Actor/Animation/ActorAnimation.h>
-#include "Actor/ActorControllerComponent.h"
+#include <Components/Actor/ActorComponent.h>
 
 
 namespace Chrysalis

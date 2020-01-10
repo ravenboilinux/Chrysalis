@@ -3,7 +3,7 @@
 #include "CVars.h"
 #include <CrySystem/ISystem.h>
 #include "Components/Player/PlayerComponent.h"
-#include <Actor/ActorComponent.h>
+#include <Components/Actor/ActorComponent.h>
 #include <Actor/Animation/Actions/ActorAnimationActionEmote.h>
 #include <ObjectID/ObjectId.h>
 #include <ObjectID/ObjectIdMasterFactory.h>

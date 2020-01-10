@@ -2,7 +2,7 @@
 
 #include <Item/Parameters/ItemBaseParameter.h>
 #include <Entities/EntityEffects.h>
-#include <Actor/ActorComponent.h>
+#include <Components/Actor/ActorComponent.h>
 #include <Interfaces/IItem.h>
 
 

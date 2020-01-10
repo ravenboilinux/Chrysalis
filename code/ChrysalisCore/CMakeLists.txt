@@ -24,10 +24,6 @@ add_sources("ChrysalisCore_uber.cpp"
 add_sources("Actor_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "Actor"
-		"Actor/ActorComponent.cpp"
-		"Actor/ActorControllerComponent.cpp"
-		"Actor/ActorComponent.h"
-		"Actor/ActorControllerComponent.h"
 		"Actor/Fate.h"
 )
 add_sources("Animation_uber.cpp"
@@ -117,6 +113,14 @@ add_sources("ProceduralContext_uber.cpp"
 add_sources("Components_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "Components"
+)
+add_sources("Components_Actor_uber.cpp"
+    PROJECTS Chrysalis
+    SOURCE_GROUP "Components\\\\Actor"
+		"Components/Actor/ActorComponent.cpp"
+		"Components/Actor/ActorControllerComponent.cpp"
+		"Components/Actor/ActorComponent.h"
+		"Components/Actor/ActorControllerComponent.h"
 )
 add_sources("Animation_uber.cpp"
     PROJECTS Chrysalis

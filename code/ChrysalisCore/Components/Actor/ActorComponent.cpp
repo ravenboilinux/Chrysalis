@@ -19,7 +19,7 @@
 #include <Actor/Animation/Actions/ActorAnimationActionLookPose.h>
 #include <Actor/Movement/StateMachine/ActorStateEvents.h>
 #include <Actor/Movement/StateMachine/ActorStateUtility.h>
-#include <Actor/ActorControllerComponent.h>
+#include <Components/Actor/ActorControllerComponent.h>
 #include <Animation/ProceduralContext/ProceduralContextAim.h>
 #include <Animation/ProceduralContext/ProceduralContextLook.h>
 #include "Components/Player/PlayerComponent.h"
@@ -154,29 +154,29 @@ void CActorComponent::ProcessEvent(const SEntityEvent& event)
 	switch (event.event)
 	{
 		// Physicalize on level start for Launcher
-	case EEntityEvent::LevelStarted:
+		case EEntityEvent::LevelStarted:
 
-		// Editor specific, physicalize on reset, property change or transform change
-	case EEntityEvent::Reset:
-	case EEntityEvent::EditorPropertyChanged:
-	case EEntityEvent::TransformChangeFinishedInEditor:
-		OnResetState();
-		break;
+			// Editor specific, physicalize on reset, property change or transform change
+		case EEntityEvent::Reset:
+		case EEntityEvent::EditorPropertyChanged:
+		case EEntityEvent::TransformChangeFinishedInEditor:
+			OnResetState();
+			break;
 
-	case EEntityEvent::Update:
-	{
-		SEntityUpdateContext* pCtx = (SEntityUpdateContext*)event.nParam[0];
-		Update(pCtx);
-		break;
-	}
+		case EEntityEvent::Update:
+		{
+			SEntityUpdateContext* pCtx = (SEntityUpdateContext*)event.nParam[0];
+			Update(pCtx);
+			break;
+		}
 
-	case EEntityEvent::Remove:
-	{
-		// Clean up the ECS entity, as it's no longer needed.
-		auto registry = ECS::ecsSimulation.GetActorRegistry();
-		registry->destroy(m_ecsEntity);
-		break;
-	}
+		case EEntityEvent::Remove:
+		{
+			// Clean up the ECS entity, as it's no longer needed.
+			auto registry = ECS::ecsSimulation.GetActorRegistry();
+			registry->destroy(m_ecsEntity);
+			break;
+		}
 	}
 }
 
@@ -253,30 +253,30 @@ const Vec3 CActorComponent::GetLocalEyePos() const
 		static bool alreadyWarned {false};
 		switch (eyeFlags)
 		{
-		case 0:
-			// Failure, didn't find any eyes.
-			// This will most likely spam the log. Disable it if it's annoying.
-			if (!alreadyWarned)
-			{
-				CryLogAlways("Character does not have 'Camera', 'left_eye' or 'right_eye' defined.");
-				alreadyWarned = true;
-			}
-			break;
+			case 0:
+				// Failure, didn't find any eyes.
+				// This will most likely spam the log. Disable it if it's annoying.
+				if (!alreadyWarned)
+				{
+					CryLogAlways("Character does not have 'Camera', 'left_eye' or 'right_eye' defined.");
+					alreadyWarned = true;
+				}
+				break;
 
-		case 1:
-			// Left eye only.
-			eyePosition = eyeLeftPosition;
-			break;
+			case 1:
+				// Left eye only.
+				eyePosition = eyeLeftPosition;
+				break;
 
-		case 2:
-			// Right eye only.
-			eyePosition = eyeRightPosition;
-			break;
+			case 2:
+				// Right eye only.
+				eyePosition = eyeRightPosition;
+				break;
 
-		case 3:
-			// Both eyes, position between the two points.
-			eyePosition = (eyeLeftPosition + eyeRightPosition) / 2.0f;
-			break;
+			case 3:
+				// Both eyes, position between the two points.
+				eyePosition = (eyeLeftPosition + eyeRightPosition) / 2.0f;
+				break;
 		}
 	}
 
@@ -551,7 +551,7 @@ void CActorComponent::OnResetState()
 }
 
 
-void CActorComponent::SetIK()
+void CActorComponent::SetIK() const
 {
 	// TEST: If the actor is looking at something, let's apply the IK.
 	if (m_pAwareness && m_pAwareness->GetRayHit())
@@ -567,14 +567,14 @@ void CActorComponent::SetIK()
 }
 
 
-bool CActorComponent::SetLookingIK(const bool isLooking, const Vec3& lookTarget)
+bool CActorComponent::SetLookingIK(const bool isLooking, const Vec3& lookTarget) const
 {
 	const bool shouldHandle = (m_pProceduralContextLook != nullptr);
 
 	if (shouldHandle)
 	{
-	m_pProceduralContextLook->SetLookTarget(lookTarget);
-	m_pProceduralContextLook->SetIsLookingGame(isLooking);
+		m_pProceduralContextLook->SetLookTarget(lookTarget);
+		m_pProceduralContextLook->SetIsLookingGame(isLooking);
 	}
 
 	return shouldHandle;
@@ -741,33 +741,33 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 			{
 				switch (actionBarId)
 				{
-				case 1:
-					CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
-					break;
+					case 1:
+						CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
 
-				case 2:
-					CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
-					break;
+					case 2:
+						CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
 
-				case 3:
-					CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
-					break;
+					case 3:
+						CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
 
-				case 4:
-					CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
-					break;
+					case 4:
+						CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
 
-				case 5:
-					CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
-					break;
+					case 5:
+						CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
 
-				case 6:
-					CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
-					break;
+					case 6:
+						CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
 
-				case 7:
-					CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
-					break;
+					case 7:
+						CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
 				}
 			}
 
@@ -936,122 +936,122 @@ void CActorComponent::InteractionEnd(IInteraction* pInteraction)
 // ***
 
 
-TagID CActorComponent::GetStanceTagId(EActorStance actorStance)
+TagID CActorComponent::GetStanceTagId(EActorStance actorStance) const
 {
 	TagID tagId {TAG_ID_INVALID};
 
 	switch (actorStance)
 	{
-	case EActorStance::crawling:
-		tagId = m_actorMannequinParams->tagIDs.Crawling;
-		break;
+		case EActorStance::crawling:
+			tagId = m_actorMannequinParams->tagIDs.Crawling;
+			break;
 
-	case EActorStance::prone:
-		tagId = m_actorMannequinParams->tagIDs.Prone;
-		break;
+		case EActorStance::prone:
+			tagId = m_actorMannequinParams->tagIDs.Prone;
+			break;
 
-	case EActorStance::crouching:
-		tagId = m_actorMannequinParams->tagIDs.Crouching;
-		break;
+		case EActorStance::crouching:
+			tagId = m_actorMannequinParams->tagIDs.Crouching;
+			break;
 
-	case EActorStance::falling:
-		tagId = m_actorMannequinParams->tagIDs.Falling;
-		break;
+		case EActorStance::falling:
+			tagId = m_actorMannequinParams->tagIDs.Falling;
+			break;
 
-	case EActorStance::flying:
-		tagId = m_actorMannequinParams->tagIDs.Flying;
-		break;
+		case EActorStance::flying:
+			tagId = m_actorMannequinParams->tagIDs.Flying;
+			break;
 
-	case EActorStance::kneeling:
-		tagId = m_actorMannequinParams->tagIDs.Kneeling;
-		break;
+		case EActorStance::kneeling:
+			tagId = m_actorMannequinParams->tagIDs.Kneeling;
+			break;
 
-	case EActorStance::landing:
-		tagId = m_actorMannequinParams->tagIDs.Landing;
-		break;
+		case EActorStance::landing:
+			tagId = m_actorMannequinParams->tagIDs.Landing;
+			break;
 
-	case EActorStance::sittingChair:
-		tagId = m_actorMannequinParams->tagIDs.SittingChair;
-		break;
+		case EActorStance::sittingChair:
+			tagId = m_actorMannequinParams->tagIDs.SittingChair;
+			break;
 
-	case EActorStance::sittingFloor:
-		tagId = m_actorMannequinParams->tagIDs.SittingFloor;
-		break;
+		case EActorStance::sittingFloor:
+			tagId = m_actorMannequinParams->tagIDs.SittingFloor;
+			break;
 
-	case EActorStance::sleeping:
-		tagId = m_actorMannequinParams->tagIDs.Sleeping;
-		break;
+		case EActorStance::sleeping:
+			tagId = m_actorMannequinParams->tagIDs.Sleeping;
+			break;
 
-	case EActorStance::spellcasting:
-		tagId = m_actorMannequinParams->tagIDs.Spellcasting;
-		break;
+		case EActorStance::spellcasting:
+			tagId = m_actorMannequinParams->tagIDs.Spellcasting;
+			break;
 
-	case EActorStance::standing:
-		tagId = m_actorMannequinParams->tagIDs.Standing;
-		break;
+		case EActorStance::standing:
+			tagId = m_actorMannequinParams->tagIDs.Standing;
+			break;
 
-	case EActorStance::swimming:
-		tagId = m_actorMannequinParams->tagIDs.Swimming;
-		break;
+		case EActorStance::swimming:
+			tagId = m_actorMannequinParams->tagIDs.Swimming;
+			break;
 	}
 
 	return tagId;
 }
 
 
-TagID CActorComponent::GetPostureTagId(EActorPosture actorPosture)
+TagID CActorComponent::GetPostureTagId(EActorPosture actorPosture) const
 {
 	TagID tagId {TAG_ID_INVALID};
 
 	switch (actorPosture)
 	{
-	case EActorPosture::aggressive:
-		tagId = m_actorMannequinParams->tagIDs.Aggressive;
-		break;
+		case EActorPosture::aggressive:
+			tagId = m_actorMannequinParams->tagIDs.Aggressive;
+			break;
 
-	case EActorPosture::alerted:
-		tagId = m_actorMannequinParams->tagIDs.Alerted;
-		break;
+		case EActorPosture::alerted:
+			tagId = m_actorMannequinParams->tagIDs.Alerted;
+			break;
 
-	case EActorPosture::bored:
-		tagId = m_actorMannequinParams->tagIDs.Bored;
-		break;
+		case EActorPosture::bored:
+			tagId = m_actorMannequinParams->tagIDs.Bored;
+			break;
 
-	case EActorPosture::dazed:
-		tagId = m_actorMannequinParams->tagIDs.Dazed;
-		break;
+		case EActorPosture::dazed:
+			tagId = m_actorMannequinParams->tagIDs.Dazed;
+			break;
 
-	case EActorPosture::depressed:
-		tagId = m_actorMannequinParams->tagIDs.Depressed;
-		break;
+		case EActorPosture::depressed:
+			tagId = m_actorMannequinParams->tagIDs.Depressed;
+			break;
 
-	case EActorPosture::distracted:
-		tagId = m_actorMannequinParams->tagIDs.Distracted;
-		break;
+		case EActorPosture::distracted:
+			tagId = m_actorMannequinParams->tagIDs.Distracted;
+			break;
 
-	case EActorPosture::excited:
-		tagId = m_actorMannequinParams->tagIDs.Excited;
-		break;
+		case EActorPosture::excited:
+			tagId = m_actorMannequinParams->tagIDs.Excited;
+			break;
 
-	case EActorPosture::interested:
-		tagId = m_actorMannequinParams->tagIDs.Interested;
-		break;
+		case EActorPosture::interested:
+			tagId = m_actorMannequinParams->tagIDs.Interested;
+			break;
 
-	case EActorPosture::neutral:
-		tagId = m_actorMannequinParams->tagIDs.Neutral;
-		break;
+		case EActorPosture::neutral:
+			tagId = m_actorMannequinParams->tagIDs.Neutral;
+			break;
 
-	case EActorPosture::passive:
-		tagId = m_actorMannequinParams->tagIDs.Passive;
-		break;
+		case EActorPosture::passive:
+			tagId = m_actorMannequinParams->tagIDs.Passive;
+			break;
 
-	case EActorPosture::suspicious:
-		tagId = m_actorMannequinParams->tagIDs.Suspicious;
-		break;
+		case EActorPosture::suspicious:
+			tagId = m_actorMannequinParams->tagIDs.Suspicious;
+			break;
 
-	case EActorPosture::unaware:
-		tagId = m_actorMannequinParams->tagIDs.Unaware;
-		break;
+		case EActorPosture::unaware:
+			tagId = m_actorMannequinParams->tagIDs.Unaware;
+			break;
 	}
 
 	return tagId;

@@ -6,7 +6,7 @@
 #include "CrySchematyc/Env/IEnvRegistrar.h"
 #include <CryMath/Cry_Math.h>
 #include "Components/Player/PlayerComponent.h"
-#include <Actor/ActorComponent.h>
+#include <Components/Actor/ActorComponent.h>
 #include "../Camera/CameraManagerComponent.h"
 #include "../Camera/ICameraComponent.h"
 #include <Console/CVars.h>

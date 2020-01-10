@@ -4,7 +4,7 @@
 #include <CryAISystem/IAgent.h>
 #include "Snaplocks/Snaplock.h"
 #include "DefaultComponents/Physics/CharacterControllerComponent.h"
-#include <Actor/ActorControllerComponent.h>
+#include <Components/Actor/ActorControllerComponent.h>
 #include <Components/Animation/ActorAnimationComponent.h>
 #include <Components/Inventory/InventoryComponent.h>
 #include <Components/Player/Input/PlayerInputComponent.h>
@@ -203,10 +203,10 @@ protected:
 	virtual void OnResetState();
 
 	/** Set the IK bones, if applicable. */
-	void SetIK();
+	void SetIK() const;
 
 	/** Set the look IK on or off, giving it a target if it's being set on. **/
-	bool SetLookingIK(const bool isLooking, const Vec3& lookTarget);
+	bool SetLookingIK(const bool isLooking, const Vec3& lookTarget) const;
 
 private:
 	/** An component which is used to discover entities near the actor. */
@@ -328,7 +328,7 @@ public:
 
 	\return The stance tag identifier.
 	**/
-	TagID GetStanceTagId(EActorStance actorStance);
+	TagID GetStanceTagId(EActorStance actorStance) const;
 
 
 	/**
@@ -338,7 +338,7 @@ public:
 
 	\return The posture tag identifier.
 	**/
-	TagID GetPostureTagId(EActorPosture actorPosture);
+	TagID GetPostureTagId(EActorPosture actorPosture) const;
 
 private:
 	const SActorMannequinParams* m_actorMannequinParams {nullptr};

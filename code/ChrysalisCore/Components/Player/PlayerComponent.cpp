@@ -8,7 +8,7 @@
 #include <Components/Items/ItemComponent.h>
 #include <Components/Player/Input/PlayerInputComponent.h>
 #include <Item/Weapon/Weapon.h>
-#include <Actor/ActorComponent.h>
+#include <Components/Actor/ActorComponent.h>
 
 
 namespace Chrysalis

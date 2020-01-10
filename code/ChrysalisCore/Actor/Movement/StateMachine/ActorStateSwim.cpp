@@ -1,7 +1,7 @@
 #include <StdAfx.h>
 
 #include "ActorStateSwim.h"
-#include <Actor/ActorControllerComponent.h>
+#include <Components/Actor/ActorControllerComponent.h>
 #include <Actor/Movement/StateMachine/ActorStateUtility.h>
 #include "ActorStateEvents.h"
 #include "ActorStateJump.h"

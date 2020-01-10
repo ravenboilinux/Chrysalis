@@ -8,7 +8,7 @@ Use "OnSetStance" if you need this functionality!
 
 #include <StateMachine/StateMachine.h>
 #include <IAnimatedCharacter.h>
-#include <Actor/ActorComponent.h>
+#include <Components/Actor/ActorComponent.h>
 #include <Actor/Movement/StateMachine/ActorStateEvents.h>
 #include "ActorStateEvents.h"
 #include <Actor/Movement/StateMachine/ActorStateUtility.h>

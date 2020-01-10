@@ -244,7 +244,7 @@ private:
 	/** Is the actor allowed to request a jump this frame? */
 	bool m_allowJump {false};
 
-	CActorAnimationComponent * m_pActorAnimationComponent {nullptr};
+	CActorAnimationComponent* m_pActorAnimationComponent {nullptr};
 	Cry::DefaultComponents::CCharacterControllerComponent* m_pCharacterControllerComponent {nullptr};
 
 	TagID m_rotateTagId {TAG_ID_INVALID};
