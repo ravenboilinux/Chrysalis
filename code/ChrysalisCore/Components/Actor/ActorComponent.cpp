@@ -31,6 +31,7 @@
 #include <CryDynamicResponseSystem/IDynamicResponseSystem.h>
 #include <entt/entt.hpp>
 #include "ECS/Systems/ECSSimulation.h"
+#include "ECS/Components/Components.h"
 #include "ECS/Components/Health.h"
 #include "ECS/Components/Qi.h"
 #include "ECS/Components/Spells/Spell.h"
@@ -694,8 +695,45 @@ entt::entity GetSpellByName(entt::registry* registry, const char* spellName)
 /** Takes a reference to a spell and applies the needed fixups. */
 void RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
 {
+	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
+
+	entt::entity source;
+	entt::entity target;
+
+	// The source should almost always be the real source of the spell.
+	if (spell.sourceTargetType != ECS::TargetType::none)
+	{
+		source = sourceEntity;
+	}
+	else
+	{
+		source = entt::null;
+	}
+
+	switch (spell.targetTargetType)
+	{
+		// Targetting the caster.
+		case ECS::TargetType::self:
+			target = sourceEntity;
+			break;
+
+		// Not targetted at an entity.
+		case ECS::TargetType::none:
+		case ECS::TargetType::cone:
+		case ECS::TargetType::column:
+		case ECS::TargetType::sourceBasedAOE:
+		case ECS::TargetType::groundTargettedAOE:
+			target = entt::null;
+			break;
+
+		// Targetting the selected entity.
+		default:
+			target = targetEntity;
+			break;
+	}
+
 	// The source and target for the spell need to be added to the entity.
-	registry.assign<ECS::SourceAndTarget>(spellEntity, sourceEntity, targetEntity);
+	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target);
 
 	//auto& spell = registry.get<ECS::Spell>(spellEntity);
 	//switch (spell.spellRewire)
@@ -767,6 +805,14 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 
 					case 7:
 						CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 8:
+						CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 9:
+						CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
 						break;
 				}
 			}

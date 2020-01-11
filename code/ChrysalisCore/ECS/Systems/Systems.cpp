@@ -23,10 +23,21 @@ void SystemApplyDamage(entt::registry& registry)
 		// Get the components.
 		auto& damage = view.get<ECS::Damage>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
-		auto& targetHealth = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
 
 		// Get the health component for the target entity and apply the damage to it's health modifier.
-		targetHealth.health.modifiers -= damage.quantity;
+		ECS::Health* targetHealth {nullptr};
+		if (damage.targetTargetType == TargetTargetType::target)
+		{
+			auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+			targetHealth = &health;
+		}
+		else
+		{
+			auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+			targetHealth = &health;
+		}
+
+		targetHealth->health.modifiers -= damage.quantity;
 
 		// Remove just the component.
 		registry.remove<ECS::Damage>(entity);
@@ -51,8 +62,18 @@ void SystemApplyDamageOverTime(float dt, entt::registry& registry)
 			damage.deltaSinceTick -= damage.interval;
 
 			// Get the health component for the target entity and apply the damage to it's health modifier.
-			auto& targetHealth = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
-			targetHealth.health.modifiers -= damage.quantity;
+			ECS::Health* targetHealth {nullptr};
+			if (damage.targetTargetType == TargetTargetType::target)
+			{
+				auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+				targetHealth = &health;
+			}
+			else
+			{
+				auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+				targetHealth = &health;
+			}
+			targetHealth->health.modifiers -= damage.quantity;
 		}
 
 		if (damage.ticksRemaining <= 0.0f)
@@ -73,18 +94,30 @@ void SystemApplyHeal(entt::registry& registry)
 		// Get the components..
 		auto& heal = view.get<ECS::Heal>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
-		auto& targetHealth = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
 
-		// Check for overheals.
-		float newModifier = targetHealth.health.modifiers + heal.quantity;
-		if (newModifier > 0.0f)
+		// Get the health component for the target entity and apply the heal to it's health modifier.
+		ECS::Health* targetHealth {nullptr};
+		if (heal.targetTargetType == TargetTargetType::target)
 		{
-			// It was an overheal.
-			targetHealth.health.modifiers = 0.0f;
+			auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+			targetHealth = &health;
 		}
 		else
 		{
-			targetHealth.health.modifiers = newModifier;
+			auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+			targetHealth = &health;
+		}
+
+		// Check for overheals.
+		float newModifier = targetHealth->health.modifiers + heal.quantity;
+		if (newModifier > 0.0f)
+		{
+			// It was an overheal.
+			targetHealth->health.modifiers = 0.0f;
+		}
+		else
+		{
+			targetHealth->health.modifiers = newModifier;
 		}
 
 		// Remove just the component.
@@ -110,18 +143,29 @@ void SystemApplyHealOverTime(float dt, entt::registry& registry)
 			heal.deltaSinceTick -= heal.interval;
 
 			// Get the health component for the target entity and apply the heal to it's health modifier.
-			auto& targetHealth = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
-
-			// Check for overheals.
-			float newModifier = targetHealth.health.modifiers + heal.quantity;
-			if (newModifier > 0.0f)
+			ECS::Health* targetHealth {nullptr};
+			if (heal.targetTargetType == TargetTargetType::target)
 			{
-				// It was an overheal.
-				targetHealth.health.modifiers = 0.0f;
+				auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+				targetHealth = &health;
 			}
 			else
 			{
-				targetHealth.health.modifiers = newModifier;
+				auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+				targetHealth = &health;
+			}
+
+
+			// Check for overheals.
+			float newModifier = targetHealth->health.modifiers + heal.quantity;
+			if (newModifier > 0.0f)
+			{
+				// It was an overheal.
+				targetHealth->health.modifiers = 0.0f;
+			}
+			else
+			{
+				targetHealth->health.modifiers = newModifier;
 			}
 
 			if (heal.ticksRemaining <= 0.0f)
@@ -157,7 +201,7 @@ void SystemHealthCheck(entt::registry& registry)
 
 
 // ***
-// *** Chi System
+// *** Qi System
 // ***
 
 
@@ -168,12 +212,24 @@ void SystemApplyQiUtilisation(entt::registry& registry)
 	for (auto& entity : view)
 	{
 		// Get the components..
-		auto& qi = view.get<ECS::UtiliseQi>(entity);
+		auto& qiUse = view.get<ECS::UtiliseQi>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
-		auto& sourceQi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+		
+		// Get the qi component for the target entity and apply the usage to it's modifier.
+		ECS::Qi* targetQi {nullptr};
+		if (qiUse.targetTargetType == TargetTargetType::target)
+		{
+			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+			targetQi = &qi;
+		}
+		else
+		{
+			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+			targetQi = &qi;
+		}
 
 		// Get the qi component for the target entity and apply the usage to it's modifier.
-		sourceQi.qi.modifiers -= qi.quantity;
+		targetQi->qi.modifiers -= qiUse.quantity;
 
 		// Remove just the component.
 		registry.remove<ECS::UtiliseQi>(entity);
@@ -188,21 +244,31 @@ void SystemApplyQiUtilisationOverTime(float dt, entt::registry& registry)
 	for (auto& entity : view)
 	{
 		// Get the components..
-		auto& qi = view.get<ECS::UtiliseQiOverTime>(entity);
+		auto& qiUse = view.get<ECS::UtiliseQiOverTime>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
 
-		qi.deltaSinceTick += dt;
-		if ((qi.deltaSinceTick >= qi.interval) && (qi.ticksRemaining >= 1.0f))
+		qiUse.deltaSinceTick += dt;
+		if ((qiUse.deltaSinceTick >= qiUse.interval) && (qiUse.ticksRemaining >= 1.0f))
 		{
-			qi.ticksRemaining--;
-			qi.deltaSinceTick -= qi.interval;
+			qiUse.ticksRemaining--;
+			qiUse.deltaSinceTick -= qiUse.interval;
 
 			// Get the qi component for the target entity and apply the usage to it's modifier.
-			auto& sourceQi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
-			sourceQi.qi.modifiers -= qi.quantity;
+			ECS::Qi* targetQi {nullptr};
+			if (qiUse.targetTargetType == TargetTargetType::target)
+			{
+				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+				targetQi = &qi;
+			}
+			else
+			{
+				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+				targetQi = &qi;
+			}
+			targetQi->qi.modifiers -= qiUse.quantity;
 		}
 
-		if (qi.ticksRemaining <= 0.0f)
+		if (qiUse.ticksRemaining <= 0.0f)
 		{
 			// Remove just the component.
 			registry.remove<ECS::UtiliseQiOverTime>(entity);
@@ -220,18 +286,30 @@ void SystemApplyQiReplenishment(entt::registry& registry)
 		// Get the components..
 		auto& replenish = view.get<ECS::ReplenishQi>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
-		auto& targetQi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
 
-		// Check for over-replenishment.
-		float newModifier = targetQi.qi.modifiers + replenish.quantity;
-		if (newModifier > 0.0f)
+		// Get the qi component for the target entity and apply the replenishment to it's modifier.
+		ECS::Qi* targetQi {nullptr};
+		if (replenish.targetTargetType == TargetTargetType::target)
 		{
-			// It was an over-replenishment.
-			targetQi.qi.modifiers = 0.0f;
+			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+			targetQi = &qi;
 		}
 		else
 		{
-			targetQi.qi.modifiers = newModifier;
+			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+			targetQi = &qi;
+		}
+
+		// Check for over-replenishment.
+		float newModifier = targetQi->qi.modifiers + replenish.quantity;
+		if (newModifier > 0.0f)
+		{
+			// It was an over-replenishment.
+			targetQi->qi.modifiers = 0.0f;
+		}
+		else
+		{
+			targetQi->qi.modifiers = newModifier;
 		}
 
 		// Remove just the component.
@@ -257,18 +335,28 @@ void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& registry)
 			replenish.deltaSinceTick -= replenish.interval;
 
 			// Get the qi component for the target entity and apply the replenishment to it's modifier.
-			auto& targetQi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
-
-			// Check for over-replenishment.
-			float newModifier = targetQi.qi.modifiers + replenish.quantity;
-			if (newModifier > 0.0f)
+			ECS::Qi* targetQi {nullptr};
+			if (replenish.targetTargetType == TargetTargetType::target)
 			{
-				// It was an over-replenishment.
-				targetQi.qi.modifiers = 0.0f;
+				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+				targetQi = &qi;
 			}
 			else
 			{
-				targetQi.qi.modifiers = newModifier;
+				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+				targetQi = &qi;
+			}
+
+			// Check for over-replenishment.
+			float newModifier = targetQi->qi.modifiers + replenish.quantity;
+			if (newModifier > 0.0f)
+			{
+				// It was an over-replenishment.
+				targetQi->qi.modifiers = 0.0f;
+			}
+			else
+			{
+				targetQi->qi.modifiers = newModifier;
 			}
 
 			if (replenish.ticksRemaining <= 0.0f)

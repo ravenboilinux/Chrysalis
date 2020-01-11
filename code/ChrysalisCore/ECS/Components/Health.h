@@ -1,10 +1,39 @@
 #pragma once
 
-#include "Components.h"
+#include <ECS/Components/Components.h>
+#include <ECS/Components/Spells/Spell.h>
 
 
 namespace Chrysalis::ECS
 {
+enum class DamageType
+{
+	acid,
+	bleed,
+	qi,
+	cold,
+	collision,
+	crush,
+	decay,
+	disease,
+	electricity,
+	energy,
+	entropy,
+	explosion,
+	fire,
+	holy,
+	ice,
+	nature,
+	pierce,
+	plasma,
+	poison,
+	radiation,
+	slash,
+	tear,
+	unholy
+};
+
+
 struct Health : public IComponent
 {
 	Health() = default;
@@ -60,11 +89,15 @@ struct Damage : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 		archive(damageType, "damageType", "Damage Type");
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};
@@ -98,6 +131,7 @@ struct DamageOverTime : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 		archive(damageType, "damageType", "damageType");
 		archive(duration, "duration", "duration");
@@ -105,6 +139,9 @@ struct DamageOverTime : public IComponent
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};
@@ -147,10 +184,14 @@ struct Heal : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};
@@ -179,12 +220,16 @@ struct HealOverTime : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 		archive(duration, "duration", "duration");
 		archive(interval, "interval", "interval");
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};

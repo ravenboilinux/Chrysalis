@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ECS//Components/Components.h"
+#include "ECS/Components/Components.h"
 
 
 namespace Chrysalis::ECS
@@ -29,6 +29,53 @@ namespace Chrysalis::ECS
 */
 
 
+/** Who should the spell try and target? Some target types need an actual entity for the target, while others
+	are ground / area targetted.
+*/
+enum class TargetType
+{
+	none,
+
+	self,
+	groupMembers,
+	raidMembers,
+	singleTarget,
+	cone,
+	column,
+	chain,
+	sourceBasedAOE,
+	targetBasedAOE,
+	groundTargettedAOE,
+};
+
+
+/** Used to allow each individual component to select which of the two available spell targets to use for it's actual target.
+	Giving each component this ability to select the actual target opens up the means to have mana cost come from the target 
+	instead of the caster (mana burn) and life steal abilities. */
+enum class TargetTargetType
+{
+	source,
+	target,
+};
+
+
+/** Limit targetting to entities who match this aggression level. */
+enum class TargetAggressionType
+{
+	faction,			// Faction members only.
+	allied,				// Allied factions.
+	neutral,			// Neither an ally nor an enemy.
+	aggressive,			// Actively hostile.
+};
+
+
+enum class SpellCastStyle
+{
+	instant,			// Spell is cast instantly. Can't be interupted. Can be cast while moving.
+	movementAllowed,	// A cast time applies - may be cast while moving.
+	turret,				// A cast time applies. No movement allowed.
+	channelled			// Continuous concentration requirement. No movement allowed.
+};
 
 
 /** When spells are cast they require some changes from the prototype in order to function correctly.
@@ -47,12 +94,63 @@ enum class SpellRewire
 };
 
 
-enum class SpellCastStyle
+enum class CrowdControlType
 {
-	instant,			// Spell is cast instantly. Can't be interupted. Can be cast while moving.
-	movementAllowed,	// A cast time applies - may be cast while moving.
-	turret,				// A cast time applies. No movement allowed.
-	channelled			// Continuous concentration requirement. No movement allowed.
+	none,
+
+	blind,						// Loss of sight, movement and rotation restricted, ambling around.
+	disarmed,					// Primary weapon disabled.
+	forcedActionCharm,			// Movement and rotation restricted.
+	forcedActionEntangled,		// Movement and rotation restricted.
+	forcedActionFear,			// Movement and rotation restricted, ambling around quaking in fear.
+	forcedActionFlee,			// Lose of movement control. Running around wildly.
+	forcedActionMindControl,	// Under the control of another entity.
+	forcedActionPulled,			// Pulled towards something with force.
+	forcedActionTaunt,			// Attacks are forced to be directed towards a specific entity.
+	forcedActionThrow,			// Thrown onto the ground. Fairly quick recovery.
+	knockback,					// Physically knocked back a step or two.
+	knockbackAOE,				// Physically knocked back a step or two.
+	knockdown,					// Physically knocked back a step or two and onto your arse.
+	knockdownAOE,				// Physically knocked back a step or two and onto your arse.
+	polymorph,					// Turned into a harmless critter.
+	silence,					// Restricts use of spells, shouts and other vocal abilities.
+	slow,						// Movement slowed.
+	snare,						// Movement and rotation restricted. Held in place with leg trapped in a snare.
+	stun,						// Movement and rotation restricted. Birds twitter about your head.
+};
+
+
+enum class BuffType
+{
+	none,
+
+	// Resistances.
+	acidResistance,
+	bleedResistance,
+	chiResistance,
+	coldResistance,
+	crushResistance,
+	decayResistance,
+	diseaseResistance,
+	electricityResistance,
+	energyResistance,
+	entropyResistance,
+	explosionResistance,
+	fireResistance,
+	holyResistance,
+	iceResistance,
+	natureResistance,
+	pierceResistance,
+	plasmaResistance,
+	poisonResistance,
+	radiationResistance,
+	slashResistance,
+	unholyResistance,
+
+	// General buffs.
+	//bleed, // Debuff - or could be more generic...mmm...not sure.
+	//haste, // buff only or negative values for debuffs
+	//disarmed, // stateful debuff
 };
 
 
@@ -78,12 +176,18 @@ struct Spell : public IComponent
 		archive(castDuration, "castDuration", "The length of time it takes to cast this spell. Instant cast spells should be zero.");
 		archive(cooldown, "cooldown", "Cooldown. The number of seconds before this spell can be cast again.");
 		archive(globalCooldown, "globalCooldown", "Global cooldown. The number of seconds before *any* spell can be cast again.");
+		archive(sourceTargetType, "sourceTargetType", "Source of the spell - typically none or self.");
+		archive(targetTargetType, "targetTargetType", "Target for the spell. May target self, others, or even AoEs.");
 
 		return true;
 	}
 
+
 	/** Code that needs to run after a spell is copied to fix up all the broken requirements e.g. source, target, spell bonuses */
 	SpellRewire spellRewire {SpellRewire::damage};
+
+	/** Number of actions this spell will take before being removed. */
+	uint32 actions {0};
 
 	/** Minimum range at which this can be cast. */
 	float minRange {0.0f};
@@ -99,5 +203,15 @@ struct Spell : public IComponent
 
 	/** Global cooldown. The number of seconds before *any* spell can be cast again. */
 	float globalCooldown {0.0f};
+
+	// Source for the spell will generally only be none or self.
+	TargetType sourceTargetType {TargetType::self};
+	
+	// The target for the spell can be any valid form of target, including ones that do not include a target entity but rather an AOE
+	// or chain of targets. Note: chained targets may still need a valid target entity for the first in the chain.
+	TargetType targetTargetType {TargetType::singleTarget};
+
+	// Which sort of targets can this spell be cast upon?
+	TargetAggressionType targetAggressionType {TargetAggressionType::allied};
 };
 }

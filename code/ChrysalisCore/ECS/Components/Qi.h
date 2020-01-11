@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Components.h"
+#include <ECS/Components/Components.h>
+#include <ECS/Components/Spells/Spell.h>
+#include <ECS/Components/Components.h>
 
 
 namespace Chrysalis::ECS
@@ -57,10 +59,14 @@ struct UtiliseQi : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};
@@ -89,12 +95,16 @@ struct UtiliseQiOverTime : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 		archive(duration, "duration", "duration");
 		archive(interval, "interval", "interval");
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};
@@ -134,10 +144,14 @@ struct ReplenishQi : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};
@@ -166,12 +180,16 @@ struct ReplenishQiOverTime : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		archive(targetTargetType, "targetTargetType", "targetTargetType");
 		archive(quantity, "quantity", "quantity");
 		archive(duration, "duration", "duration");
 		archive(interval, "interval", "interval");
 
 		return true;
 	}
+
+	/** Use the spell's target or source for this component's target. */
+	TargetTargetType targetTargetType {TargetTargetType::target};
 
 	/** Modify an attribute by this amount. */
 	float quantity {0.0f};
