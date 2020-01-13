@@ -576,6 +576,10 @@ endif()
 #BEGIN-CUSTOM
 # Make any custom changes here, modifications outside of the block will be discarded on regeneration.
 
+# Force the compiler to c++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 include_directories("../SDK/EnTT/src")
 
 # I like to know which compiler I am using.

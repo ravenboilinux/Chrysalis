@@ -144,7 +144,7 @@
   <components>
    <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
    <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
-   <damage-over-time CryXmlVersion="2" targetTargetType="source" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="11"/>
    <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
   </components>
