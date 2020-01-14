@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ECS/Components/Components.h>
 #include <ECS/Components/Spells/Spell.h>
 
 

@@ -29,6 +29,26 @@ namespace Chrysalis::ECS
 //}
 
 
+/** Super dirty and slow way to locate a spell from the registry. */
+entt::entity ECSSimulation::GetSpellByName(const char* spellName)
+{
+	auto view = m_spellRegistry.view<ECS::Name>();
+
+	for (auto& entity : view)
+	{
+		auto& name = view.get<ECS::Name>(entity);
+
+		if (strcmp(name.name, spellName) == 0)
+		{
+			return entity;
+		}
+	}
+
+	// Failed to find it.
+	return entt::null;
+}
+
+
 const entt::entity GetHero(entt::registry& registry)
 {
 	auto view = registry.view<ECS::Name>();

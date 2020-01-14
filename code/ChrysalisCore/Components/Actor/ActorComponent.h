@@ -2,15 +2,15 @@
 
 #include <Actor/Fate.h>
 #include <CryAISystem/IAgent.h>
-#include "Snaplocks/Snaplock.h"
 #include "DefaultComponents/Physics/CharacterControllerComponent.h"
 #include <Components/Actor/ActorControllerComponent.h>
 #include <Components/Animation/ActorAnimationComponent.h>
-#include <Components/Inventory/InventoryComponent.h>
 #include <Components/Player/Input/PlayerInputComponent.h>
+#include <Components/Inventory/InventoryComponent.h>
 #include <Entities/Interaction/IEntityInteraction.h>
 #include <Interfaces/IActor.h>
 #include <Interfaces/ISpell.h>
+#include <Snaplocks/Snaplock.h>
 
 
 namespace Chrysalis
@@ -19,6 +19,7 @@ class CPlayerComponent;
 class CActorControllerComponent;
 class CEntityAwarenessComponent;
 class CSnaplockComponent;
+class CSpellbookComponent;
 class CInventoryComponent;
 class CEquipmentComponent;
 class IItemReceipt;
@@ -210,10 +211,13 @@ protected:
 
 private:
 	/** An component which is used to discover entities near the actor. */
-	CEntityAwarenessComponent* m_pAwareness {nullptr};
+	CEntityAwarenessComponent* m_pAwarenessComponent {nullptr};
 
-	/** A component that allows for management of snaplocks. */
-	CSnaplockComponent* m_pSnaplockComponent {nullptr};
+	/** All control is handled through an actor controller. */
+	CActorControllerComponent* m_pActorControllerComponent {nullptr};
+
+	/** A spellbook allows an actor to access spells and to offer spells to others which can be cast. */
+	CSpellbookComponent* m_pSpellbookComponent {nullptr};
 
 	/** Manage their inventory. */
 	CInventoryComponent* m_pInventoryComponent {nullptr};
@@ -221,11 +225,11 @@ private:
 	/** Manage their equipment. */
 	CEquipmentComponent* m_pEquipmentComponent {nullptr};
 
-	/** All control is handled through an actor controller. */
-	CActorControllerComponent* m_pActorControllerComponent {nullptr};
-
 	/**	A dynamic response proxy. **/
 	IEntityDynamicResponseComponent* m_pDrsComponent {nullptr};
+
+	/** A component that allows for management of snaplocks. */
+	CSnaplockComponent* m_pSnaplockComponent {nullptr};
 
 	/** If a player is controlling this character, this pointer will be valid. */
 	CPlayerComponent* m_pPlayer {nullptr};

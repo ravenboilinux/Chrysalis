@@ -1,7 +1,5 @@
 #pragma once
 
-#include <CryCore/Platform/platform.h>
-
 
 namespace Chrysalis
 {

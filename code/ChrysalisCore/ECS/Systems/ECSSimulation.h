@@ -32,6 +32,10 @@ public:
 	/** Get a reference to the spell registry, which keeps prototypes for all the spells. */
 	entt::registry* GetSpellRegistry() { return &m_spellRegistry; }
 
+	/** Get's a spell entity using it's name. This function is =SLOW= so use it carefully. */
+	// TODO: Make this function not be slow and full of suck.
+	entt::entity GetSpellByName(const char* spellName);
+
 private:
 	entt::registry m_actorRegistry;
 	entt::registry m_spellRegistry;

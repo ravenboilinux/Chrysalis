@@ -19,9 +19,10 @@
 #include <Actor/Animation/Actions/ActorAnimationActionLookPose.h>
 #include <Actor/Movement/StateMachine/ActorStateEvents.h>
 #include <Actor/Movement/StateMachine/ActorStateUtility.h>
-#include <Components/Actor/ActorControllerComponent.h>
 #include <Animation/ProceduralContext/ProceduralContextAim.h>
 #include <Animation/ProceduralContext/ProceduralContextLook.h>
+#include <Components/Actor/ActorControllerComponent.h>
+#include <Components/Interaction/SpellbookComponent.h>
 #include "Components/Player/PlayerComponent.h"
 #include <Components/Player/Camera/ICameraComponent.h>
 #include <Components/Interaction/EntityAwarenessComponent.h>
@@ -30,16 +31,91 @@
 #include <Components/Snaplocks/SnaplockComponent.h>
 #include <CryDynamicResponseSystem/IDynamicResponseSystem.h>
 #include <entt/entt.hpp>
-#include "ECS/Systems/ECSSimulation.h"
-#include "ECS/Components/Components.h"
-#include "ECS/Components/Health.h"
-#include "ECS/Components/Qi.h"
-#include "ECS/Components/Spells/Spell.h"
-#include "ECS/ECS.h"
+#include <ECS/Systems/ECSSimulation.h>
+#include <ECS/Components/Components.h>
+#include <ECS/Components/Health.h>
+#include <ECS/Components/Qi.h>
+#include <ECS/Components/Spells/Spell.h>
+#include <ECS/ECS.h>
 
 
 namespace Chrysalis
 {
+/** Takes a reference to a spell and applies the needed fixups. */
+void RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
+{
+	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
+
+	entt::entity source;
+	entt::entity target;
+
+	// The source should almost always be the real source of the spell.
+	if (spell.sourceTargetType != ECS::TargetType::none)
+	{
+		source = sourceEntity;
+	}
+	else
+	{
+		source = entt::null;
+	}
+
+	switch (spell.targetTargetType)
+	{
+		// Targetting the caster.
+		case ECS::TargetType::self:
+			target = sourceEntity;
+			break;
+
+		// Not targetted at an entity.
+		case ECS::TargetType::none:
+		case ECS::TargetType::cone:
+		case ECS::TargetType::column:
+		case ECS::TargetType::sourceBasedAOE:
+		case ECS::TargetType::groundTargettedAOE:
+			target = entt::null;
+			break;
+
+		// Targetting the selected entity.
+		default:
+			target = targetEntity;
+			break;
+	}
+
+	// The source and target for the spell need to be added to the entity.
+	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target);
+
+	//auto& spell = registry.get<ECS::Spell>(spellEntity);
+	//switch (spell.spellRewire)
+	//{
+	//case ECS::SpellRewire::custom:
+	//	break;
+
+	//default:
+	//	break;
+	//}
+}
+
+
+/** Queues a spell onto the actor registry - where it will later be processed by the systems. */
+void CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity)
+{
+	auto actorRegistry = ECS::ecsSimulation.GetActorRegistry();
+	auto spellRegistry = ECS::ecsSimulation.GetSpellRegistry();
+
+	auto spellEntity = ECS::ecsSimulation.GetSpellByName(spellName);
+	if (spellEntity != entt::null)
+	{
+		// Make use of the create feature to copy the spell prototype into the actor registry.
+		auto newEntity = actorRegistry->create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
+			ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
+			ECS::Spell>(spellEntity, *spellRegistry);
+
+		// Do fixups.
+		RewireSpell(*actorRegistry, newEntity, sourceEntity, targetEntity);
+	}
+}
+
+
 static void RegisterActorComponent(Schematyc::IEnvRegistrar& registrar)
 {
 	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
@@ -77,6 +153,9 @@ void CActorComponent::Initialize()
 	// Contoller.
 	m_pActorControllerComponent = m_pEntity->GetOrCreateComponent<CActorControllerComponent>();
 
+	// Spell book.
+	m_pSpellbookComponent = m_pEntity->GetOrCreateComponent<CSpellbookComponent>();
+
 	// Inventory management.
 	m_pInventoryComponent = m_pEntity->GetOrCreateComponent<CInventoryComponent>();
 
@@ -88,7 +167,7 @@ void CActorComponent::Initialize()
 
 	// For now, all actors will have awareness built-in, but this should default to not having it at some stage unless they are
 	// the player target.
-	m_pAwareness = m_pEntity->GetOrCreateComponent<CEntityAwarenessComponent>();
+	m_pAwarenessComponent = m_pEntity->GetOrCreateComponent<CEntityAwarenessComponent>();
 
 	// Manage our snaplocks.
 	m_pSnaplockComponent = m_pEntity->GetOrCreateComponent<CSnaplockComponent>();
@@ -555,10 +634,10 @@ void CActorComponent::OnResetState()
 void CActorComponent::SetIK() const
 {
 	// TEST: If the actor is looking at something, let's apply the IK.
-	if (m_pAwareness && m_pAwareness->GetRayHit())
+	if (m_pAwarenessComponent && m_pAwarenessComponent->GetRayHit())
 	{
 		// TEST: Just look straight ahead.
-		SetLookingIK(true, m_pAwareness->GetRayHitPosition());
+		SetLookingIK(true, m_pAwarenessComponent->GetRayHitPosition());
 	}
 	else
 	{
@@ -644,9 +723,9 @@ void CActorComponent::OnActionItemToss()
 
 //void CActorComponent::OnActionBarUse(int actionBarId)
 //{
-//	if (m_pAwareness)
+//	if (m_pAwarenessComponent)
 //	{
-//		auto results = m_pAwareness->GetNearDotFiltered();
+//		auto results = m_pAwarenessComponent->GetNearDotFiltered();
 //		if (results.size() > 0)
 //		{
 //			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
@@ -672,105 +751,11 @@ void CActorComponent::OnActionItemToss()
 //}
 
 
-/** Super dirty and slow way to locate a spell from the registry. */
-entt::entity GetSpellByName(entt::registry* registry, const char* spellName)
-{
-	auto view = registry->view<ECS::Name>();
-
-	for (auto& entity : view)
-	{
-		auto& name = view.get<ECS::Name>(entity);
-
-		if (strcmp(name.name, spellName) == 0)
-		{
-			return entity;
-		}
-	}
-
-	// Failed to find it.
-	return entt::null;
-}
-
-
-/** Takes a reference to a spell and applies the needed fixups. */
-void RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
-{
-	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
-
-	entt::entity source;
-	entt::entity target;
-
-	// The source should almost always be the real source of the spell.
-	if (spell.sourceTargetType != ECS::TargetType::none)
-	{
-		source = sourceEntity;
-	}
-	else
-	{
-		source = entt::null;
-	}
-
-	switch (spell.targetTargetType)
-	{
-		// Targetting the caster.
-		case ECS::TargetType::self:
-			target = sourceEntity;
-			break;
-
-		// Not targetted at an entity.
-		case ECS::TargetType::none:
-		case ECS::TargetType::cone:
-		case ECS::TargetType::column:
-		case ECS::TargetType::sourceBasedAOE:
-		case ECS::TargetType::groundTargettedAOE:
-			target = entt::null;
-			break;
-
-		// Targetting the selected entity.
-		default:
-			target = targetEntity;
-			break;
-	}
-
-	// The source and target for the spell need to be added to the entity.
-	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target);
-
-	//auto& spell = registry.get<ECS::Spell>(spellEntity);
-	//switch (spell.spellRewire)
-	//{
-	//case ECS::SpellRewire::custom:
-	//	break;
-
-	//default:
-	//	break;
-	//}
-}
-
-
-void CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity)
-{
-	auto actorRegistry = ECS::ecsSimulation.GetActorRegistry();
-	auto spellRegistry = ECS::ecsSimulation.GetSpellRegistry();
-
-	auto spellEntity = GetSpellByName(spellRegistry, spellName);
-	if (spellEntity != entt::null)
-	{
-		// Make use of the create feature to copy the spell prototype into the actor registry.
-		auto newEntity = actorRegistry->create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
-			ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-			ECS::Spell>(spellEntity, *spellRegistry);
-
-		// Do fixups.
-		RewireSpell(*actorRegistry, newEntity, sourceEntity, targetEntity);
-	}
-}
-
-
 void CActorComponent::OnActionBarUse(int actionBarId)
 {
-	if (m_pAwareness)
+	if (m_pAwarenessComponent)
 	{
-		auto results = m_pAwareness->GetNearDotFiltered();
+		auto results = m_pAwarenessComponent->GetNearDotFiltered();
 		if (results.size() > 0)
 		{
 			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
@@ -846,9 +831,9 @@ void CActorComponent::OnActionInspectStart()
 
 void CActorComponent::OnActionInspect()
 {
-	if (m_pAwareness)
+	if (m_pAwarenessComponent)
 	{
-		auto results = m_pAwareness->GetNearDotFiltered();
+		auto results = m_pAwarenessComponent->GetNearDotFiltered();
 		if (results.size() > 0)
 		{
 			m_interactionEntityId = results[0];
@@ -888,9 +873,9 @@ void CActorComponent::OnActionInteractionStart()
 	if (isBusyInInteraction)
 		return;
 
-	if (m_pAwareness)
+	if (m_pAwarenessComponent)
 	{
-		auto results = m_pAwareness->GetNearDotFiltered();
+		auto results = m_pAwarenessComponent->GetNearDotFiltered();
 		if (results.size() > 0)
 		{
 			m_interactionEntityId = results[0];
