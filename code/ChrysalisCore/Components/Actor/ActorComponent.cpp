@@ -41,80 +41,6 @@
 
 namespace Chrysalis
 {
-/** Takes a reference to a spell and applies the needed fixups. */
-void RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
-{
-	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
-
-	entt::entity source;
-	entt::entity target;
-
-	// The source should almost always be the real source of the spell.
-	if (spell.sourceTargetType != ECS::TargetType::none)
-	{
-		source = sourceEntity;
-	}
-	else
-	{
-		source = entt::null;
-	}
-
-	switch (spell.targetTargetType)
-	{
-		// Targetting the caster.
-		case ECS::TargetType::self:
-			target = sourceEntity;
-			break;
-
-		// Not targetted at an entity.
-		case ECS::TargetType::none:
-		case ECS::TargetType::cone:
-		case ECS::TargetType::column:
-		case ECS::TargetType::sourceBasedAOE:
-		case ECS::TargetType::groundTargettedAOE:
-			target = entt::null;
-			break;
-
-		// Targetting the selected entity.
-		default:
-			target = targetEntity;
-			break;
-	}
-
-	// The source and target for the spell need to be added to the entity.
-	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target);
-
-	//auto& spell = registry.get<ECS::Spell>(spellEntity);
-	//switch (spell.spellRewire)
-	//{
-	//case ECS::SpellRewire::custom:
-	//	break;
-
-	//default:
-	//	break;
-	//}
-}
-
-
-/** Queues a spell onto the actor registry - where it will later be processed by the systems. */
-void CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity)
-{
-	auto actorRegistry = ECS::ecsSimulation.GetActorRegistry();
-	auto spellRegistry = ECS::ecsSimulation.GetSpellRegistry();
-
-	auto spellEntity = ECS::ecsSimulation.GetSpellByName(spellName);
-	if (spellEntity != entt::null)
-	{
-		// Make use of the create feature to copy the spell prototype into the actor registry.
-		auto newEntity = actorRegistry->create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
-			ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-			ECS::Spell>(spellEntity, *spellRegistry);
-
-		// Do fixups.
-		RewireSpell(*actorRegistry, newEntity, sourceEntity, targetEntity);
-	}
-}
-
 
 static void RegisterActorComponent(Schematyc::IEnvRegistrar& registrar)
 {
@@ -267,6 +193,31 @@ void CActorComponent::Update(SEntityUpdateContext* pCtx)
 
 	// HACK: This belongs in pre-physics...I think.
 	SetIK();
+
+	// Check for spellbook abilities that can be used by the player.
+	// TODO: Advertise this to the player through a decent UI.
+	// TODO: The test for being a player is clearly broken - need to fix player control testing.
+	if ((m_pAwarenessComponent) && (IsPlayer()))
+	{
+		auto results = m_pAwarenessComponent->GetNearDotFiltered();
+		if (results.size() > 0)
+		{
+			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
+
+			// Do they have a spell book?
+			if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
+			{
+				auto spellCollection = pSpellbookComponent->GetSpellColllection();
+
+				int spellId {1};
+				for (auto& spell : spellCollection.spells)
+				{
+					CryWatch("Spell %d : %s", spellId, spell.spellName.c_str());
+					spellId++;
+				}
+			}
+		}
+	}
 
 	// DEBUG: Let's see some data.
 	auto registry = ECS::ecsSimulation.GetActorRegistry();
@@ -762,44 +713,62 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 
 			if (auto pTargetActor = pTargetEntity->GetComponent<CActorComponent>())
 			{
-				switch (actionBarId)
+				// Do they have a spell book?
+				if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
 				{
-					case 1:
-						CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
+					auto spellCollection = pSpellbookComponent->GetSpellColllection();
 
-					case 2:
-						CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
+					if (spellCollection.spells.size() >= actionBarId)
+					{
+						auto spell = spellCollection.spells[actionBarId - 1];
 
-					case 3:
-						CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
-
-					case 4:
-						CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
-
-					case 5:
-						CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
-
-					case 6:
-						CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
-
-					case 7:
-						CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
-
-					case 8:
-						CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
-
-					case 9:
-						CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
-						break;
+						CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
+						ECS::ecsSimulation.CastSpellByName(spell.spellName, GetECSEntity(), pTargetActor->GetECSEntity());
+					}
+					else
+					{
+						CryLogAlways("No spell defined.");
+					}
 				}
+
+				//switch (actionBarId)
+				//{
+				//	case 1:
+				//		ECS::ecsSimulation.CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 2:
+				//		ECS::ecsSimulation.CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 3:
+				//		ECS::ecsSimulation.CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 4:
+				//		ECS::ecsSimulation.CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 5:
+				//		ECS::ecsSimulation.CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 6:
+				//		ECS::ecsSimulation.CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 7:
+				//		ECS::ecsSimulation.CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 8:
+				//		ECS::ecsSimulation.CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+
+				//	case 9:
+				//		ECS::ecsSimulation.CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		break;
+				//}
 			}
 
 			//if (auto pInteractor = pTargetEntity->GetComponent<CEntityInteractionComponent>())

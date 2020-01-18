@@ -32,7 +32,7 @@ void CSpellbookComponent::ReflectType(Schematyc::CTypeDesc<CSpellbookComponent>&
 	desc.SetComponentFlags({IEntityComponent::EFlags::Singleton});
 
 	// Keep a collection of spells available for use.
-	desc.AddMember(&CSpellbookComponent::m_tags, 'spcl', "SpellCollection", "Spell Collection", "List of spells which may be cast.", SSpellCollection {});
+	desc.AddMember(&CSpellbookComponent::m_spellCollection, 'spcl', "SpellCollection", "Spell Collection", "List of spells which may be cast.", SSpellCollection {});
 }
 
 

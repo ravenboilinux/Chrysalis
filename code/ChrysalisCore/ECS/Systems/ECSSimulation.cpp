@@ -17,16 +17,63 @@
 
 namespace Chrysalis::ECS
 {
-//void update(std::uint64_t dt, entt::registry& registry)
-//{
-//	registry.view<ECS::Position, ECS::Velocity>().each([dt](auto& pos, auto& vel) {
-//		// gets all the components of the view at once ...
-//		pos.x += vel.dx * dt;
-//		pos.y += vel.dy * dt;
+/** Takes a reference to a spell and applies the needed fixups. This is mainly going to fix up the source and targets
+	for now. */
+void ECSSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
+{
+	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
 
-//		// ...
-//		});
-//}
+	entt::entity source;
+	entt::entity target;
+
+	// The source should almost always be the real source of the spell.
+	if (spell.sourceTargetType != ECS::TargetType::none)
+	{
+		source = sourceEntity;
+	}
+	else
+	{
+		source = entt::null;
+	}
+
+	switch (spell.targetTargetType)
+	{
+		// Targetting the caster.
+		case ECS::TargetType::self:
+			target = sourceEntity;
+			break;
+
+			// Not targetted at an entity.
+		case ECS::TargetType::none:
+		case ECS::TargetType::cone:
+		case ECS::TargetType::column:
+		case ECS::TargetType::sourceBasedAOE:
+		case ECS::TargetType::groundTargettedAOE:
+			target = entt::null;
+			break;
+
+			// Targetting the selected entity.
+		default:
+			target = targetEntity;
+			break;
+	}
+
+	// The source and target for the spell need to be added to the entity.
+	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target);
+
+	// TODO: Do we really need a set of custom rewires on top of the ones for source and target?
+	// Delete this code if it's not needed.
+
+	//auto& spell = registry.get<ECS::Spell>(spellEntity);
+	//switch (spell.spellRewire)
+	//{
+	//case ECS::SpellRewire::custom:
+	//	break;
+
+	//default:
+	//	break;
+	//}
+}
 
 
 /** Super dirty and slow way to locate a spell from the registry. */
@@ -46,6 +93,23 @@ entt::entity ECSSimulation::GetSpellByName(const char* spellName)
 
 	// Failed to find it.
 	return entt::null;
+}
+
+
+/** Queues a spell onto the actor registry - where it will later be processed by the systems. */
+void ECSSimulation::CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity)
+{
+	auto spellEntity = GetSpellByName(spellName);
+	if (spellEntity != entt::null)
+	{
+		// Make use of the create feature to copy the spell prototype into the actor registry.
+		auto newEntity = m_actorRegistry.create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
+			ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
+			ECS::Spell>(spellEntity, m_spellRegistry);
+
+		// Do fixups.
+		RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity);
+	}
 }
 
 

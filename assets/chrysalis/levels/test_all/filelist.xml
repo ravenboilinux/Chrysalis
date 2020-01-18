@@ -1,6 +1,6 @@
 <download name="test_all" type="Map">
  <index src="filelist.xml" dest="filelist.xml"/>
  <files>
-  <file src="level.pak" dest="level.pak" size="17558" md5="ee43bc992213a1ba26d011295895249a"/>
+  <file src="level.pak" dest="level.pak" size="19963" md5="49525de91460b844668d4b62ed44b91a"/>
  </files>
 </download>

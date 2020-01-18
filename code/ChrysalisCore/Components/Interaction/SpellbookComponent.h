@@ -70,14 +70,12 @@ public:
 	{
 		inline bool operator==(const SSpellCollection& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
 
-		Schematyc::CSharedString tag;
-
 		static void ReflectType(Schematyc::CTypeDesc<SSpellCollection>& desc)
 		{
 			desc.SetGUID("{CF8E39CE-CC1E-4E05-9536-B1403723CC5B}"_cry_guid);
-			desc.AddMember(&SSpellCollection::tag, 'tag', "SpellCollection", "SpellCollection", "List of spells which may be cast.", "");
 		}
 		
+
 		bool Serialize(Serialization::IArchive& archive)
 		{
 			archive(spells, "spells", "spells");
@@ -101,9 +99,11 @@ public:
 	void OnInteractionTick(IActor& actor);
 	void OnInteractionComplete(IActor& actor);
 
+	const SSpellCollection& GetSpellColllection() const { return m_spellCollection; }
+
 private:
-	/** A set of tags which will be added to the fragment when it plays. */
-	SSpellCollection m_tags;
+	/** A collection of spells which can potentially be cast. */
+	SSpellCollection m_spellCollection;
 
 	std::vector<IInteractionPtr> m_Interactions;
 	IInteractionPtr m_selectedInteraction {IInteractionPtr()};
