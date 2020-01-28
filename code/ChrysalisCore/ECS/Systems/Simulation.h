@@ -5,7 +5,7 @@
 
 namespace Chrysalis::ECS
 {
-class ECSSimulation
+class CSimulation
 {
 public:
 	/** One time initialisation. */
@@ -14,16 +14,19 @@ public:
 	/** Update tick, called during every frame update. */
 	void Update(const float deltaTime);
 
-	/** Immediate simulation. Responsible for things that require immediate attention each frame. */
+	/** Immediate Simulation. Responsible for things that require immediate attention each frame. */
 	void UpdateImmediate(const float deltaTime);
 
 	/** Tick updates are responsible for handling DoTs, HoTs, and other components that can tick at intervals. */
 	void UpdateTick(const float deltaTime);
 
-	/** Temporary function for testing the simulation during development. */
+	/** World spellcasts are the various commands for interacting with the world. */
+	void UpdateWorldSpellcasts(const float deltaTime);
+
+	/** Temporary function for testing the Simulation during development. */
 	void LoadSimulationData();
 
-	/** Temporary function for testing the simulation during development. */
+	/** Temporary function for testing the Simulation during development. */
 	void SaveSimulationData();
 
 	/** Get a reference to the registry for actors. */

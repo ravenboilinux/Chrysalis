@@ -367,4 +367,97 @@ void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& registry)
 		}
 	}
 }
+
+
+// ***
+// *** World Spellcasts
+// ***
+
+
+bool IsSpellCastable(const ECS::Spell& spell, const ECS::SourceAndTarget& sourceAndTarget)
+{
+	// TODO: Range and LoS checks, etc.
+
+	return true;
+}
+
+
+void SpellCastTake(float dt, entt::registry& registry)
+{
+	// Check for spell cast components.
+	auto view = registry.view<ECS::SpellActionTake, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	for (auto& entity : view)
+	{
+		// Get the components.
+		auto& name = view.get<ECS::Name>(entity);
+		auto& spell = view.get<ECS::Spell>(entity);
+		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
+
+		// Check validity of the spell cast request.
+		if (IsSpellCastable(spell, sourceAndTarget))
+		{
+			// Do something.
+			CryLogAlways("Spellcast: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+		}
+
+		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
+		registry.destroy(entity);
+	}
+}
+
+
+void SpellCastDrop(float dt, entt::registry& registry)
+{
+	// Check for spell cast components.
+	auto view = registry.view<ECS::SpellActionDrop, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	for (auto& entity : view)
+	{
+		// Get the components.
+		auto& name = view.get<ECS::Name>(entity);
+		auto& spell = view.get<ECS::Spell>(entity);
+		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
+
+		// Check validity of the spell cast request.
+		if (IsSpellCastable(spell, sourceAndTarget))
+		{
+			// Do something.
+			CryLogAlways("Spellcast: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+		}
+
+		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
+		registry.destroy(entity);
+	}
+}
+
+
+void SpellCastSwitch(float dt, entt::registry& registry)
+{
+	// Check for spell cast components.
+	auto view = registry.view<ECS::SpellActionSwitch, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	for (auto& entity : view)
+	{
+		// Get the components.
+		auto& name = view.get<ECS::Name>(entity);
+		auto& spell = view.get<ECS::Spell>(entity);
+		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
+
+		// Check validity of the spell cast request.
+		if (IsSpellCastable(spell, sourceAndTarget))
+		{
+			// Do something.
+			CryLogAlways("Spellcast: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+		}
+
+		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
+		registry.destroy(entity);
+	}
+}
+
+
+void SystemWorldSpellCasts(float dt, entt::registry& registry)
+{
+	SpellCastTake(dt, registry);
+	SpellCastDrop(dt, registry);
+	SpellCastSwitch(dt, registry);
+}
 }

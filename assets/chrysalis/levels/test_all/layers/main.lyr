@@ -1,5 +1,5 @@
 <ObjectLayer>
- <Layer Name="Main" FullName="Main" GUID="374a523a-e30d-4fff-b284-10fcbf81d9a7" Hidden="0" Frozen="0" Expanded="0" Type="0" Exportable="1" ExportLayerPak="1" DefaultLoaded="0" HavePhysics="1" IsDefaultColor="1" Color="4671303" Timestamp="1579353522">
+ <Layer Name="Main" FullName="Main" GUID="374a523a-e30d-4fff-b284-10fcbf81d9a7" Hidden="0" Frozen="0" Expanded="0" Type="0" Exportable="1" ExportLayerPak="1" DefaultLoaded="0" HavePhysics="1" IsDefaultColor="1" Color="4671303" Timestamp="1580216260">
   <LayerObjects>
    <Object Type="Entity" Layer="Main" LayerGUID="374a523a-e30d-4fff-b284-10fcbf81d9a7" Id="b72ed4ab-32c9-04f3-f4ae-2b556051cfd2" Name="Flashlight" Pos="66.75,62.375,33.055618" Rotate="1,0,0,0" Scale="1,1,1" ColorRGB="65535" UseCustomLevelLayerColor="0" MinSpec="0" MatLayersMask="0" OutdoorOnly="0" CastShadow="1" CastShadowMinspec="1" DynamicDistanceShadows="0" GIMode="0" LodRatio="100" ViewDistRatio="100" HiddenInGame="0" RecvWind="0" RenderNearest="0" NoStaticDecals="0" EntityClass="schematyc::schematyc::entities::flashlight" ClassGUID="2e4020c1-c446-4e1b-ba8e-44916aee74e4" HasEntity="1">
     <Properties />
@@ -138,7 +138,7 @@
    <Object Type="EnvironmentProbe" Layer="Main" LayerGUID="374a523a-e30d-4fff-b284-10fcbf81d9a7" Id="3e966bc9-65ed-15cb-1906-2c579cc4c9fe" Name="EnvironmentProbe-1" Pos="65.486526,62.54652,34.985748" Rotate="0.99999177,0,0,0" Scale="1,1,1" ColorRGB="65535" UseCustomLevelLayerColor="0" MinSpec="0" cubemap_resolution="256" preview_cubemap="0" OutdoorOnly="0" GIMode="0" ViewDistRatio="100" HiddenInGame="0" EntityClass="EnvironmentLight" HasEntity="1">
     <Properties />
     <Components>
-     <Component typeId="0d3d1840-d239-411e-8738-14c56cccee2c" guid="ecb87235-a8fc-107c-5aa6-4737dd3aee14" CryXmlVersion="2" Active="true" IgnoreVisAreas="false" SortPriority="0" AttentuationFalloffMax="1" VolumetricFogOnly="false" AffectsVolumetricFog="true" AffectsOnlyThisArea="true" LinkToSkyColor="false" DiffuseMultiplier="1" SpecularMultiplier="1" ProjectionActive="false" ProjectionHeight="1" ProjectionLength="1" ProjectionWidth="1" Cubemap="">
+     <Component typeId="0d3d1840-d239-411e-8738-14c56cccee2c" guid="5eba64fe-4912-a59f-d262-c6be7178b2d2" CryXmlVersion="2" Active="true" IgnoreVisAreas="false" SortPriority="0" AttentuationFalloffMax="1" VolumetricFogOnly="false" AffectsVolumetricFog="true" AffectsOnlyThisArea="true" LinkToSkyColor="false" DiffuseMultiplier="1" SpecularMultiplier="1" ProjectionActive="false" ProjectionHeight="1" ProjectionLength="1" ProjectionWidth="1" Cubemap="">
       <BoxSize x="128" y="128" z="128"/>
       <Color r="1" g="1" b="1" a="1"/>
      </Component>
@@ -434,7 +434,9 @@
       <properties>
        <SpellCollection>
         <spells>
-         <element spellName="Unlock" isHidden="false" enabled="true"/>
+         <element spellName="Switch" isHidden="false" enabled="true"/>
+         <element spellName="Take" isHidden="false" enabled="true"/>
+         <element spellName="Drop" isHidden="false" enabled="true"/>
          <element spellName="Scorch" isHidden="false" enabled="true"/>
         </spells>
        </SpellCollection>

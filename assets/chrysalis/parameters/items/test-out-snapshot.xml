@@ -1,7 +1,31 @@
 <entities>
  <entity>
   <components>
-   <name CryXmlVersion="2" name="Villain" displayName="Villain"/>
+   <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
+   <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
+   <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
+   <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Unlock" displayName="Unlock"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Hero" displayName="Hero"/>
    <health CryXmlVersion="2">
     <health base="100" baseModifiers="0" modifiers="0"/>
    </health>
@@ -12,7 +36,7 @@
  </entity>
  <entity>
   <components>
-   <name CryXmlVersion="2" name="Hero" displayName="Hero"/>
+   <name CryXmlVersion="2" name="Villain" displayName="Villain"/>
    <health CryXmlVersion="2">
     <health base="100" baseModifiers="0" modifiers="0"/>
    </health>

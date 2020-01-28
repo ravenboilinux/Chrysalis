@@ -1,6 +1,6 @@
 #include <StdAfx.h>
 
-#include "ECSSimulation.h"
+#include "Simulation.h"
 #include "Systems.h"
 #include "ECS/Components/Components.h"
 #include "ECS/Components/Health.h"
@@ -19,7 +19,7 @@ namespace Chrysalis::ECS
 {
 /** Takes a reference to a spell and applies the needed fixups. This is mainly going to fix up the source and targets
 	for now. */
-void ECSSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
+void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
 {
 	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
 
@@ -77,7 +77,7 @@ void ECSSimulation::RewireSpell(entt::registry& registry, entt::entity spellEnti
 
 
 /** Super dirty and slow way to locate a spell from the registry. */
-entt::entity ECSSimulation::GetSpellByName(const char* spellName)
+entt::entity CSimulation::GetSpellByName(const char* spellName)
 {
 	auto view = m_spellRegistry.view<ECS::Name>();
 
@@ -97,7 +97,7 @@ entt::entity ECSSimulation::GetSpellByName(const char* spellName)
 
 
 /** Queues a spell onto the actor registry - where it will later be processed by the systems. */
-void ECSSimulation::CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity)
+void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity)
 {
 	auto spellEntity = GetSpellByName(spellName);
 	if (spellEntity != entt::null)
@@ -105,7 +105,13 @@ void ECSSimulation::CastSpellByName(const char* spellName, entt::entity sourceEn
 		// Make use of the create feature to copy the spell prototype into the actor registry.
 		auto newEntity = m_actorRegistry.create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
 			ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-			ECS::Spell>(spellEntity, m_spellRegistry);
+			ECS::Spell,
+			ECS::SpellActionSchematyc, ECS::SpellActionDRS,
+			ECS::SpellActionInspect, ECS::SpellActionExamine,
+			ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
+			ECS::SpellActionSwitch,
+			ECS::SpellActionOpen, ECS::SpellActionClose,
+			ECS::SpellActionUnlock, ECS::SpellActionLock>(spellEntity, m_spellRegistry);
 
 		// Do fixups.
 		RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity);
@@ -151,13 +157,13 @@ const entt::entity GetVillain(entt::registry& registry)
 }
 
 
-void ECSSimulation::Init()
+void CSimulation::Init()
 {
 	ECS::RegisterComponentsWithMeta();
 }
 
 
-void ECSSimulation::Update(const float deltaTime)
+void CSimulation::Update(const float deltaTime)
 {
 	// Run the ticks no more often than this interval.
 	static const float tickInterval {0.5f};
@@ -180,10 +186,13 @@ void ECSSimulation::Update(const float deltaTime)
 		// HACK: We decrement by the interval size, so it will catch up if we miss some frames.
 		passedTime -= tickInterval;
 	}
+
+	// Update the spell casts.
+	UpdateWorldSpellcasts(deltaTime);
 }
 
 
-void ECSSimulation::UpdateImmediate(const float deltaTime)
+void CSimulation::UpdateImmediate(const float deltaTime)
 {
 	// Simluate some direct heals and direct damage.
 	ECS::SystemApplyDamage(m_actorRegistry);
@@ -196,7 +205,7 @@ void ECSSimulation::UpdateImmediate(const float deltaTime)
 }
 
 
-void ECSSimulation::UpdateTick(const float deltaTime)
+void CSimulation::UpdateTick(const float deltaTime)
 {
 	// Health ticks.
 	ECS::SystemApplyDamageOverTime(deltaTime, m_actorRegistry);
@@ -209,7 +218,13 @@ void ECSSimulation::UpdateTick(const float deltaTime)
 }
 
 
-void ECSSimulation::LoadSimulationData()
+void CSimulation::UpdateWorldSpellcasts(const float deltaTime)
+{
+	ECS::SystemWorldSpellCasts(deltaTime, m_actorRegistry);
+}
+
+
+void CSimulation::LoadSimulationData()
 {
 	//update(10, saveRegistry);
 	//update(saveRegistry);
@@ -239,7 +254,7 @@ void ECSSimulation::LoadSimulationData()
 }
 
 
-void ECSSimulation::SaveSimulationData()
+void CSimulation::SaveSimulationData()
 {
 	// Actor related.
 	ECS::SerialiseECS actorSerial;

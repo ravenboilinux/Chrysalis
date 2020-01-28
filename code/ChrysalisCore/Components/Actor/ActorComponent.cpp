@@ -31,7 +31,7 @@
 #include <Components/Snaplocks/SnaplockComponent.h>
 #include <CryDynamicResponseSystem/IDynamicResponseSystem.h>
 #include <entt/entt.hpp>
-#include <ECS/Systems/ECSSimulation.h>
+#include <ECS/Systems/Simulation.h>
 #include <ECS/Components/Components.h>
 #include <ECS/Components/Health.h>
 #include <ECS/Components/Qi.h>
@@ -116,7 +116,7 @@ void CActorComponent::Initialize()
 	m_pSnaplockComponent->AddSnaplock(ISnaplock(SLT_ACTOR_RIGHTFOOT, false));
 
 	// Get the ECS actor registry.
-	auto actorRegistry = ECS::ecsSimulation.GetActorRegistry();
+	auto actorRegistry = ECS::Simulation.GetActorRegistry();
 
 	// Need a new entity bound to this one for both their lives.
 	m_ecsEntity = actorRegistry->create();
@@ -179,7 +179,7 @@ void CActorComponent::ProcessEvent(const SEntityEvent& event)
 		case EEntityEvent::Remove:
 		{
 			// Clean up the ECS entity, as it's no longer needed.
-			auto registry = ECS::ecsSimulation.GetActorRegistry();
+			auto registry = ECS::Simulation.GetActorRegistry();
 			registry->destroy(m_ecsEntity);
 			break;
 		}
@@ -220,7 +220,7 @@ void CActorComponent::Update(SEntityUpdateContext* pCtx)
 	}
 
 	// DEBUG: Let's see some data.
-	auto registry = ECS::ecsSimulation.GetActorRegistry();
+	auto registry = ECS::Simulation.GetActorRegistry();
 	auto& health = registry->get<ECS::Health>(m_ecsEntity);
 	CryWatch("%s - health: %.2f", m_pEntity->GetName(), health.health.GetAttribute());
 	auto& qi = registry->get<ECS::Qi>(m_ecsEntity);
@@ -723,7 +723,7 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 						auto spell = spellCollection.spells[actionBarId - 1];
 
 						CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
-						ECS::ecsSimulation.CastSpellByName(spell.spellName, GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName(spell.spellName, GetECSEntity(), pTargetActor->GetECSEntity());
 					}
 					else
 					{
@@ -734,39 +734,39 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 				//switch (actionBarId)
 				//{
 				//	case 1:
-				//		ECS::ecsSimulation.CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 2:
-				//		ECS::ecsSimulation.CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 3:
-				//		ECS::ecsSimulation.CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 4:
-				//		ECS::ecsSimulation.CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 5:
-				//		ECS::ecsSimulation.CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 6:
-				//		ECS::ecsSimulation.CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 7:
-				//		ECS::ecsSimulation.CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 8:
-				//		ECS::ecsSimulation.CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 
 				//	case 9:
-				//		ECS::ecsSimulation.CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
+				//		ECS::Simulation.CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
 				//		break;
 				//}
 			}
