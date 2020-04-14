@@ -9,9 +9,9 @@ enum class DamageType
 {
 	acid,
 	bleed,
-	qi,
 	cold,
 	collision,
+	cleave,
 	crush,
 	decay,
 	disease,
@@ -26,6 +26,7 @@ enum class DamageType
 	pierce,
 	plasma,
 	poison,
+	qi,
 	radiation,
 	slash,
 	tear,
