@@ -730,63 +730,62 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 						CryLogAlways("No spell defined.");
 					}
 				}
-
-				//switch (actionBarId)
-				//{
-				//	case 1:
-				//		ECS::Simulation.CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 2:
-				//		ECS::Simulation.CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 3:
-				//		ECS::Simulation.CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 4:
-				//		ECS::Simulation.CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 5:
-				//		ECS::Simulation.CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 6:
-				//		ECS::Simulation.CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 7:
-				//		ECS::Simulation.CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 8:
-				//		ECS::Simulation.CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-
-				//	case 9:
-				//		ECS::Simulation.CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
-				//		break;
-				//}
 			}
+		}
+	}
+}
 
-			//if (auto pInteractor = pTargetEntity->GetComponent<CEntityInteractionComponent>())
-			//{
-			//	// There's an interactor component, so this is an interactive entity.
-			//	auto verbs = pInteractor->GetVerbs();
-			//	if (verbs.size() >= actionBarId)
-			//	{
-			//		auto verb = verbs[actionBarId - 1];
-			//		auto pInteraction = pInteractor->GetInteraction(verb).lock();
 
-			//		pInteraction->OnInteractionStart(*this);
-			//	}
-			//	else
-			//	{
-			//		CryLogAlways("No action defined.");
-			//	}
-			//}
+void CActorComponent::OnFunctionBarUse(int actionBarId)
+{
+	if (m_pAwarenessComponent)
+	{
+		auto results = m_pAwarenessComponent->GetNearDotFiltered();
+		if (results.size() > 0)
+		{
+			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
+
+			if (auto pTargetActor = pTargetEntity->GetComponent<CActorComponent>())
+			{
+				switch (actionBarId)
+				{
+					case 1:
+						ECS::Simulation.CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 2:
+						ECS::Simulation.CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 3:
+						ECS::Simulation.CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 4:
+						ECS::Simulation.CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 5:
+						ECS::Simulation.CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 6:
+						ECS::Simulation.CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 7:
+						ECS::Simulation.CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 8:
+						ECS::Simulation.CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+
+					case 9:
+						ECS::Simulation.CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
+						break;
+				}
+			}
 		}
 	}
 }

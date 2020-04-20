@@ -260,6 +260,7 @@ public:
 	void OnActionItemDrop() override;
 	void OnActionItemToss() override;
 	void OnActionBarUse(int actionBarId) override;
+	void OnFunctionBarUse(int actionBarId) override;
 	void OnActionInspectStart() override;
 	void OnActionInspect() override;
 	void OnActionInspectEnd() override;

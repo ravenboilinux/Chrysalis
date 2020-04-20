@@ -107,6 +107,13 @@ struct IActor
 	**/
 	virtual void OnActionBarUse(int actionBarId) = 0;
 
+	/**
+	A function bar entry has been triggered. Take whatever action is appropriate.
+
+	\param	actionBarId Identifier for the action bar.
+	**/
+	virtual void OnFunctionBarUse(int actionBarId) = 0;
+
 	/** Received when the player has indicated the actor should enter "inspection mode". */
 	virtual void OnActionInspectStart() = 0;
 

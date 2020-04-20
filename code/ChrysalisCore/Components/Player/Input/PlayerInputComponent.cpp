@@ -67,6 +67,8 @@ void CPlayerInputComponent::ProcessEvent(const SEntityEvent& event)
 
 void CPlayerInputComponent::RegisterActionMaps()
 {
+	CryLogAlways("Registering the action maps.");
+	
 	// Get the input component, wraps access to action mapping so we can easily get callbacks when inputs are triggered.
 	m_pInputComponent = m_pEntity->GetOrCreateComponent<Cry::DefaultComponents::CInputComponent>();
 
@@ -149,30 +151,56 @@ void CPlayerInputComponent::RegisterActionMaps()
 	m_pInputComponent->BindAction("player", "item_toss", eAID_XboxPad, EKeyId::eKI_XI_X);
 
 	// Action bars.
-	m_pInputComponent->RegisterAction("player", "actionbar_01", [this](int activationMode, float value) { OnActionBar(activationMode, 1); });
+	m_pInputComponent->RegisterAction("player", "actionbar_01", [this](int activationMode, float value) { OnActionBarUse(activationMode, 1); });
 	m_pInputComponent->BindAction("player", "actionbar_01", eAID_KeyboardMouse, EKeyId::eKI_1);
-	m_pInputComponent->RegisterAction("player", "actionbar_02", [this](int activationMode, float value) { OnActionBar(activationMode, 2); });
+	m_pInputComponent->RegisterAction("player", "actionbar_02", [this](int activationMode, float value) { OnActionBarUse(activationMode, 2); });
 	m_pInputComponent->BindAction("player", "actionbar_02", eAID_KeyboardMouse, EKeyId::eKI_2);
-	m_pInputComponent->RegisterAction("player", "actionbar_03", [this](int activationMode, float value) { OnActionBar(activationMode, 3); });
+	m_pInputComponent->RegisterAction("player", "actionbar_03", [this](int activationMode, float value) { OnActionBarUse(activationMode, 3); });
 	m_pInputComponent->BindAction("player", "actionbar_03", eAID_KeyboardMouse, EKeyId::eKI_3);
-	m_pInputComponent->RegisterAction("player", "actionbar_04", [this](int activationMode, float value) { OnActionBar(activationMode, 4); });
+	m_pInputComponent->RegisterAction("player", "actionbar_04", [this](int activationMode, float value) { OnActionBarUse(activationMode, 4); });
 	m_pInputComponent->BindAction("player", "actionbar_04", eAID_KeyboardMouse, EKeyId::eKI_4);
-	m_pInputComponent->RegisterAction("player", "actionbar_05", [this](int activationMode, float value) { OnActionBar(activationMode, 5); });
+	m_pInputComponent->RegisterAction("player", "actionbar_05", [this](int activationMode, float value) { OnActionBarUse(activationMode, 5); });
 	m_pInputComponent->BindAction("player", "actionbar_05", eAID_KeyboardMouse, EKeyId::eKI_5);
-	m_pInputComponent->RegisterAction("player", "actionbar_06", [this](int activationMode, float value) { OnActionBar(activationMode, 6); });
+	m_pInputComponent->RegisterAction("player", "actionbar_06", [this](int activationMode, float value) { OnActionBarUse(activationMode, 6); });
 	m_pInputComponent->BindAction("player", "actionbar_06", eAID_KeyboardMouse, EKeyId::eKI_6);
-	m_pInputComponent->RegisterAction("player", "actionbar_07", [this](int activationMode, float value) { OnActionBar(activationMode, 7); });
+	m_pInputComponent->RegisterAction("player", "actionbar_07", [this](int activationMode, float value) { OnActionBarUse(activationMode, 7); });
 	m_pInputComponent->BindAction("player", "actionbar_07", eAID_KeyboardMouse, EKeyId::eKI_7);
-	m_pInputComponent->RegisterAction("player", "actionbar_08", [this](int activationMode, float value) { OnActionBar(activationMode, 8); });
+	m_pInputComponent->RegisterAction("player", "actionbar_08", [this](int activationMode, float value) { OnActionBarUse(activationMode, 8); });
 	m_pInputComponent->BindAction("player", "actionbar_08", eAID_KeyboardMouse, EKeyId::eKI_8);
-	m_pInputComponent->RegisterAction("player", "actionbar_09", [this](int activationMode, float value) { OnActionBar(activationMode, 9); });
+	m_pInputComponent->RegisterAction("player", "actionbar_09", [this](int activationMode, float value) { OnActionBarUse(activationMode, 9); });
 	m_pInputComponent->BindAction("player", "actionbar_09", eAID_KeyboardMouse, EKeyId::eKI_9);
-	m_pInputComponent->RegisterAction("player", "actionbar_10", [this](int activationMode, float value) { OnActionBar(activationMode, 10); });
+	m_pInputComponent->RegisterAction("player", "actionbar_10", [this](int activationMode, float value) { OnActionBarUse(activationMode, 10); });
 	m_pInputComponent->BindAction("player", "actionbar_10", eAID_KeyboardMouse, EKeyId::eKI_0);
-	m_pInputComponent->RegisterAction("player", "actionbar_11", [this](int activationMode, float value) { OnActionBar(activationMode, 11); });
+	m_pInputComponent->RegisterAction("player", "actionbar_11", [this](int activationMode, float value) { OnActionBarUse(activationMode, 11); });
 	m_pInputComponent->BindAction("player", "actionbar_11", eAID_KeyboardMouse, EKeyId::eKI_Minus);
-	m_pInputComponent->RegisterAction("player", "actionbar_12", [this](int activationMode, float value) { OnActionBar(activationMode, 12); });
+	m_pInputComponent->RegisterAction("player", "actionbar_12", [this](int activationMode, float value) { OnActionBarUse(activationMode, 12); });
 	m_pInputComponent->BindAction("player", "actionbar_12", eAID_KeyboardMouse, EKeyId::eKI_Equals);
+
+	// Function keys.
+	m_pInputComponent->RegisterAction("player", "functionkey_01", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 1); });
+	m_pInputComponent->BindAction("player", "functionkey_01", eAID_KeyboardMouse, EKeyId::eKI_F1);
+	m_pInputComponent->RegisterAction("player", "functionkey_02", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 2); });
+	m_pInputComponent->BindAction("player", "functionkey_02", eAID_KeyboardMouse, EKeyId::eKI_F2);
+	m_pInputComponent->RegisterAction("player", "functionkey_03", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 3); });
+	m_pInputComponent->BindAction("player", "functionkey_03", eAID_KeyboardMouse, EKeyId::eKI_F3);
+	m_pInputComponent->RegisterAction("player", "functionkey_04", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 4); });
+	m_pInputComponent->BindAction("player", "functionkey_04", eAID_KeyboardMouse, EKeyId::eKI_F4);
+	m_pInputComponent->RegisterAction("player", "functionkey_05", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 5); });
+	m_pInputComponent->BindAction("player", "functionkey_05", eAID_KeyboardMouse, EKeyId::eKI_F5);
+	m_pInputComponent->RegisterAction("player", "functionkey_06", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 6); });
+	m_pInputComponent->BindAction("player", "functionkey_06", eAID_KeyboardMouse, EKeyId::eKI_F6);
+	m_pInputComponent->RegisterAction("player", "functionkey_07", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 7); });
+	m_pInputComponent->BindAction("player", "functionkey_07", eAID_KeyboardMouse, EKeyId::eKI_F7);
+	m_pInputComponent->RegisterAction("player", "functionkey_08", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 8); });
+	m_pInputComponent->BindAction("player", "functionkey_08", eAID_KeyboardMouse, EKeyId::eKI_F8);
+	m_pInputComponent->RegisterAction("player", "functionkey_09", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 9); });
+	m_pInputComponent->BindAction("player", "functionkey_09", eAID_KeyboardMouse, EKeyId::eKI_F9);
+	m_pInputComponent->RegisterAction("player", "functionkey_10", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 10); });
+	m_pInputComponent->BindAction("player", "functionkey_10", eAID_KeyboardMouse, EKeyId::eKI_F10);
+	m_pInputComponent->RegisterAction("player", "functionkey_11", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 11); });
+	m_pInputComponent->BindAction("player", "functionkey_11", eAID_KeyboardMouse, EKeyId::eKI_F11);
+	m_pInputComponent->RegisterAction("player", "functionkey_12", [this](int activationMode, float value) { OnFunctionBarUse(activationMode, 12); });
+	m_pInputComponent->BindAction("player", "functionkey_12", eAID_KeyboardMouse, EKeyId::eKI_F12);
 
 	// Numpad.
 	m_pInputComponent->RegisterAction("player", "np_0", [this](int activationMode, float value) { OnNumpad(activationMode, 0); });
@@ -489,14 +517,25 @@ void CPlayerInputComponent::OnActionItemToss(int activationMode, float value)
 }
 
 
-void CPlayerInputComponent::OnActionBar(int activationMode, int buttonId)
+void CPlayerInputComponent::OnActionBarUse(int activationMode, int buttonId)
 {
 	//if (activationMode == eAAM_OnPress || activationMode == eAAM_OnHold)
 	if (activationMode == eAAM_OnPress)
 	{
-		CryLogAlways("OnActionBar");
+		CryLogAlways("OnActionBarUse: %d", buttonId);
 		if (auto pActorComponent = CPlayerComponent::GetLocalActor())
 			pActorComponent->OnActionBarUse(buttonId);
+	}
+}
+
+
+void CPlayerInputComponent::OnFunctionBarUse(int activationMode, int buttonId)
+{
+	if (activationMode == eAAM_OnPress)
+	{
+		CryLogAlways("OnFunctionBarUse: F%d", buttonId);
+		if (auto pActorComponent = CPlayerComponent::GetLocalActor())
+			pActorComponent->OnFunctionBarUse(buttonId);
 	}
 }
 
