@@ -1,4 +1,4 @@
-<AssetMetadata version="0" type="Level" guid="93671371-981b-923e-3d39-504372bc302b" source="" timestamp="1580216260">
+<AssetMetadata version="0" type="Level" guid="93671371-981b-923e-3d39-504372bc302b" source="" timestamp="1587417123">
  <Files>
   <File path="test_all/test_all.level"/>
  </Files>
@@ -344,6 +344,15 @@
   <Path>chrysalis/objects/items/flashlight/maglite_02d.cgf</Path>
   <Path>chrysalis/objects/items/flashlight/maglite_02d.mtl</Path>
   <Path>chrysalis/textures/lights/flashlight_projector.dds</Path>
+  <Path>dark-vale/objects/interaction/generic/controller_defs.xml</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle.cdf</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle_chr.chr</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle_geo.skin</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle_off_from_neutral.caf</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle_on_from_neutral.caf</Path>
+  <Path>dark-vale/objects/interaction/generic/fragment_ids.xml</Path>
+  <Path>dark-vale/objects/interaction/generic/interaction_entities_kit_a.mtl</Path>
+  <Path>dark-vale/objects/interaction/generic/tags.xml</Path>
   <Path>editor/resourcecache/chrysalis/characters/human/male/textures/male_clothing_ddna.dds</Path>
   <Path>editor/resourcecache/chrysalis/characters/human/male/textures/male_clothing_diff.dds</Path>
   <Path>editor/resourcecache/chrysalis/characters/human/male/textures/male_clothing_spec.dds</Path>
