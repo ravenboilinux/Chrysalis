@@ -1,4 +1,4 @@
-<AssetMetadata version="0" type="Level" guid="93671371-981b-923e-3d39-504372bc302b" source="" timestamp="1587417123">
+<AssetMetadata version="0" type="Level" guid="93671371-981b-923e-3d39-504372bc302b" source="" timestamp="1587564273">
  <Files>
   <File path="test_all/test_all.level"/>
  </Files>
@@ -15,8 +15,6 @@
   <Path>%engine%/engineassets/materials/fog/oceanoutoflowspec.mtl</Path>
   <Path>%engine%/engineassets/materials/lens_optics.mtl</Path>
   <Path>%engine%/engineassets/materials/water/wateroceanbottom.mtl</Path>
-  <Path>%engine%/engineassets/objects/editorprimitive.mtl</Path>
-  <Path>%engine%/engineassets/objects/primitive_sphere.cgf</Path>
   <Path>%engine%/engineassets/texturemsg/defaultnouvs.dds</Path>
   <Path>%engine%/engineassets/texturemsg/defaultsolids.mtl</Path>
   <Path>%engine%/engineassets/texturemsg/replaceme.dds</Path>
@@ -344,15 +342,17 @@
   <Path>chrysalis/objects/items/flashlight/maglite_02d.cgf</Path>
   <Path>chrysalis/objects/items/flashlight/maglite_02d.mtl</Path>
   <Path>chrysalis/textures/lights/flashlight_projector.dds</Path>
-  <Path>dark-vale/objects/interaction/generic/controller_defs.xml</Path>
-  <Path>dark-vale/objects/interaction/generic/dongle.cdf</Path>
-  <Path>dark-vale/objects/interaction/generic/dongle_chr.chr</Path>
-  <Path>dark-vale/objects/interaction/generic/dongle_geo.skin</Path>
-  <Path>dark-vale/objects/interaction/generic/dongle_off_from_neutral.caf</Path>
-  <Path>dark-vale/objects/interaction/generic/dongle_on_from_neutral.caf</Path>
-  <Path>dark-vale/objects/interaction/generic/fragment_ids.xml</Path>
-  <Path>dark-vale/objects/interaction/generic/interaction_entities_kit_a.mtl</Path>
-  <Path>dark-vale/objects/interaction/generic/tags.xml</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_chr.chr</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_geo.skin</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_geo_phys.skin</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_neutral_pose.caf</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_neutral_to_off.caf</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_neutral_to_on.caf</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_off_pose.caf</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/dongle_on_pose.caf</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/interaction_control_panel_kit001_ddna.dds</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/interaction_control_panel_kit001_diff.dds</Path>
+  <Path>dark-vale/objects/interaction/generic/dongle/interaction_control_panel_kit001_spec.dds</Path>
   <Path>editor/resourcecache/chrysalis/characters/human/male/textures/male_clothing_ddna.dds</Path>
   <Path>editor/resourcecache/chrysalis/characters/human/male/textures/male_clothing_diff.dds</Path>
   <Path>editor/resourcecache/chrysalis/characters/human/male/textures/male_clothing_spec.dds</Path>
