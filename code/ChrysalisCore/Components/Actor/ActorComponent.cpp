@@ -706,9 +706,11 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 {
 	if (m_pAwarenessComponent)
 	{
+		// For now, we are just going to use the nearest match according to my dot product algorithm.
 		auto results = m_pAwarenessComponent->GetNearDotFiltered();
 		if (results.size() > 0)
 		{
+			// Figure out which entity is being targetted.
 			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
 
 			if (auto pTargetActor = pTargetEntity->GetComponent<CActorComponent>())
@@ -718,6 +720,7 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 				{
 					auto spellCollection = pSpellbookComponent->GetSpellColllection();
 
+					// Make sure there is a matching spell for this action bar.
 					if (spellCollection.spells.size() >= actionBarId)
 					{
 						auto spell = spellCollection.spells[actionBarId - 1];

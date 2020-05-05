@@ -434,6 +434,8 @@ add_sources("SpellActions_uber.cpp"
     SOURCE_GROUP "Spells\\\\SpellActions"
 		"Spells/SpellActions/SpellActionOpenDoor.cpp"
 		"Spells/SpellActions/SpellActionOpenDoor.h"
+		"Spells/SpellActions/SpellActionSwitch.cpp"
+		"Spells/SpellActions/SpellActionSwitch.h"
 )
 add_sources("Snaplocks_uber.cpp"
     PROJECTS Chrysalis
