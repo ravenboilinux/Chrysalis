@@ -19,21 +19,26 @@ namespace Chrysalis::ECS
 {
 /** Takes a reference to a spell and applies the needed fixups. This is mainly going to fix up the source and targets
 	for now. */
-void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity)
+void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity,
+	EntityId crySourceEntityId, EntityId cryTargetEntityId)
 {
 	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
 
-	entt::entity source;
-	entt::entity target;
+	entt::entity source {entt::null};
+	entt::entity target {entt::null};
+	EntityId sourceEntityId {INVALID_ENTITYID};
+	EntityId targetEntityId {INVALID_ENTITYID};
 
 	// The source should almost always be the real source of the spell.
 	if (spell.sourceTargetType != ECS::TargetType::none)
 	{
 		source = sourceEntity;
+		sourceEntityId = crySourceEntityId;
 	}
 	else
 	{
 		source = entt::null;
+		sourceEntityId = INVALID_ENTITYID;
 	}
 
 	switch (spell.targetTargetType)
@@ -41,6 +46,7 @@ void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity
 		// Targetting the caster.
 		case ECS::TargetType::self:
 			target = sourceEntity;
+			targetEntityId = crySourceEntityId;
 			break;
 
 			// Not targetted at an entity.
@@ -50,16 +56,18 @@ void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity
 		case ECS::TargetType::sourceBasedAOE:
 		case ECS::TargetType::groundTargettedAOE:
 			target = entt::null;
+			targetEntityId = INVALID_ENTITYID;
 			break;
 
 			// Targetting the selected entity.
 		default:
 			target = targetEntity;
+			targetEntityId = cryTargetEntityId;
 			break;
 	}
 
 	// The source and target for the spell need to be added to the entity.
-	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target);
+	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target, sourceEntityId, targetEntityId);
 
 	// TODO: Do we really need a set of custom rewires on top of the ones for source and target?
 	// Delete this code if it's not needed.
@@ -97,7 +105,8 @@ entt::entity CSimulation::GetSpellByName(const char* spellName)
 
 
 /** Queues a spell onto the actor registry - where it will later be processed by the systems. */
-void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity)
+void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity,
+	EntityId crySourceEntityId, EntityId cryTargetEntityId)
 {
 	auto spellEntity = GetSpellByName(spellName);
 	if (spellEntity != entt::null)
@@ -114,7 +123,7 @@ void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEnti
 			ECS::SpellActionUnlock, ECS::SpellActionLock>(spellEntity, m_spellRegistry);
 
 		// Do fixups.
-		RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity);
+		RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity, crySourceEntityId, cryTargetEntityId);
 	}
 }
 

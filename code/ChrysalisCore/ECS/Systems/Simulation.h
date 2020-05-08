@@ -37,14 +37,16 @@ public:
 
 	/** Performs some important fixups to the spell entity, based on the type of spell. Source and target entities
 	are rewired to work as expected. */
-	void RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity);
+	void RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity,
+		EntityId crySourceEntityId, EntityId cryTargetEntityId);
 		
 	// TODO: Make this function not be slow and full of suck.
 	/** Get's a spell entity using it's name. This function is =SLOW= so use it carefully. */
 	entt::entity GetSpellByName(const char* spellName);
 
 	/** Casts a spell, using the spell name as an index into the spell registry. */
-	void CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity);
+	void CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity, 
+		EntityId crySourceEntityId, EntityId cryTargetEntityId);
 
 private:
 	entt::registry m_actorRegistry;

@@ -109,8 +109,9 @@ struct SourceAndTarget : public IComponent
 	SourceAndTarget() = default;
 	virtual ~SourceAndTarget() = default;
 
-	SourceAndTarget(entt::entity sourceEntity, entt::entity targetEntity) :
-		sourceEntity(sourceEntity), targetEntity(targetEntity)
+	SourceAndTarget(entt::entity sourceEntity, entt::entity targetEntity,
+		EntityId crySourceEntityId, EntityId cryTargetEntityId) :
+		sourceEntity(sourceEntity), targetEntity(targetEntity), crySourceEntityId(crySourceEntityId), cryTargetEntityId(cryTargetEntityId)
 	{
 	}
 
@@ -124,14 +125,27 @@ struct SourceAndTarget : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
+		// This is really meant to be an ephemeral structure, so it shouldn't need to serialise, but I
+		// am adding one just in case.
+		archive(sourceEntity, "sourceEntity", "Source Entity");
+		archive(targetEntity, "targetEntity", "Target Entity");
+		archive(crySourceEntityId, "crySourceEntityId", "Cry Source Entity ID");
+		archive(cryTargetEntityId, "cryTargetEntityId", "Cry Target Entity ID");
+
 		return true;
 	}
 
-	/** The source of the heal. */
+	/** The source entity (EnTT). */
 	entt::entity sourceEntity {entt::null};
 
-	/** The target that will receive the heal - require a Health component. */
+	/** The target entity (EnTT).*/
 	entt::entity targetEntity {entt::null};
+
+	/** The source entity (CRYENGINE). */
+	EntityId crySourceEntityId {INVALID_ENTITYID};
+
+	/** The target entity (CRYENGINE). */
+	EntityId cryTargetEntityId {INVALID_ENTITYID};
 };
 
 

@@ -6,6 +6,10 @@
 #include "ECS/Components/Items.h"
 #include "ECS/Components/Qi.h"
 
+#include <Actor/Animation/Actions/ActorAnimationActionCooperative.h>
+#include <Components/Animation/ActorAnimationComponent.h>
+#include <Components/Actor/ActorComponent.h>
+
 
 namespace Chrysalis::ECS
 {
@@ -445,8 +449,8 @@ void SpellCastSwitch(float dt, entt::registry& registry)
 		if (IsSpellCastable(spell, sourceAndTarget))
 		{
 			// Do something.
-			CryLogAlways("Spellcast: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
-
+			CryLogAlways("Spellcast: %s, Source: %d, Target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+			CryLogAlways("SourceId: %d, TargetId: %d", sourceAndTarget.crySourceEntityId, sourceAndTarget.cryTargetEntityId);
 			
 			
 			// TODO: All this really belongs somewhere else more related to what it's doing so it doesn't pollute the
@@ -459,29 +463,37 @@ void SpellCastSwitch(float dt, entt::registry& registry)
 			//// Inform the actor we are taking control of an interaction.
 			//m_pInteractionActor->InteractionStart(m_interaction);
 
-			//// HACK: We need to convert the tags from a Schematyc format to a more general one. In 5.5 / 5.6 we should be able
-			//// to use the generic containers instead.
-			//std::vector<string> tags;
+			// HACK: We need to convert the tags from a Schematyc format to a more general one. In 5.5 / 5.6 we should be able
+			// to use the generic containers instead.
+			std::vector<string> tags;
 			//for (int i = 0; i < m_tags.Size(); i++)
 			//{
 			//	tags.push_back(m_tags.At(i).tag.c_str());
 			//}
 
-			//// Animation is handled by this component for most things. If it exists we can use it to find the animation control we need.
-			//auto* pActorAnimationComponent = m_pEntity->GetComponent<CActorAnimationComponent>();
+			if (auto* pSourceEntity = gEnv->pEntitySystem->GetEntity(sourceAndTarget.crySourceEntityId))
+			{
+				// Animation is handled by this component for most things. If it exists we can use it to find the animation control we need.
+				if (auto* pActorAnimationComponent = pSourceEntity->GetComponent<CActorAnimationComponent>())
+				{
+					if (IActor* pActor = pSourceEntity->GetComponent<CActorComponent>())
+					{
+						// We prefer to place the actor into a co-operative animation if possible.
+						TagState tagState {TAG_STATE_EMPTY}; // TODO: Is this needed? Does it duplicate the tag list we are passing in?
+						auto action = new CActorAnimationActionCooperative(*pActor,
+							pActorAnimationComponent,
+							sourceAndTarget.cryTargetEntityId,
+							pActor->GetMannequinParams()->fragmentIDs.Interaction, tagState, pActor->GetMannequinParams()->tagIDs.ScopeSlave, tags);
+						//action->AddEventListener(this);
+						
+						pActor->QueueAction(*action);
 
-			//// We prefer to place the actor into a co-operative animation if possible.
-			//TagState tagState {TAG_STATE_EMPTY}; // TODO: Is this needed? Does it duplicate the tag list we are passing in?
-			//auto action = new CActorAnimationActionCooperative(actor,
-			//	pActorAnimationComponent,
-			//	GetEntityId(),
-			//	actor.GetMannequinParams()->fragmentIDs.Interaction, tagState, actor.GetMannequinParams()->tagIDs.ScopeSlave, tags);
-			//action->AddEventListener(this);
-			//actor.QueueAction(*action);
-
-			//// Disable after a single use.
-			//if (m_isSingleUseOnly)
-			//	m_isEnabled = false;
+						//// Disable after a single use.
+						//if (m_isSingleUseOnly)
+						//	m_isEnabled = false;
+					}
+				}
+			}
 		}
 
 		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 

@@ -726,7 +726,9 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 						auto spell = spellCollection.spells[actionBarId - 1];
 
 						CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
-						ECS::Simulation.CastSpellByName(spell.spellName, GetECSEntity(), pTargetActor->GetECSEntity());
+
+						ECS::Simulation.CastSpellByName(spell.spellName, GetECSEntity(), 
+							pTargetActor->GetECSEntity(), GetEntityId(), pTargetActor->GetEntityId());
 					}
 					else
 					{
@@ -753,39 +755,48 @@ void CActorComponent::OnFunctionBarUse(int actionBarId)
 				switch (actionBarId)
 				{
 					case 1:
-						ECS::Simulation.CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Fireball", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 2:
-						ECS::Simulation.CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Shadow Word Pain", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 3:
-						ECS::Simulation.CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Scorch", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 4:
-						ECS::Simulation.CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Heal", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 5:
-						ECS::Simulation.CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Renew", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 6:
-						ECS::Simulation.CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("HealAndRenew", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 7:
-						ECS::Simulation.CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Innervate", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 8:
-						ECS::Simulation.CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Mana Burn", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 
 					case 9:
-						ECS::Simulation.CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity());
+						ECS::Simulation.CastSpellByName("Life Steal", GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 						break;
 				}
 			}
