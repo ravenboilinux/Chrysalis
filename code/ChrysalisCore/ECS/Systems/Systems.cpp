@@ -479,11 +479,10 @@ void SpellCastSwitch(float dt, entt::registry& registry)
 					if (IActor* pActor = pSourceEntity->GetComponent<CActorComponent>())
 					{
 						// We prefer to place the actor into a co-operative animation if possible.
-						TagState tagState {TAG_STATE_EMPTY}; // TODO: Is this needed? Does it duplicate the tag list we are passing in?
 						auto action = new CActorAnimationActionCooperative(*pActor,
 							pActorAnimationComponent,
 							sourceAndTarget.cryTargetEntityId,
-							pActor->GetMannequinParams()->fragmentIDs.Interaction, tagState, pActor->GetMannequinParams()->tagIDs.ScopeSlave, tags);
+							pActor->GetMannequinParams()->fragmentIDs.Interaction, TagState {TAG_STATE_EMPTY}, pActor->GetMannequinParams()->tagIDs.ScopeSlave, tags);
 						//action->AddEventListener(this);
 						
 						pActor->QueueAction(*action);
