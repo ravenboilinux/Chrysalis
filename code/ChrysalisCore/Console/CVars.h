@@ -14,7 +14,7 @@ public:
 	void RegisterVariables();
 	void UnregisterVariables();
 
-	// Game - misc
+	// Game.
 	int m_rayCastQuota {64};
 	int m_ladder_logVerbosity {0};
 	int m_cl_invertPitch {0};
@@ -29,11 +29,11 @@ public:
 	// Camera general
 	//float m_cameraFoV {75.0f};
 
-	// Camera manager
+	// Camera manager.
 	ICVar* m_cameraManagerDebugViewOffset {nullptr};
 	int m_cameraManagerDefaultCamera {1};
 
-	// Action RPG Camera
+	// Action RPG Camera.
 	int m_actionRPGCameraDebug;
 	float m_actionRPGCameraPitchMin;
 	float m_actionRPGCameraPitchMax;
@@ -47,19 +47,19 @@ public:
 	ICVar* m_actionRPGCameraViewPositionOffset;
 	ICVar* m_actionRPGCameraAimPositionOffset;
 
-	// First Person Camera
+	// First Person Camera.
 	int m_firstPersonCameraDebug {0};
 	float m_firstPersonCameraPitchMin {-85.0f};
 	float m_firstPersonCameraPitchMax {85.0f};
 
-	// Examine Camera
+	// Examine Camera.
 	int m_examineCameraDebug {0};
 	float m_examineCameraYawMin {-85.0f};
 	float m_examineCameraYawMax {85.0f};
 	float m_examineCameraPitchMin {-85.0f};
 	float m_examineCameraPitchMax {85.0f};
 
-	// Components - misc
+	// Components.
 	int m_componentKeyringDebug {0};
 	int m_componentEquipmentDebug {0};
 	int m_componentCharacterAttributesDebug {0};

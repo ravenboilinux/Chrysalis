@@ -202,29 +202,29 @@ void CActorComponent::Update(SEntityUpdateContext* pCtx)
 		auto results = m_pAwarenessComponent->GetNearDotFiltered();
 		if (results.size() > 0)
 		{
-			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
+			//auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
 
-			// Do they have a spell book?
-			if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
-			{
-				auto spellCollection = pSpellbookComponent->GetSpellColllection();
+			// Do they have a spell book? Should we display a UI for their spells.
+			//if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
+			//{
+			//	auto spellCollection = pSpellbookComponent->GetSpellColllection();
 
-				int spellId {1};
-				for (auto& spell : spellCollection.spells)
-				{
-					CryWatch("Spell %d : %s", spellId, spell.spellName.c_str());
-					spellId++;
-				}
-			}
+			//	int spellId {1};
+			//	for (auto& spell : spellCollection.spells)
+			//	{
+			//		CryWatch("Spell %d : %s", spellId, spell.spellName.c_str());
+			//		spellId++;
+			//	}
+			//}
 		}
 	}
 
 	// DEBUG: Let's see some data.
-	auto registry = ECS::Simulation.GetActorRegistry();
-	auto& health = registry->get<ECS::Health>(m_ecsEntity);
-	CryWatch("%s - health: %.2f", m_pEntity->GetName(), health.health.GetAttribute());
-	auto& qi = registry->get<ECS::Qi>(m_ecsEntity);
-	CryWatch("%s - qi: %.2f", m_pEntity->GetName(), qi.qi.GetAttribute());
+	//auto registry = ECS::Simulation.GetActorRegistry();
+	//auto& health = registry->get<ECS::Health>(m_ecsEntity);
+	//CryWatch("%s - health: %.2f", m_pEntity->GetName(), health.health.GetAttribute());
+	//auto& qi = registry->get<ECS::Qi>(m_ecsEntity);
+	//CryWatch("%s - qi: %.2f", m_pEntity->GetName(), qi.qi.GetAttribute());
 }
 
 

@@ -25,7 +25,7 @@ public:
 	CItemComponent() {}
 	virtual ~CItemComponent() { 
 		// TEST: writing out classes test data.
-		//Serialization::SaveJsonFile("chrysalis/parameters/items/item-classes.json", m_itemClassCollection);
+		//Serialization::SaveJsonFile("chrysalis/parameters/items/item_classes.json", m_itemClassCollection);
 	}
 
 	static void ReflectType(Schematyc::CTypeDesc<CItemComponent>& desc);
