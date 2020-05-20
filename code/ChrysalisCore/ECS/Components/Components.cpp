@@ -6,6 +6,7 @@
 #include "ECS/Components/Inventory.h"
 #include "ECS/Components/Items.h"
 #include "ECS/Components/Qi.h"
+#include "ECS/Components/RenderLight.h"
 #include "ECS/Components/Spells/Spell.h"
 #include "ECS/Components/Spells/SpellActions.h"
 
@@ -162,6 +163,17 @@ void RegisterComponentsWithMeta()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionLock().GetHashedName())
 		.ctor<&assign<ECS::SpellActionLock>, entt::as_alias_t>();
+
+	// Environment.
+	entt::meta<ECS::RenderLight>()
+		.base<ECS::IComponent>()
+		.type(ECS::RenderLight().GetHashedName())
+		.ctor<&assign<ECS::RenderLight>, entt::as_alias_t>();
+
+	entt::meta<ECS::ProjectorLight>()
+		.base<ECS::IComponent>()
+		.type(ECS::ProjectorLight().GetHashedName())
+		.ctor<&assign<ECS::ProjectorLight>, entt::as_alias_t>();
 
 	// Items.
 	entt::meta<ECS::ItemClass>()

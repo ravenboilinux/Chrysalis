@@ -7,6 +7,7 @@
 #include "ECS/Components/Inventory.h"
 #include "ECS/Components/Items.h"
 #include "ECS/Components/Qi.h"
+#include "ECS/Components/RenderLight.h"
 #include "ECS/Components/Spells/Spell.h"
 #include "ECS/Components/Spells/SpellActions.h"
 #include "ECS/Systems/Systems.h"
@@ -289,7 +290,9 @@ void CSimulation::SaveSimulationData()
 		ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
 		ECS::SpellActionSwitch,
 		ECS::SpellActionOpen, ECS::SpellActionClose, 
-		ECS::SpellActionUnlock, ECS::SpellActionLock>(spellSerial);
+		ECS::SpellActionUnlock, ECS::SpellActionLock,
+		
+		ECS::RenderLight,ECS::ProjectorLight>(spellSerial);
 
 	spellSerial.SaveToFile("chrysalis/parameters/spells/spells_snapshot.xml");
 }

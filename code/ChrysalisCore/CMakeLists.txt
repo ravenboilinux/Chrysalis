@@ -299,6 +299,8 @@ add_sources("Components_uber.cpp"
 		"ECS/Components/Health.h"
 		"ECS/Components/Inventory.h"
 		"ECS/Components/Items.h"
+		"ECS/Components/RenderLight.cpp"
+		"ECS/Components/RenderLight.h"
 		"ECS/Components/Qi.h"
 )
 add_sources("Components_Spells_uber.cpp"

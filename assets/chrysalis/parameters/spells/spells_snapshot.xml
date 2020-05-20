@@ -1,8 +1,12 @@
 <entities>
  <entity>
   <components>
-   <name CryXmlVersion="2" name="xxxxxxxx" displayName="xxxxxxxx"/>
+   <name CryXmlVersion="2" name="TEST" displayName="TEST"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <render-light CryXmlVersion="2" style="0" specularMultiplier="0">
+    <lightColour x="255" y="0" z="0.5"/>
+   </render-light>
+   <projector-light CryXmlVersion="2" nearPlane="0.2" texturePath="/some/path/texture.tiff" materialPath="/some/path/material.mtl"/>
   </components>
  </entity>
  <entity>
