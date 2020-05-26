@@ -3,10 +3,9 @@
   <components>
    <name CryXmlVersion="2" name="TEST" displayName="TEST"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <render-light CryXmlVersion="2" style="0" specularMultiplier="0">
-    <lightColour x="255" y="0" z="0.5"/>
+   <render-light CryXmlVersion="2" diffuseMultiplier="1" specularMultiplier="0" radius="10" lightStyle="0" animationSpeed="1" lightPhase="0" projectorFoV="90" projectorTexture="" projectorFrustumAngle="45" projectorNearPlane="0" shadowBias="1" shadowSlopeBias="1" shadowResolutionScale="0" shadowUpdateMinimumRadius="4" shadowMinimumResolutionPercent="1" shadowUpdateRatio="0" effectSlotMaterial="" attenuationRadius="0.1">
+    <diffuseColor x="128" y="128" z="128"/>
    </render-light>
-   <projector-light CryXmlVersion="2" nearPlane="0.2" texturePath="/some/path/texture.tiff" materialPath="/some/path/material.mtl"/>
   </components>
  </entity>
  <entity>

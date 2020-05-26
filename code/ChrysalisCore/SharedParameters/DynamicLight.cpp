@@ -33,7 +33,7 @@ bool SDynamicLight::Read(const XmlNodeRef& node)
 	reader.ReadParamValue("projectorFoV", projectorFoV);
 	reader.ReadParamValue("projectorNearPlane", projectorNearPlane);
 	projectorTexture = reader.ReadParamValue("projectorTexture");
-	material = reader.ReadParamValue("material");
+	effectSlotMaterial = reader.ReadParamValue("effectSlotMaterial");
 	reader.ReadParamValue("lightStyle", lightStyle);
 	reader.ReadParamValue("animationSpeed", animationSpeed);
 	reader.ReadParamValue("lightPhase", lightPhase);

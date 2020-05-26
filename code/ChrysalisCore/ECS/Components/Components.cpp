@@ -34,6 +34,11 @@ void RegisterComponentsWithMeta()
 		.type(ECS::Name().GetHashedName())
 		.ctor<&assign<ECS::Name>, entt::as_alias_t>();
 
+	entt::meta<ECS::Prototype>()
+		.base<ECS::IComponent>()
+		.type(ECS::Prototype().GetHashedName())
+		.ctor<&assign<ECS::Prototype>, entt::as_alias_t>();
+
 	entt::meta<ECS::SourceAndTarget>()
 		.base<ECS::IComponent>()
 		.type(ECS::SourceAndTarget().GetHashedName())

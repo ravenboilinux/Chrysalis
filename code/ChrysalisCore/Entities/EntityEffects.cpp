@@ -280,7 +280,6 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 		(attachParams->specularMultiplier / (attachParams->diffuseMultiplier + FLT_EPSILON))));
 	light.m_nLightStyle = attachParams->lightStyle;
 	light.SetAnimSpeed(attachParams->animationSpeed);
-	light.m_fLightFrustumAngle = 45.0f; // #TODO: look at this.
 	light.m_fRadius = attachParams->radius;
 	light.m_fLightFrustumAngle = attachParams->projectorFoV * 0.5f;
 
@@ -316,9 +315,9 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 	}
 
 	IMaterial* pMaterial = nullptr;
-	if (attachParams->material && attachParams->material [0])
+	if (attachParams->effectSlotMaterial && attachParams->effectSlotMaterial[0])
 	{
-		pMaterial = gEnv->p3DEngine->GetMaterialManager()->LoadMaterial(attachParams->material);
+		pMaterial = gEnv->p3DEngine->GetMaterialManager()->LoadMaterial(attachParams->effectSlotMaterial);
 	}
 
 	SEntitySlotInfo slotInfo;

@@ -78,7 +78,7 @@ struct Name : public IComponent
 		name(name), displayName(displayName)
 	{
 	}
-	
+
 
 	virtual const entt::hashed_string& GetHashedName() const
 	{
@@ -90,17 +90,53 @@ struct Name : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
-		archive(name, "name", "name");
-		archive(displayName, "displayName", "displayName");
+		archive(name, "name", "The name of this entity. It should be unique.");
+		archive(displayName, "displayName", "The display name for this entity.");
 
 		return true;
 	}
 
-	/** A unique name for this particular item class. */
+	/** A unique name. */
 	string name;
 
 	/** A name which can be used in the UI. */
 	string displayName;
+};
+
+
+/**	A way of marking an entity and saying that is it based on the components of a different entity. The prototype entity
+	needs to have a matching name and must exist in a registry of the designer's choice.
+
+*/
+
+struct Prototype : public IComponent
+{
+	Prototype() = default;
+	virtual ~Prototype() = default;
+
+	Prototype(string name) :
+		name(name)
+	{
+	}
+	
+
+	virtual const entt::hashed_string& GetHashedName() const
+	{
+		static constexpr entt::hashed_string nameHS {"prototype"_hs};
+
+		return nameHS;
+	}
+
+
+	bool Serialize(Serialization::IArchive& archive) override final
+	{
+		archive(name, "name", "Unique name of the prototype for this entity.");
+
+		return true;
+	}
+
+	/** A unique name. */
+	string name;
 };
 
 

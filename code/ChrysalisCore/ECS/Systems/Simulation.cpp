@@ -270,18 +270,19 @@ void CSimulation::SaveSimulationData()
 	ECS::SerialiseECS actorSerial;
 	m_actorRegistry.snapshot()
 		.entities(actorSerial)
-		.component<ECS::Name,
+		.component<ECS::Name, ECS::Prototype,
 		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
 		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
 		ECS::Spell,
-		ECS::ItemClass>(actorSerial);
+		ECS::ItemClass,
+		ECS::RenderLight, ECS::ProjectorLight>(actorSerial);
 	actorSerial.SaveToFile("chrysalis/parameters/items/test_out_snapshot.xml");
 
 	// Spell prototypes.
 	ECS::SerialiseECS spellSerial;
 	m_spellRegistry.snapshot()
 		.entities(spellSerial)
-		.component<ECS::Name,
+		.component<ECS::Name, ECS::Prototype,
 		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
 		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
 		ECS::Spell,
@@ -291,7 +292,6 @@ void CSimulation::SaveSimulationData()
 		ECS::SpellActionSwitch,
 		ECS::SpellActionOpen, ECS::SpellActionClose, 
 		ECS::SpellActionUnlock, ECS::SpellActionLock,
-		
 		ECS::RenderLight,ECS::ProjectorLight>(spellSerial);
 
 	spellSerial.SaveToFile("chrysalis/parameters/spells/spells_snapshot.xml");

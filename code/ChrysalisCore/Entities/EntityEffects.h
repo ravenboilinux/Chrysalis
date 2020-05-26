@@ -17,8 +17,8 @@ const TAttachedEffectId EFFECTID_INVALID = 0;
 /** An simple struct to help pass around parameters required to spawn a new effect. */
 struct SEffectSpawnParams
 {
-	SEffectSpawnParams(const Vec3& _position = Vec3(ZERO), const Vec3& _direction = FORWARD_DIRECTION, const float _scale = 1.0f,
-		const float _speed = -1.0, const bool _isPrime = false)
+	SEffectSpawnParams(const Vec3& _position = Vec3(ZERO), const Vec3& _direction = FORWARD_DIRECTION, 
+		const float _scale = 1.0f, const float _speed = -1.0, const bool _isPrime = false)
 		: position(_position), direction(_direction), scale(_scale), speed(_speed), isPrime(_isPrime)
 	{
 	}
@@ -113,8 +113,6 @@ public:
 
 	 \return	A TAttachedEffectId.
 	 */
-
-	 // #TODO: switch to using SEffectAttachParams for most these params.
 
 	TAttachedEffectId AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
 		const SDynamicLightConstPtr attachParams);
