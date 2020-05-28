@@ -39,6 +39,7 @@
 #include <ECS/ECS.h>
 
 
+
 namespace Chrysalis
 {
 
@@ -149,6 +150,11 @@ void CActorComponent::Initialize()
 		m_pEntity->AddFlags(ENTITY_FLAG_TRIGGER_AREAS | ENTITY_FLAG_LOCAL_PLAYER);
 		CryLogAlways("CActorComponent::HandleEvent(): Entity \"%s\" became the local character!", m_pEntity->GetName());
 	}
+
+	// TEST: entity effect adding a light.
+	// Provide them with an effects controller for this entity.
+	m_effectsController.Init(GetEntityId());
+	m_effectsController.AttachLight(10, "a_helper", Vec3(0.0f, 0.0f, 2.2f), Vec3(1.0f, 1.0f, 1.0f).normalized(), eGeometrySlot::eIGS_Aux0, ECS::RenderLight(), ECS::ProjectorLight());
 
 	// Reset the entity.
 	OnResetState();

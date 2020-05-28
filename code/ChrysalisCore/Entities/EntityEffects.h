@@ -11,8 +11,6 @@
 
 namespace Chrysalis
 {
-namespace EntityEffects
-{
 typedef uint32 TAttachedEffectId;
 const TAttachedEffectId EFFECTID_INVALID = 0;
 
@@ -145,6 +143,5 @@ private:
 	typedef std::vector<SEffectInfo> TAttachedEffects;
 	TAttachedEffects m_attachedEffects;
 	TAttachedEffectId m_effectGeneratorId;
-};
 };
 }

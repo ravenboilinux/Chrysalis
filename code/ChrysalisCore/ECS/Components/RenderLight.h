@@ -2,7 +2,7 @@
 
 #include <ECS/Components/Components.h>
 
-// TEST:
+// HACK: TEST: Checking if it's possible / worth it to add serialize functions to the existing default component structures.
 #include <DefaultComponents/Lights/ILightComponent.h>
 
 
@@ -10,7 +10,7 @@ namespace Cry
 {
 namespace DefaultComponents
 {
-//void Serialize(Serialization::IArchive& archive, ILightComponent::SOptics& optics, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& archive, ILightComponent::SOptics& optics, const char* szName, const char* szLabel);
 }
 }
 
@@ -52,11 +52,13 @@ struct RenderLight : public IComponent
 		ar(effectSlotMaterial, "effectSlotMaterial", "A material for the effects slot.");
 		ar(attenuationRadius, "attenuationRadius", "Specifies the radius of the light bulb.");
 
-		//ar(optics, "optics", "optics");
+		// TEST: remove once test is complete.
+		ar(optics, "optics", "optics");
 	}
 
 
-	//Cry::DefaultComponents::ILightComponent::SOptics optics;
+	// TEST: remove once test is complete.
+	Cry::DefaultComponents::ILightComponent::SOptics optics;
 
 	/** Diffuse color expressed as RGB e.g. 128, 255, 128. */
 	Vec3 diffuseColor {128.0f, 128.0f, 128.0f};

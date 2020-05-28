@@ -136,7 +136,7 @@ private:
 	// ***
 
 public:
-	ILINE EntityEffects::CEffectsController& GetEffectsController() { return m_effectsController; }
+	ILINE CEffectsController& GetEffectsController() { return m_effectsController; }
 
 	///**
 	// Attach a light to this entity.
@@ -148,23 +148,23 @@ public:
 	// \param	firstSafeSlot	The first safe slot.
 	// \param	attachParams 	Options for controlling the attach.
 
-	// \return	An EntityEffects::TAttachedEffectId.
+	// \return	An TAttachedEffectId.
 	// */
 
-	//EntityEffects::TAttachedEffectId AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
+	//TAttachedEffectId AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
 	//	const ECS::RenderLight& renderLight, const ECS::ProjectorLight& projectorLight)
 	//{
 	//	return m_effectsController.AttachLight(targetSlot, helperName, offset, direction, firstSafeSlot, renderLight, projectorLight);
 	//}
 
 
-	//void DetachEffect(const EntityEffects::TAttachedEffectId effectId)
+	//void DetachEffect(const TAttachedEffectId effectId)
 	//{
 	//	m_effectsController.DetachEffect(effectId);
 	//}
 
 private:
-	EntityEffects::CEffectsController m_effectsController;
+	CEffectsController m_effectsController;
 
 
 	// ***

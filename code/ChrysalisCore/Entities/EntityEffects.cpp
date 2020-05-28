@@ -11,7 +11,7 @@ namespace Chrysalis
 // *** Particle effects.
 // ***
 
-IParticleEmitter* EntityEffects::SpawnParticleFX(const char* effectName, const EntityEffects::SEffectSpawnParams& spawnParams, const char* requester /*= nullptr*/)
+IParticleEmitter* SpawnParticleFX(const char* effectName, const SEffectSpawnParams& spawnParams, const char* requester /*= nullptr*/)
 {
 	IParticleEffect* pParticleEffect = gEnv->pParticleManager->FindEffect(effectName, requester ? requester : "");
 
@@ -19,7 +19,7 @@ IParticleEmitter* EntityEffects::SpawnParticleFX(const char* effectName, const E
 }
 
 
-IParticleEmitter* EntityEffects::SpawnParticleFX(IParticleEffect* pParticleEffect, const EntityEffects::SEffectSpawnParams& spawnParams)
+IParticleEmitter* SpawnParticleFX(IParticleEffect* pParticleEffect, const SEffectSpawnParams& spawnParams)
 {
 	if (pParticleEffect)
 	{
@@ -41,7 +41,7 @@ IParticleEmitter* EntityEffects::SpawnParticleFX(IParticleEffect* pParticleEffec
 }
 
 
-void EntityEffects::SpawnParticleWithEntity(const IEntity* pTargetEntity, const int targetSlot, const char* effectName, const char* helperName, const EntityEffects::SEffectSpawnParams& spawnParams)
+void SpawnParticleWithEntity(const IEntity* pTargetEntity, const int targetSlot, const char* effectName, const char* helperName, const SEffectSpawnParams& spawnParams)
 {
 	IParticleEffect* pParticleEffect = gEnv->pParticleManager->FindEffect(effectName);
 
@@ -49,7 +49,7 @@ void EntityEffects::SpawnParticleWithEntity(const IEntity* pTargetEntity, const 
 }
 
 
-void EntityEffects::SpawnParticleWithEntity(const IEntity* pTargetEntity, const int targetSlot, IParticleEffect* pParticleEffect, const char* helperName, const EntityEffects::SEffectSpawnParams& spawnParams)
+void SpawnParticleWithEntity(const IEntity* pTargetEntity, const int targetSlot, IParticleEffect* pParticleEffect, const char* helperName, const SEffectSpawnParams& spawnParams)
 {
 	SEffectSpawnParams newSpawnParams = spawnParams;
 
@@ -99,8 +99,6 @@ void EntityEffects::SpawnParticleWithEntity(const IEntity* pTargetEntity, const 
 // *** 
 // ***
 
-namespace EntityEffects
-{
 CEffectsController::CEffectsController()
 	: m_effectGeneratorId(0)
 {
@@ -599,5 +597,4 @@ void CEffectsController::UpdateEntitySlotEffectLocationsFromHelpers()
 		}
 	}
 }
-};
 }
