@@ -37,12 +37,10 @@ public:
 		}
 
 
-		bool Serialize(Serialization::IArchive& archive)
+		void Serialize(Serialization::IArchive& ar)
 		{
-			archive(m_lootTable, "LootTable", "Loot table entry.");
-			archive.doc("A uniquely identifiable entry on the master loot table.");
-
-			return true;
+			ar(m_lootTable, "LootTable", "Loot table entry.");
+			ar.doc("A uniquely identifiable entry on the master loot table.");
 		}
 
 		string m_lootTable;

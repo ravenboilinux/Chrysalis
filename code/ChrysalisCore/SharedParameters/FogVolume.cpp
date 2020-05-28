@@ -36,22 +36,22 @@ bool SFogVolume::Read(const XmlNodeRef& node)
 }
 
 
-void SFogVolume::SerializeProperties(Serialization::IArchive& archive)
+void SFogVolume::SerializeProperties(Serialization::IArchive& ar)
 {
-	if (archive.openBlock("FogVolumeParameter", "FogVolumeParameter"))
+	if (ar.openBlock("FogVolumeParameter", "FogVolumeParameter"))
 	{
 		// Serialize the parameters.
-		archive(color, "color", "Color");
-		archive.doc("The color (RGB).");
-		archive(globalDensity, "globalDensity", "Global Density");
-		archive.doc("Global density.");
-		archive(densityOffset, "densityOffset", "Density Offset");
-		archive.doc("Density offset.");
+		ar(color, "color", "Color");
+		ar.doc("The color (RGB).");
+		ar(globalDensity, "globalDensity", "Global Density");
+		ar.doc("Global density.");
+		ar(densityOffset, "densityOffset", "Density Offset");
+		ar.doc("Density offset.");
 
-		archive.closeBlock();
+		ar.closeBlock();
 	}
 
-	//if (archive.isInput())
+	//if (ar.isInput())
 	//{
 	//	OnResetState();
 	//}

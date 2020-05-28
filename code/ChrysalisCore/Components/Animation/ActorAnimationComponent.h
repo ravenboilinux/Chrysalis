@@ -58,15 +58,15 @@ public:
 		}
 
 
-		bool Serialize(Serialization::IArchive& archive)
+		void Serialize(Serialization::IArchive& ar)
 		{
-			archive(Serialization::MannequinControllerDefinitionPath(m_controllerDefinitionPath), "ControllerDefPath", "Controller Definition");
-			archive.doc("Path to the Mannequin controller definition");
+			ar(Serialization::MannequinControllerDefinitionPath(m_controllerDefinitionPath), "ControllerDefPath", "Controller Definition");
+			ar.doc("Path to the Mannequin controller definition");
 
 			std::shared_ptr<Serialization::SMannequinControllerDefResourceParams> pParams;
 
 			// Load controller definition for the context and fragment selectors.
-			if (archive.isEdit())
+			if (ar.isEdit())
 			{
 				pParams = std::make_shared<Serialization::SMannequinControllerDefResourceParams>();
 
@@ -77,13 +77,11 @@ public:
 				}
 			}
 
-			archive(Serialization::MannequinScopeContextName(m_contextName, pParams), "DefaultScope", "Default Scope Context Name");
-			archive.doc("The Mannequin scope context to activate by default");
+			ar(Serialization::MannequinScopeContextName(m_contextName, pParams), "DefaultScope", "Default Scope Context Name");
+			ar.doc("The Mannequin scope context to activate by default");
 
-			archive(Serialization::MannequinFragmentName(m_fragmentName, pParams), "DefaultFragment", "Default Fragment Name");
-			archive.doc("The fragment to play by default");
-
-			return true;
+			ar(Serialization::MannequinFragmentName(m_fragmentName, pParams), "DefaultFragment", "Default Fragment Name");
+			ar.doc("The fragment to play by default");
 		}
 
 		string m_controllerDefinitionPath;

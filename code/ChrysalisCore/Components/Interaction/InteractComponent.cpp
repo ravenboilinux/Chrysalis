@@ -290,10 +290,10 @@ void CInteractComponent::InformAllLinkedEntities(string verb, bool isInteractedO
 }
 
 
-bool Serialize(Serialization::IArchive& archive, CInteractComponent::SAnimationTag& value, const char* szName, const char* szLabel)
+bool Serialize(Serialization::IArchive& ar, CInteractComponent::SAnimationTag& value, const char* szName, const char* szLabel)
 {
-	archive(value.tag, "tag", "Tag");
-	archive.doc("An animation tag for the fragment.");
+	ar(value.tag, "tag", "Tag");
+	ar.doc("An animation tag for the fragment.");
 
 	return true;
 }

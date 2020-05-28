@@ -19,21 +19,19 @@ struct ItemClass : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(maxStackSize, "maxStackSize", "maxStackSize");
-		archive(animationTag, "animationTag", "animationTag");
-		archive(isUniqueInventory, "isUniqueInventory", "isUniqueInventory");
-		archive(isUniqueEquipment, "isUniqueEquipment", "isUniqueEquipment");
-		archive(isDroppable, "isDroppable", "isDroppable");
-		archive(isAutoDroppable, "isAutoDroppable", "isAutoDroppable");
-		archive(isPickable, "isPickable", "isPickable");
-		archive(isAutoPickable, "isAutoPickable", "isAutoPickable");
-		archive(isUsable, "isUsable", "isUsable");
-		archive(isTradable, "isTradable", "isTradable");
-		archive(isConsumable, "isConsumable", "isConsumable");
-
-		return true;
+		ar(maxStackSize, "maxStackSize", "maxStackSize");
+		ar(animationTag, "animationTag", "animationTag");
+		ar(isUniqueInventory, "isUniqueInventory", "isUniqueInventory");
+		ar(isUniqueEquipment, "isUniqueEquipment", "isUniqueEquipment");
+		ar(isDroppable, "isDroppable", "isDroppable");
+		ar(isAutoDroppable, "isAutoDroppable", "isAutoDroppable");
+		ar(isPickable, "isPickable", "isPickable");
+		ar(isAutoPickable, "isAutoPickable", "isAutoPickable");
+		ar(isUsable, "isUsable", "isUsable");
+		ar(isTradable, "isTradable", "isTradable");
+		ar(isConsumable, "isConsumable", "isConsumable");
 	}
 
 

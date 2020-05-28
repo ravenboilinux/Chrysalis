@@ -26,11 +26,9 @@ struct Qi : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(qi, "qi", "qi");
-
-		return true;
+		ar(qi, "qi", "qi");
 	}
 
 	/** Qi attribute. */
@@ -57,12 +55,10 @@ struct UtiliseQi : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
 	}
 
 	/** Use the spell's target or source for this component's target. */
@@ -93,14 +89,12 @@ struct UtiliseQiOverTime : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-		archive(duration, "duration", "duration");
-		archive(interval, "interval", "interval");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
+		ar(duration, "duration", "duration");
+		ar(interval, "interval", "interval");
 	}
 
 	/** Use the spell's target or source for this component's target. */
@@ -142,12 +136,10 @@ struct ReplenishQi : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
 	}
 
 	/** Use the spell's target or source for this component's target. */
@@ -178,14 +170,12 @@ struct ReplenishQiOverTime : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-		archive(duration, "duration", "duration");
-		archive(interval, "interval", "interval");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
+		ar(duration, "duration", "duration");
+		ar(interval, "interval", "interval");
 	}
 
 	/** Use the spell's target or source for this component's target. */

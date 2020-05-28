@@ -168,18 +168,16 @@ struct Spell : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(spellRewire, "spell-rewire", "Actions which need to be taken before spell can be fired.");
-		archive(minRange, "minRange", "Minimum range at which this can be cast.");
-		archive(maxRange, "maxRange", "Maximum range at which this can be cast.");
-		archive(castDuration, "castDuration", "The length of time it takes to cast this spell. Instant cast spells should be zero.");
-		archive(cooldown, "cooldown", "Cooldown. The number of seconds before this spell can be cast again.");
-		archive(globalCooldown, "globalCooldown", "Global cooldown. The number of seconds before *any* spell can be cast again.");
-		archive(sourceTargetType, "sourceTargetType", "Source of the spell - typically none or self.");
-		archive(targetTargetType, "targetTargetType", "Target for the spell. May target self, others, or even AoEs.");
-
-		return true;
+		ar(spellRewire, "spell-rewire", "Actions which need to be taken before spell can be fired.");
+		ar(minRange, "minRange", "Minimum range at which this can be cast.");
+		ar(maxRange, "maxRange", "Maximum range at which this can be cast.");
+		ar(castDuration, "castDuration", "The length of time it takes to cast this spell. Instant cast spells should be zero.");
+		ar(cooldown, "cooldown", "Cooldown. The number of seconds before this spell can be cast again.");
+		ar(globalCooldown, "globalCooldown", "Global cooldown. The number of seconds before *any* spell can be cast again.");
+		ar(sourceTargetType, "sourceTargetType", "Source of the spell - typically none or self.");
+		ar(targetTargetType, "targetTargetType", "Target for the spell. May target self, others, or even AoEs.");
 	}
 
 

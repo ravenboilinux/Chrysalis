@@ -3,9 +3,6 @@
 #include <DefaultComponents/Geometry/BaseMeshComponent.h>
 
 
-class CPlugin_CryDefaultEntities;
-
-
 namespace Chrysalis
 {
 class CControlledAnimationComponent

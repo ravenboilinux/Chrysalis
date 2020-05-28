@@ -53,11 +53,9 @@ struct Health : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(health, "health", "health");
-
-		return true;
+		ar(health, "health", "health");
 	}
 
 	/** Health attribute. */
@@ -87,13 +85,11 @@ struct Damage : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-		archive(damageType, "damageType", "Damage Type");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
+		ar(damageType, "damageType", "Damage Type");
 	}
 
 	/** Use the spell's target or source for this component's target. */
@@ -129,15 +125,13 @@ struct DamageOverTime : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-		archive(damageType, "damageType", "damageType");
-		archive(duration, "duration", "duration");
-		archive(interval, "interval", "interval");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
+		ar(damageType, "damageType", "damageType");
+		ar(duration, "duration", "duration");
+		ar(interval, "interval", "interval");
 	}
 
 	/** Use the spell's target or source for this component's target. */
@@ -182,12 +176,10 @@ struct Heal : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
 	}
 
 	/** Use the spell's target or source for this component's target. */
@@ -218,14 +210,12 @@ struct HealOverTime : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(targetTargetType, "targetTargetType", "targetTargetType");
-		archive(quantity, "quantity", "quantity");
-		archive(duration, "duration", "duration");
-		archive(interval, "interval", "interval");
-
-		return true;
+		ar(targetTargetType, "targetTargetType", "targetTargetType");
+		ar(quantity, "quantity", "quantity");
+		ar(duration, "duration", "duration");
+		ar(interval, "interval", "interval");
 	}
 
 	/** Use the spell's target or source for this component's target. */

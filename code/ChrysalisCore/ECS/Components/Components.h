@@ -19,7 +19,7 @@ struct IComponent
 	}
 
 	// This should be pure virtual but the ECS needs to be able to instantiate the struct, so...here's nothing.
-	virtual bool Serialize(Serialization::IArchive& archive) { return true; };
+	virtual void Serialize(Serialization::IArchive& archive) { ; }
 };
 
 
@@ -35,13 +35,11 @@ struct AttributeType
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive)
+	void Serialize(Serialization::IArchive& ar)
 	{
-		archive(base, "base", "base");
-		archive(baseModifiers, "baseModifiers", "baseModifiers");
-		archive(modifiers, "modifiers", "modifiers");
-
-		return true;
+		ar(base, "base", "base");
+		ar(baseModifiers, "baseModifiers", "baseModifiers");
+		ar(modifiers, "modifiers", "modifiers");
 	}
 
 	/** Returns the current value for base, after it's modifiers have been applied. */
@@ -88,12 +86,10 @@ struct Name : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(name, "name", "The name of this entity. It should be unique.");
-		archive(displayName, "displayName", "The display name for this entity.");
-
-		return true;
+		ar(name, "name", "The name of this entity. It should be unique.");
+		ar(displayName, "displayName", "The display name for this entity.");
 	}
 
 	/** A unique name. */
@@ -128,11 +124,9 @@ struct Prototype : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(name, "name", "Unique name of the prototype for this entity.");
-
-		return true;
+		ar(name, "name", "Unique name of the prototype for this entity.");
 	}
 
 	/** A unique name. */
@@ -159,16 +153,14 @@ struct SourceAndTarget : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
 		// This is really meant to be an ephemeral structure, so it shouldn't need to serialise, but I
 		// am adding one just in case.
-		archive(sourceEntity, "sourceEntity", "Source Entity");
-		archive(targetEntity, "targetEntity", "Target Entity");
-		archive(crySourceEntityId, "crySourceEntityId", "Cry Source Entity ID");
-		archive(cryTargetEntityId, "cryTargetEntityId", "Cry Target Entity ID");
-
-		return true;
+		ar(sourceEntity, "sourceEntity", "Source Entity");
+		ar(targetEntity, "targetEntity", "Target Entity");
+		ar(crySourceEntityId, "crySourceEntityId", "Cry Source Entity ID");
+		ar(cryTargetEntityId, "cryTargetEntityId", "Cry Target Entity ID");
 	}
 
 	/** The source entity (EnTT). */

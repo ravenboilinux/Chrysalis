@@ -2,6 +2,17 @@
 
 #include <ECS/Components/Components.h>
 
+// TEST:
+#include <DefaultComponents/Lights/ILightComponent.h>
+
+
+namespace Cry
+{
+namespace DefaultComponents
+{
+//void Serialize(Serialization::IArchive& archive, ILightComponent::SOptics& optics, const char* szName, const char* szLabel);
+}
+}
 
 
 namespace Chrysalis::ECS
@@ -20,29 +31,32 @@ struct RenderLight : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(diffuseColor, "diffuseColor", "Diffuse color expressed as RGB e.g. 128, 255, 128.");
-		archive(diffuseMultiplier, "diffuseMultiplier", "Control the strength of the diffuse color.");
-		archive(specularMultiplier, "specularMultiplier", "Control the strength of the specular brightness.");
+		ar(diffuseColor, "diffuseColor", "Diffuse color expressed as RGB e.g. 128, 255, 128.");
+		ar(diffuseMultiplier, "diffuseMultiplier", "Control the strength of the diffuse color.");
+		ar(specularMultiplier, "specularMultiplier", "Control the strength of the specular brightness.");
 
-		archive(radius, "radius", "Specifies how far from the source the light affects the surrounding area.");
-		archive(lightStyle, "lightStyle", "Style variation (flickering, waxing / wanning / etc).");
-		archive(animationSpeed, "animationSpeed", "Rate at which the style animation will play.");
-		archive(lightPhase, "lightPhase", "Point in the cycle (style) at which light animation begins.");
+		ar(radius, "radius", "Specifies how far from the source the light affects the surrounding area.");
+		ar(lightStyle, "lightStyle", "Style variation (flickering, waxing / wanning / etc).");
+		ar(animationSpeed, "animationSpeed", "Rate at which the style animation will play.");
+		ar(lightPhase, "lightPhase", "Point in the cycle (style) at which light animation begins.");
 		
-		archive(shadowBias, "shadowBias", "Moves the shadow cascade toward or away from the shadow-casting object.");
-		archive(shadowSlopeBias, "shadowSlopeBias", "Allows you to adjust the gradient (slope-based) bias used to compute the shadow bias.");
-		archive(shadowResolutionScale, "shadowResolutionScale", "shadowResolutionScale");
-		archive(shadowUpdateMinimumRadius, "shadowUpdateMinimumRadius", "Define the minimum radius from the light source to the player camera that the ShadowUpdateRatio setting will be ignored.");
-		archive(shadowMinimumResolutionPercent, "shadowMinimumResolutionPercent", "Percentage of the shadow pool the light should use for its shadows.");
-		archive(shadowUpdateRatio, "shadowUpdateRatio", "Define the update ratio for shadow maps cast from this light.");
+		ar(shadowBias, "shadowBias", "Moves the shadow cascade toward or away from the shadow-casting object.");
+		ar(shadowSlopeBias, "shadowSlopeBias", "Allows you to adjust the gradient (slope-based) bias used to compute the shadow bias.");
+		ar(shadowResolutionScale, "shadowResolutionScale", "shadowResolutionScale");
+		ar(shadowUpdateMinimumRadius, "shadowUpdateMinimumRadius", "Define the minimum radius from the light source to the player camera that the ShadowUpdateRatio setting will be ignored.");
+		ar(shadowMinimumResolutionPercent, "shadowMinimumResolutionPercent", "Percentage of the shadow pool the light should use for its shadows.");
+		ar(shadowUpdateRatio, "shadowUpdateRatio", "Define the update ratio for shadow maps cast from this light.");
 		
-		archive(effectSlotMaterial, "effectSlotMaterial", "A material for the effects slot.");
-		archive(attenuationRadius, "attenuationRadius", "Specifies the radius of the light bulb.");
+		ar(effectSlotMaterial, "effectSlotMaterial", "A material for the effects slot.");
+		ar(attenuationRadius, "attenuationRadius", "Specifies the radius of the light bulb.");
 
-		return true;
+		//ar(optics, "optics", "optics");
 	}
+
+
+	//Cry::DefaultComponents::ILightComponent::SOptics optics;
 
 	/** Diffuse color expressed as RGB e.g. 128, 255, 128. */
 	Vec3 diffuseColor {128.0f, 128.0f, 128.0f};
@@ -119,14 +133,12 @@ struct ProjectorLight : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
+	void Serialize(Serialization::IArchive& ar) override final
 	{
-		archive(projectorFoV, "projectorFoV", "Specifies the Angle on which the light texture is projected.");
-		archive(projectorTexture, "projectorTexture", " A texture to used for custom falloff.");
-		archive(projectorFrustumAngle, "projectorFrustumAngle", "Frustum angle for the projected light / texture.");
-		archive(projectorNearPlane, "projectorNearPlane", "Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on.");
-
-		return true;
+		ar(projectorFoV, "projectorFoV", "Specifies the Angle on which the light texture is projected.");
+		ar(projectorTexture, "projectorTexture", " A texture to used for custom falloff.");
+		ar(projectorFrustumAngle, "projectorFrustumAngle", "Frustum angle for the projected light / texture.");
+		ar(projectorNearPlane, "projectorNearPlane", "Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on.");
 	}
 
 	/** Specifies the Angle on which the light texture is projected. */

@@ -272,6 +272,7 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 	CRY_ASSERT(pOwnerEntity);
 
 	SRenderLight light;
+
 	light.m_nEntityId = pOwnerEntity->GetId();
 	light.SetLightColor(ColorF(renderLight.diffuseColor.x * renderLight.diffuseMultiplier,
 		renderLight.diffuseColor.y * renderLight.diffuseMultiplier,

@@ -20,10 +20,7 @@ struct SpellActionSchematyc : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -42,10 +39,7 @@ struct SpellActionDRS : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -64,10 +58,7 @@ struct SpellActionInspect : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 /** Examine an item while holding it in your hands. You should be close enough to pick it up before you can examine it. */
@@ -85,10 +76,7 @@ struct SpellActionExamine : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -107,10 +95,7 @@ struct SpellActionTake : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -129,10 +114,7 @@ struct SpellActionDrop : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -151,10 +133,7 @@ struct SpellActionThrow : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -173,10 +152,7 @@ struct SpellActionSwitch : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 
 	// TODO: Type of switch action - on, off, toggle
 };
@@ -197,10 +173,7 @@ struct SpellActionOpen : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -219,10 +192,7 @@ struct SpellActionClose : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -241,10 +211,7 @@ struct SpellActionUnlock : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
 
@@ -263,9 +230,6 @@ struct SpellActionLock : public IComponent
 	}
 
 
-	bool Serialize(Serialization::IArchive& archive) override final
-	{
-		return true;
-	}
+	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 }

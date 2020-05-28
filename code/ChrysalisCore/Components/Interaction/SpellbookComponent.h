@@ -39,13 +39,11 @@ public:
 	limitations that exist in addition to the limitations of the spell itself. */
 	struct SSpellBookEntry
 	{
-		bool Serialize(Serialization::IArchive& archive)
+		void Serialize(Serialization::IArchive& ar)
 		{
-			archive(spellName, "spellName", "Name");
-			archive(isHidden, "isHidden", "Hidden?");
-			archive(enabled, "enabled", "Enabled?");
-
-			return true;
+			ar(spellName, "spellName", "Name");
+			ar(isHidden, "isHidden", "Hidden?");
+			ar(enabled, "enabled", "Enabled?");
 		}
 
 		/** The name of the spell must be found inside the spell registry in order for the spell to work correctly. */
@@ -76,11 +74,9 @@ public:
 		}
 		
 
-		bool Serialize(Serialization::IArchive& archive)
+		void Serialize(Serialization::IArchive& ar)
 		{
-			archive(spells, "spells", "spells");
-
-			return true;
+			ar(spells, "spells", "spells");
 		}
 
 		std::vector<SSpellBookEntry> spells;
