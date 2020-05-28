@@ -1,42 +1,11 @@
 #pragma once
 
-//#include "Utility\ItemString.h"
-//#include <CryMath/Cry_Vector3.h>
-//#include <SharedParameters/SharedParameters.h>
+#include <ECS/Components/Components.h>
 
 
 
 namespace Chrysalis::ECS
 {
-//enum class DamageType
-//{
-//	acid,
-//	bleed,
-//	cold,
-//	collision,
-//	cleave,
-//	crush,
-//	decay,
-//	disease,
-//	electricity,
-//	energy,
-//	entropy,
-//	explosion,
-//	fire,
-//	holy,
-//	ice,
-//	nature,
-//	pierce,
-//	plasma,
-//	poison,
-//	qi,
-//	radiation,
-//	slash,
-//	tear,
-//	unholy
-//};
-
-
 struct RenderLight : public IComponent
 {
 	RenderLight() = default;
@@ -61,11 +30,6 @@ struct RenderLight : public IComponent
 		archive(lightStyle, "lightStyle", "Style variation (flickering, waxing / wanning / etc).");
 		archive(animationSpeed, "animationSpeed", "Rate at which the style animation will play.");
 		archive(lightPhase, "lightPhase", "Point in the cycle (style) at which light animation begins.");
-		
-		archive(projectorFoV, "projectorFoV", "Specifies the Angle on which the light texture is projected.");
-		archive(projectorTexture, "projectorTexture", " A texture to used for custom falloff.");
-		archive(projectorFrustumAngle, "projectorFrustumAngle", "Frustum angle for the projected light / texture.");
-		archive(projectorNearPlane, "projectorNearPlane", "Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on.");
 		
 		archive(shadowBias, "shadowBias", "Moves the shadow cascade toward or away from the shadow-casting object.");
 		archive(shadowSlopeBias, "shadowSlopeBias", "Allows you to adjust the gradient (slope-based) bias used to compute the shadow bias.");
@@ -103,23 +67,6 @@ struct RenderLight : public IComponent
 	uint8 lightPhase {0};
 
 
-	// Projector.
-
-	/** Specifies the Angle on which the light texture is projected. */
-	float projectorFoV {90.0f};
-
-	/** A texture to used for custom falloff. */
-	string projectorTexture;
-
-	/** Frustum angle for the projected light / texture. */
-	// TODO: Implement this value.
-	float projectorFrustumAngle {45.f};
-
-	/** Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on. */
-	// TODO: Implement this value.
-	float projectorNearPlane {0.0f};
-
-
 	// Shadow map fields.
 
 	/** Moves the shadow cascade toward or away from the shadow-casting object. */
@@ -150,7 +97,7 @@ struct RenderLight : public IComponent
 	// Misc.
 
 	/** A material for the effects slot. */
-	string effectSlotMaterial;
+	Schematyc::MaterialFileName effectSlotMaterial;
 
 	/** Specifies the radius of the light bulb. */
 	// TODO: Implement this value.
@@ -174,16 +121,26 @@ struct ProjectorLight : public IComponent
 
 	bool Serialize(Serialization::IArchive& archive) override final
 	{
-		archive(nearPlane, "nearPlane", "nearPlane");
-		archive(texturePath, "texturePath", "texturePath");
-		archive(materialPath, "materialPath", "materialPath");
+		archive(projectorFoV, "projectorFoV", "Specifies the Angle on which the light texture is projected.");
+		archive(projectorTexture, "projectorTexture", " A texture to used for custom falloff.");
+		archive(projectorFrustumAngle, "projectorFrustumAngle", "Frustum angle for the projected light / texture.");
+		archive(projectorNearPlane, "projectorNearPlane", "Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on.");
 
 		return true;
 	}
 
+	/** Specifies the Angle on which the light texture is projected. */
+	float projectorFoV {90.0f};
 
-	Schematyc::Range<0, 10000> nearPlane {0.0f};
-	Schematyc::TextureFileName texturePath;
-	Schematyc::MaterialFileName materialPath;
+	/** A texture to used for custom falloff. */
+	Schematyc::TextureFileName projectorTexture;
+
+	/** Frustum angle for the projected light / texture. */
+	// TODO: Implement this value.
+	float projectorFrustumAngle {45.f};
+
+	/** Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on. */
+	// TODO: Implement this value.
+	float projectorNearPlane {0.0f};
 };
 }

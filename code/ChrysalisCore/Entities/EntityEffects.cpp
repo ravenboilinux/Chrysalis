@@ -266,36 +266,36 @@ TAttachedEffectId CEffectsController::AttachParticleEffect(const char *effectNam
 
 
 TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const char *helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
-	const SDynamicLightConstPtr attachParams)
+	const ECS::RenderLight& renderLight, const ECS::ProjectorLight& projectorLight)
 {
 	auto pOwnerEntity = gEnv->pEntitySystem->GetEntity(m_ownerEntityId);
 	CRY_ASSERT(pOwnerEntity);
 
 	SRenderLight light;
 	light.m_nEntityId = pOwnerEntity->GetId();
-	light.SetLightColor(ColorF(attachParams->diffuseColor.x * attachParams->diffuseMultiplier,
-		attachParams->diffuseColor.y * attachParams->diffuseMultiplier,
-		attachParams->diffuseColor.z * attachParams->diffuseMultiplier, 1.0f));
-	light.SetSpecularMult((float)__fsel(-attachParams->diffuseMultiplier, attachParams->specularMultiplier,
-		(attachParams->specularMultiplier / (attachParams->diffuseMultiplier + FLT_EPSILON))));
-	light.m_nLightStyle = attachParams->lightStyle;
-	light.SetAnimSpeed(attachParams->animationSpeed);
-	light.m_fRadius = attachParams->radius;
-	light.m_fLightFrustumAngle = attachParams->projectorFoV * 0.5f;
+	light.SetLightColor(ColorF(renderLight.diffuseColor.x * renderLight.diffuseMultiplier,
+		renderLight.diffuseColor.y * renderLight.diffuseMultiplier,
+		renderLight.diffuseColor.z * renderLight.diffuseMultiplier, 1.0f));
+	light.SetSpecularMult((float)__fsel(-renderLight.diffuseMultiplier, renderLight.specularMultiplier,
+		(renderLight.specularMultiplier / (renderLight.diffuseMultiplier + FLT_EPSILON))));
+	light.m_nLightStyle = renderLight.lightStyle;
+	light.SetAnimSpeed(renderLight.animationSpeed);
+	light.m_fRadius = renderLight.radius;
+	light.m_fLightFrustumAngle = projectorLight.projectorFoV * 0.5f;
 
 	// #TODO: Plan a way to get bitsets from Articy to code.
 	light.m_Flags = DLF_DEFERRED_LIGHT | DLF_THIS_AREA_ONLY;
-	//light.m_Flags |= attachParams->deferred ? DLF_DEFERRED_LIGHT : 0;
-	//light.m_Flags |= attachParams->castShadows ? DLF_CASTSHADOW_MAPS : 0;
+	//light.m_Flags |= renderLight.deferred ? DLF_DEFERRED_LIGHT : 0;
+	//light.m_Flags |= renderLight.castShadows ? DLF_CASTSHADOW_MAPS : 0;
 
 
-	if (attachParams->projectorTexture && attachParams->projectorTexture [0])
+	if (projectorLight.projectorTexture.value.length() > 0)
 	{
-		light.m_pLightImage = gEnv->pRenderer->EF_LoadTexture(attachParams->projectorTexture, FT_DONT_STREAM);
+		light.m_pLightImage = gEnv->pRenderer->EF_LoadTexture(projectorLight.projectorTexture.value, FT_DONT_STREAM);
 
 		if (!light.m_pLightImage || !light.m_pLightImage->IsTextureLoaded())
 		{
-			GameWarning("[EntityEffects] Entity '%s' failed to load projecting light texture '%s'!", pOwnerEntity->GetName(), attachParams->projectorTexture.c_str());
+			GameWarning("[EntityEffects] Entity '%s' failed to load projecting light texture '%s'!", pOwnerEntity->GetName(), projectorLight.projectorTexture.value.c_str());
 			return EFFECTID_INVALID;
 		}
 	}
@@ -315,9 +315,9 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 	}
 
 	IMaterial* pMaterial = nullptr;
-	if (attachParams->effectSlotMaterial && attachParams->effectSlotMaterial[0])
+	if (renderLight.effectSlotMaterial.value.length() > 0)
 	{
-		pMaterial = gEnv->p3DEngine->GetMaterialManager()->LoadMaterial(attachParams->effectSlotMaterial);
+		pMaterial = gEnv->p3DEngine->GetMaterialManager()->LoadMaterial(renderLight.effectSlotMaterial.value);
 	}
 
 	SEntitySlotInfo slotInfo;
@@ -395,7 +395,7 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 			{
 				pLightSource->SetMaterial(pMaterial);
 				// #TODO: Find out what this does and how to get it.
-				// pLightSource->SetCastingException(attachParams->pCasterException);
+				// pLightSource->SetCastingException(renderLight.pCasterException);
 			}
 			pAttachment->AddBinding(pLightAttachment);
 

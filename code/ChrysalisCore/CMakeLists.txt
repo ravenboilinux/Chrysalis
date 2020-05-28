@@ -365,7 +365,6 @@ add_sources("Item_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "Item"
 		"Item/ItemAccessory.cpp"
-		"Item/ItemEffect.cpp"
 		"Item/ItemSystem.cpp"
 		"Item/ItemSystem.h"
 )
@@ -419,9 +418,7 @@ add_sources("Schematyc_uber.cpp"
 add_sources("SharedParameters_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "SharedParameters"
-		"SharedParameters/DynamicLight.cpp"
 		"SharedParameters/FogVolume.cpp"
-		"SharedParameters/DynamicLight.h"
 		"SharedParameters/FogVolume.h"
 		"SharedParameters/SharedParameters.h"
 )

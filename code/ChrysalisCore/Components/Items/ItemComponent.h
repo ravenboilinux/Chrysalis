@@ -138,24 +138,30 @@ private:
 public:
 	ILINE EntityEffects::CEffectsController& GetEffectsController() { return m_effectsController; }
 
+	///**
+	// Attach a light to this entity.
 
-	/**
-	 Attach a light to this entity.
+	// \param	targetSlot   	Target slot.
+	// \param	helperName   	Name of the helper.
+	// \param	offset		 	The offset.
+	// \param	direction	 	The direction.
+	// \param	firstSafeSlot	The first safe slot.
+	// \param	attachParams 	Options for controlling the attach.
 
-	 \param	targetSlot   	Target slot.
-	 \param	helperName   	Name of the helper.
-	 \param	offset		 	The offset.
-	 \param	direction	 	The direction.
-	 \param	firstSafeSlot	The first safe slot.
-	 \param	attachParams 	Options for controlling the attach.
+	// \return	An EntityEffects::TAttachedEffectId.
+	// */
 
-	 \return	An EntityEffects::TAttachedEffectId.
-	 */
+	//EntityEffects::TAttachedEffectId AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
+	//	const ECS::RenderLight& renderLight, const ECS::ProjectorLight& projectorLight)
+	//{
+	//	return m_effectsController.AttachLight(targetSlot, helperName, offset, direction, firstSafeSlot, renderLight, projectorLight);
+	//}
 
-	EntityEffects::TAttachedEffectId AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
-		const SDynamicLightConstPtr attachParams);
 
-	void DetachEffect(const EntityEffects::TAttachedEffectId effectId);
+	//void DetachEffect(const EntityEffects::TAttachedEffectId effectId)
+	//{
+	//	m_effectsController.DetachEffect(effectId);
+	//}
 
 private:
 	EntityEffects::CEffectsController m_effectsController;
