@@ -124,6 +124,9 @@ struct RenderLight : public IComponent
 struct ProjectorLight : public IComponent
 {
 	ProjectorLight() = default;
+	ProjectorLight(float projectorFoV, Schematyc::TextureFileName projectorTexture, float projectorFrustumAngle, float projectorNearPlane)
+		: projectorFoV(projectorFoV), projectorTexture(projectorTexture), projectorFrustumAngle(projectorFrustumAngle), projectorNearPlane(projectorNearPlane) {};
+
 	virtual ~ProjectorLight() = default;
 
 

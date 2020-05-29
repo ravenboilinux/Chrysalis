@@ -218,7 +218,7 @@
    <render-light CryXmlVersion="2" diffuseMultiplier="1" specularMultiplier="0" radius="10" lightStyle="0" animationSpeed="1" lightPhase="0" shadowBias="1" shadowSlopeBias="1" shadowResolutionScale="0" shadowUpdateMinimumRadius="4" shadowMinimumResolutionPercent="1" shadowUpdateRatio="0" effectSlotMaterial="" attenuationRadius="0.1">
     <diffuseColor x="128" y="128" z="128"/>
    </render-light>
-   <projector-light CryXmlVersion="2" projectorFoV="90" projectorTexture="" projectorFrustumAngle="45" projectorNearPlane="0"/>
+   <projector-light CryXmlVersion="2" projectorFoV="90" projectorTexture="chrysalis/textures/lights/flashlight_projector.dds" projectorFrustumAngle="45" projectorNearPlane="0"/>
     </components>
   </entity>
 
