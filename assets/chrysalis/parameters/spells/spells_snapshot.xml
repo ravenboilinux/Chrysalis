@@ -3,8 +3,8 @@
   <components>
    <name CryXmlVersion="2" name="TEST" displayName="TEST"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <render-light CryXmlVersion="2" diffuseMultiplier="1" specularMultiplier="0" radius="10" lightStyle="0" animationSpeed="1" lightPhase="0" shadowBias="1" shadowSlopeBias="1" shadowResolutionScale="0" shadowUpdateMinimumRadius="4" shadowMinimumResolutionPercent="1" shadowUpdateRatio="0" effectSlotMaterial="" attenuationRadius="0.1" m_lensFlareName="" m_attachToSun="false" m_flareEnable="true" m_flareFOV="360">
-    <diffuseColor x="128" y="128" z="128"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="0" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="0" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" radius="10" attenuationRadius="0.1" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
    </render-light>
    <projector-light CryXmlVersion="2" projectorFoV="90" projectorTexture="chrysalis/textures/lights/flashlight_projector.dds" projectorFrustumAngle="45" projectorNearPlane="0"/>
   </components>

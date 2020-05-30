@@ -154,7 +154,8 @@ void CActorComponent::Initialize()
 	// TEST: entity effect adding a light.
 	// Provide them with an effects controller for this entity.
 	m_effectsController.Init(GetEntityId());
-	m_effectsController.AttachLight(10, "a_helper", Vec3(0.0f, 0.6f, 1.0f), Vec3(0.0f, 1.0f, 0.0f).normalized(), eGeometrySlot::eIGS_Aux0, ECS::RenderLight(), 
+	m_effectsController.AttachLight(10, "a_helper", Vec3(0.0f, 0.6f, 1.0f), Vec3(0.0f, 1.0f, 0.0f).normalized(), eGeometrySlot::eIGS_Aux0, 
+		ECS::RenderLight(), 
 		ECS::ProjectorLight(90.0f, "chrysalis/textures/lights/flashlight_projector.dds", 45.0f, 0.0f));
 
 	// Reset the entity.

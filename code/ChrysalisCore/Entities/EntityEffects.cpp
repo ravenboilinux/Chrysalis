@@ -272,14 +272,16 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 	SRenderLight light;
 
 	light.m_nEntityId = pOwnerEntity->GetId();
-	light.SetLightColor(ColorF(renderLight.diffuseColor.x * renderLight.diffuseMultiplier,
-		renderLight.diffuseColor.y * renderLight.diffuseMultiplier,
-		renderLight.diffuseColor.z * renderLight.diffuseMultiplier, 1.0f));
-	light.SetSpecularMult((float)__fsel(-renderLight.diffuseMultiplier, renderLight.specularMultiplier,
-		(renderLight.specularMultiplier / (renderLight.diffuseMultiplier + FLT_EPSILON))));
-	light.m_nLightStyle = renderLight.lightStyle;
-	light.SetAnimSpeed(renderLight.animationSpeed);
-	light.m_fRadius = renderLight.radius;
+	
+	light.SetLightColor(renderLight.color.m_color * renderLight.color.m_diffuseMultiplier);
+	light.SetSpecularMult(renderLight.color.m_specularMultiplier);
+	light.m_nLightStyle = renderLight.animations.m_style;
+	light.SetAnimSpeed(renderLight.animations.m_speed);
+
+	// TODO: The radius needs to be brought in line with CProjectorLightComponent.
+	//light.SetRadius(renderLight.attenuationRadius, renderLight.attenuationRadius);
+	light.SetRadius(renderLight.radius, renderLight.radius);
+
 	light.m_fLightFrustumAngle = projectorLight.projectorFoV * 0.5f;
 
 	// #TODO: Plan a way to get bitsets from Articy to code.

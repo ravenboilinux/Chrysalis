@@ -10,7 +10,13 @@ namespace Cry
 {
 namespace DefaultComponents
 {
-bool Serialize(Serialization::IArchive& archive, ILightComponent::SOptics& optics, const char* szName, const char* szLabel);
+/** We need to add a Serialize function for each type, since they lack one. */
+bool Serialize(Serialization::IArchive& ar, ILightComponent::SOptions& desc, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& ar, ILightComponent::SColor& desc, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& ar, ILightComponent::SOptics& desc, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& ar, ILightComponent::SShadows& desc, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& ar, ILightComponent::SAnimations& desc, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& ar, ILightComponent::SShape& desc, const char* szName, const char* szLabel);
 }
 }
 
@@ -33,91 +39,36 @@ struct RenderLight : public IComponent
 
 	void Serialize(Serialization::IArchive& ar) override final
 	{
-		ar(diffuseColor, "diffuseColor", "Diffuse color expressed as RGB e.g. 128, 255, 128.");
-		ar(diffuseMultiplier, "diffuseMultiplier", "Control the strength of the diffuse color.");
-		ar(specularMultiplier, "specularMultiplier", "Control the strength of the specular brightness.");
+		ar(optics, "optics", "optics");
+		ar(options, "options", "options");
+		ar(color, "color", "color");
+		ar(shadows, "shadows", "shadows");
+		ar(animations, "animations", "animations");
+		ar(shape, "shape", "shape");
 
 		ar(radius, "radius", "Specifies how far from the source the light affects the surrounding area.");
-		ar(lightStyle, "lightStyle", "Style variation (flickering, waxing / wanning / etc).");
-		ar(animationSpeed, "animationSpeed", "Rate at which the style animation will play.");
-		ar(lightPhase, "lightPhase", "Point in the cycle (style) at which light animation begins.");
-		
-		ar(shadowBias, "shadowBias", "Moves the shadow cascade toward or away from the shadow-casting object.");
-		ar(shadowSlopeBias, "shadowSlopeBias", "Allows you to adjust the gradient (slope-based) bias used to compute the shadow bias.");
-		ar(shadowResolutionScale, "shadowResolutionScale", "shadowResolutionScale");
-		ar(shadowUpdateMinimumRadius, "shadowUpdateMinimumRadius", "Define the minimum radius from the light source to the player camera that the ShadowUpdateRatio setting will be ignored.");
-		ar(shadowMinimumResolutionPercent, "shadowMinimumResolutionPercent", "Percentage of the shadow pool the light should use for its shadows.");
-		ar(shadowUpdateRatio, "shadowUpdateRatio", "Define the update ratio for shadow maps cast from this light.");
-		
-		ar(effectSlotMaterial, "effectSlotMaterial", "A material for the effects slot.");
 		ar(attenuationRadius, "attenuationRadius", "Specifies the radius of the light bulb.");
-
-		// TEST: remove once test is complete.
-		ar(optics, "optics", "optics");
+		ar(effectSlotMaterial, "effectSlotMaterial", "A material for the effects slot.");
 	}
 
 
-	// TEST: remove once test is complete.
+	/** Using the default components CryTek provided. This will help with compatibility down the line. */
+	Cry::DefaultComponents::ILightComponent::SOptions options;
+	Cry::DefaultComponents::ILightComponent::SColor color;
 	Cry::DefaultComponents::ILightComponent::SOptics optics;
-
-	/** Diffuse color expressed as RGB e.g. 128, 255, 128. */
-	Vec3 diffuseColor {128.0f, 128.0f, 128.0f};
-
-	/** Control the strength of the diffuse color.*/
-	float diffuseMultiplier {1.0f};
-
-	/** Control the strength of the specular brightness. */
-	float specularMultiplier {1.0f};
+	Cry::DefaultComponents::ILightComponent::SShadows shadows;
+	Cry::DefaultComponents::ILightComponent::SAnimations animations;
+	Cry::DefaultComponents::ILightComponent::SShape shape;
 
 	/** Specifies how far from the source the light affects the surrounding area. */
 	float radius {10.0f};
 
-	/** Style variation (flickering, waxing / wanning / etc). */
-	uint8 lightStyle {0};
-
-	/** Rate at which the style animation will play. */
-	uint8 animationSpeed {1};
-
-	/** Point in the cycle (style) at which light animation begins. */
-	// TODO: Implement this value.
-	uint8 lightPhase {0};
-
-
-	// Shadow map fields.
-
-	/** Moves the shadow cascade toward or away from the shadow-casting object. */
-	// TODO: Implement this value.
-	float shadowBias {1.0f};
-
-	/** Allows you to adjust the gradient (slope-based) bias used to compute the shadow bias. */
-	// TODO: Implement this value.
-	float shadowSlopeBias {1.0f};
-
-	/** */
-	// TODO: Implement this value.
-	float shadowResolutionScale {1.0f};
-
-	/** Define the minimum radius from the light source to the player camera that the ShadowUpdateRatio setting will be ignored. */
-	// TODO: Implement this value.
-	float shadowUpdateMinimumRadius {4.0f};
-
-	/** Percentage of the shadow pool the light should use for its shadows. */
-	// TODO: Implement this value.
-	uint16 shadowMinimumResolutionPercent {0};
-
-	/** Define the update ratio for shadow maps cast from this light. */
-	// TODO: Implement this value.
-	uint16 shadowUpdateRatio {1 << DL_SHADOW_UPDATE_SHIFT};
-
-
-	// Misc.
-
-	/** A material for the effects slot. */
-	Schematyc::MaterialFileName effectSlotMaterial;
-
 	/** Specifies the radius of the light bulb. */
 	// TODO: Implement this value.
 	float attenuationRadius {0.1f};
+
+	/** A material for the effects slot. */
+	Schematyc::MaterialFileName effectSlotMaterial;
 };
 
 
