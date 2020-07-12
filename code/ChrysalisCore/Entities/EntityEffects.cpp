@@ -264,56 +264,211 @@ TAttachedEffectId CEffectsController::AttachParticleEffect(const char *effectNam
 
 
 TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const char *helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
-	const ECS::RenderLight& renderLight, const ECS::ProjectorLight& projectorLight)
+	const ECS::RenderLight& renderLight)
 {
 	auto pOwnerEntity = gEnv->pEntitySystem->GetEntity(m_ownerEntityId);
 	CRY_ASSERT(pOwnerEntity);
 
+	//SRenderLight light;
+
+	//light.m_nEntityId = pOwnerEntity->GetId();
+	//
+	//light.SetLightColor(renderLight.color.m_color * renderLight.color.m_diffuseMultiplier);
+	//light.SetSpecularMult(renderLight.color.m_specularMultiplier);
+	//light.m_nLightStyle = renderLight.animations.m_style;
+	//light.SetAnimSpeed(renderLight.animations.m_speed);
+
+	//// TODO: The radius needs to be brought in line with CProjectorLightComponent.
+	////light.SetRadius(renderLight.attenuationRadius, renderLight.attenuationRadius);
+	//light.SetRadius(renderLight.radius, renderLight.radius);
+
+	//light.m_fLightFrustumAngle = projectorLight.projectorFoV * 0.5f;
+
+	//// #TODO: Plan a way to get bitsets from Articy to code.
+	//light.m_Flags = DLF_DEFERRED_LIGHT | DLF_THIS_AREA_ONLY;
+	////light.m_Flags |= renderLight.deferred ? DLF_DEFERRED_LIGHT : 0;
+	////light.m_Flags |= renderLight.castShadows ? DLF_CASTSHADOW_MAPS : 0;
+
+
+	//if (projectorLight.projectorTexture.value.length() > 0)
+	//{
+	//	light.m_pLightImage = gEnv->pRenderer->EF_LoadTexture(projectorLight.projectorTexture.value, FT_DONT_STREAM);
+
+	//	if (!light.m_pLightImage || !light.m_pLightImage->IsTextureLoaded())
+	//	{
+	//		GameWarning("[EntityEffects] Entity '%s' failed to load projecting light texture '%s'!", pOwnerEntity->GetName(), projectorLight.projectorTexture.value.c_str());
+	//		return EFFECTID_INVALID;
+	//	}
+	//}
+
+	//if ((light.m_pLightImage != nullptr) && light.m_pLightImage->IsTextureLoaded())
+	//{
+	//	light.m_Flags |= DLF_PROJECT;
+	//}
+	//else
+	//{
+	//	if (light.m_pLightImage)
+	//	{
+	//		light.m_pLightImage->Release();
+	//	}
+	//	light.m_pLightImage = nullptr;
+	//	light.m_Flags |= DLF_POINT;
+	//}
+
 	SRenderLight light;
 
-	light.m_nEntityId = pOwnerEntity->GetId();
-	
-	light.SetLightColor(renderLight.color.m_color * renderLight.color.m_diffuseMultiplier);
-	light.SetSpecularMult(renderLight.color.m_specularMultiplier);
 	light.m_nLightStyle = renderLight.animations.m_style;
 	light.SetAnimSpeed(renderLight.animations.m_speed);
 
-	// TODO: The radius needs to be brought in line with CProjectorLightComponent.
-	//light.SetRadius(renderLight.attenuationRadius, renderLight.attenuationRadius);
-	light.SetRadius(renderLight.radius, renderLight.radius);
+	light.SetPosition(ZERO);
+	light.m_Flags = DLF_DEFERRED_LIGHT | DLF_PROJECT;
 
-	light.m_fLightFrustumAngle = projectorLight.projectorFoV * 0.5f;
+	light.m_fLightFrustumAngle = renderLight.fovAngle.ToDegrees();
+	light.m_fProjectorNearPlane = renderLight.projectorOptions.m_nearPlane;
 
-	// #TODO: Plan a way to get bitsets from Articy to code.
-	light.m_Flags = DLF_DEFERRED_LIGHT | DLF_THIS_AREA_ONLY;
-	//light.m_Flags |= renderLight.deferred ? DLF_DEFERRED_LIGHT : 0;
-	//light.m_Flags |= renderLight.castShadows ? DLF_CASTSHADOW_MAPS : 0;
+	light.SetLightColor(renderLight.color.m_color * renderLight.color.m_diffuseMultiplier);
+	light.SetSpecularMult(renderLight.color.m_specularMultiplier);
 
+	light.m_fHDRDynamic = 0.f;
 
-	if (projectorLight.projectorTexture.value.length() > 0)
+	if (renderLight.options.m_bAffectsOnlyThisArea)
+		light.m_Flags |= DLF_THIS_AREA_ONLY;
+
+	if (renderLight.options.m_bIgnoreVisAreas)
+		light.m_Flags |= DLF_IGNORES_VISAREAS;
+
+	if (renderLight.options.m_bVolumetricFogOnly)
+		light.m_Flags |= DLF_VOLUMETRIC_FOG_ONLY;
+
+	if (renderLight.options.m_bAffectsVolumetricFog)
+		light.m_Flags |= DLF_VOLUMETRIC_FOG;
+
+	if (renderLight.options.m_bLinkToSkyColor)
+		light.m_Flags |= DLF_LINK_TO_SKY_COLOR;
+
+	if (renderLight.options.m_bAmbient)
+		light.m_Flags |= DLF_AMBIENT;
+
+	//TODO: Automatically add DLF_FAKE when using beams or flares
+
+	bool shouldCastShadows = false;
+	if (renderLight.shadows.m_castShadowSpec != Cry::DefaultComponents::EMiniumSystemSpec::Disabled)
 	{
-		light.m_pLightImage = gEnv->pRenderer->EF_LoadTexture(projectorLight.projectorTexture.value, FT_DONT_STREAM);
-
-		if (!light.m_pLightImage || !light.m_pLightImage->IsTextureLoaded())
+		const int sysSpec = gEnv->pSystem->GetConfigSpec();
+		if (sysSpec != CONFIG_CUSTOM)
 		{
-			GameWarning("[EntityEffects] Entity '%s' failed to load projecting light texture '%s'!", pOwnerEntity->GetName(), projectorLight.projectorTexture.value.c_str());
-			return EFFECTID_INVALID;
+			shouldCastShadows = sysSpec >= static_cast<int>(renderLight.shadows.m_castShadowSpec);
+		}
+		else
+		{
+			if (ICVar* const pSysSpecShadow = gEnv->pConsole->GetCVar("sys_spec_shadow"))
+				shouldCastShadows = pSysSpecShadow->GetIVal() >= static_cast<int>(renderLight.shadows.m_castShadowSpec);
 		}
 	}
 
-	if ((light.m_pLightImage != nullptr) && light.m_pLightImage->IsTextureLoaded())
+	if (shouldCastShadows)
 	{
-		light.m_Flags |= DLF_PROJECT;
+		light.m_Flags |= DLF_CASTSHADOW_MAPS;
+
+		light.SetShadowBiasParams(renderLight.shadows.m_shadowBias, renderLight.shadows.m_shadowSlopeBias);
+		light.m_fShadowUpdateMinRadius = light.m_fRadius;
+
+		float shadowUpdateRatio = 1.f;
+		light.m_nShadowUpdateRatio = max((uint16)1, (uint16)(shadowUpdateRatio * (1 << DL_SHADOW_UPDATE_SHIFT)));
+	}
+	else
+		light.m_Flags &= ~DLF_CASTSHADOW_MAPS;
+
+	light.SetRadius(renderLight.radius, renderLight.options.m_attenuationBulbSize);
+
+	light.m_fFogRadialLobe = renderLight.options.m_fogRadialLobe;
+
+	const char* szProjectorTexturePath = renderLight.projectorOptions.GetTexturePath();
+	if (szProjectorTexturePath[0] == '\0')
+	{
+		szProjectorTexturePath = "%ENGINE%/EngineAssets/Textures/lights/softedge.dds";
+	}
+
+	const char* pExt = PathUtil::GetExt(szProjectorTexturePath);
+	if (!stricmp(pExt, "swf") || !stricmp(pExt, "gfx") || !stricmp(pExt, "usm") || !stricmp(pExt, "ui"))
+	{
+		light.m_pLightDynTexSource = gEnv->pRenderer->EF_LoadDynTexture(szProjectorTexturePath, false);
 	}
 	else
 	{
-		if (light.m_pLightImage)
-		{
-			light.m_pLightImage->Release();
-		}
-		light.m_pLightImage = nullptr;
-		light.m_Flags |= DLF_POINT;
+		light.m_pLightImage = gEnv->pRenderer->EF_LoadTexture(szProjectorTexturePath, 0);
 	}
+
+	if ((light.m_pLightImage == nullptr || !light.m_pLightImage->IsTextureLoaded()) && light.m_pLightDynTexSource == nullptr)
+	{
+		CryWarning(VALIDATOR_MODULE_GAME, VALIDATOR_ERROR, "Light projector texture %s not found, disabling projector component for entity %s", szProjectorTexturePath, pOwnerEntity->GetName());
+		return EFFECTID_INVALID;
+	}
+
+	if (renderLight.flare.HasTexturePath())
+	{
+		int nLensOpticsId;
+
+		if (gEnv->pOpticsManager->Load(renderLight.flare.GetTexturePath(), nLensOpticsId))
+		{
+			IOpticsElementBase* pOptics = gEnv->pOpticsManager->GetOptics(nLensOpticsId);
+			CRY_ASSERT(pOptics != nullptr);
+
+			if (pOptics != nullptr)
+			{
+				light.SetLensOpticsElement(pOptics);
+
+				float flareAngle = renderLight.flare.m_angle.ToDegrees();
+
+				if (flareAngle != 0)
+				{
+					int modularAngle = ((int)flareAngle) % 360;
+					if (modularAngle == 0)
+						light.m_LensOpticsFrustumAngle = 255;
+					else
+						light.m_LensOpticsFrustumAngle = (uint8)(flareAngle * (255.0f / 360.0f));
+				}
+				else
+				{
+					light.m_LensOpticsFrustumAngle = 0;
+				}
+			}
+		}
+		else
+		{
+			CryWarning(VALIDATOR_MODULE_GAME, VALIDATOR_ERROR, "Flare lens optics %s for projector component in entity %s doesn't exist!", renderLight.flare.GetTexturePath(), pOwnerEntity->GetName());
+			light.SetLensOpticsElement(nullptr);
+		}
+	}
+
+	if (renderLight.optics.m_flareEnable && !renderLight.optics.m_lensFlareName.empty())
+	{
+		int32 opticsIndex = 0;
+		if (gEnv->pOpticsManager->Load(renderLight.optics.m_lensFlareName.c_str(), opticsIndex))
+		{
+			IOpticsElementBase* pOpticsElement = gEnv->pOpticsManager->GetOptics(opticsIndex);
+			light.SetLensOpticsElement(pOpticsElement);
+
+			const int32 modularAngle = renderLight.optics.m_flareFOV % 360;
+			if (modularAngle == 0)
+				light.m_LensOpticsFrustumAngle = 255;
+			else
+				light.m_LensOpticsFrustumAngle = (uint8)(renderLight.optics.m_flareFOV * (255.0f / 360.0f));
+
+			if (renderLight.optics.m_attachToSun)
+			{
+				light.m_Flags |= DLF_ATTACH_TO_SUN | DLF_FAKE | DLF_IGNORES_VISAREAS;
+				light.m_Flags &= ~DLF_THIS_AREA_ONLY;
+			}
+		}
+	}
+
+	pOwnerEntity->UpdateLightClipBounds(light);
+
+
+
+
+
 
 	IMaterial* pMaterial = nullptr;
 	if (renderLight.effectSlotMaterial.value.length() > 0)

@@ -175,11 +175,6 @@ void RegisterComponentsWithMeta()
 		.type(ECS::RenderLight().GetHashedName())
 		.ctor<&assign<ECS::RenderLight>, entt::as_alias_t>();
 
-	entt::meta<ECS::ProjectorLight>()
-		.base<ECS::IComponent>()
-		.type(ECS::ProjectorLight().GetHashedName())
-		.ctor<&assign<ECS::ProjectorLight>, entt::as_alias_t>();
-
 	// Items.
 	entt::meta<ECS::ItemClass>()
 		.base<ECS::IComponent>()

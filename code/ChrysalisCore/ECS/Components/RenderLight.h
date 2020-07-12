@@ -1,9 +1,8 @@
 #pragma once
 
 #include <ECS/Components/Components.h>
-
-// HACK: TEST: Checking if it's possible / worth it to add serialize functions to the existing default component structures.
 #include <DefaultComponents/Lights/ILightComponent.h>
+#include <DefaultComponents/Lights/ProjectorLightComponent.h>
 
 
 namespace Cry
@@ -17,6 +16,8 @@ bool Serialize(Serialization::IArchive& ar, ILightComponent::SOptics& desc, cons
 bool Serialize(Serialization::IArchive& ar, ILightComponent::SShadows& desc, const char* szName, const char* szLabel);
 bool Serialize(Serialization::IArchive& ar, ILightComponent::SAnimations& desc, const char* szName, const char* szLabel);
 bool Serialize(Serialization::IArchive& ar, ILightComponent::SShape& desc, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& ar, CProjectorLightComponent::SProjectorOptions& desc, const char* szName, const char* szLabel);
+bool Serialize(Serialization::IArchive& ar, CProjectorLightComponent::SFlare& desc, const char* szName, const char* szLabel);
 }
 }
 
@@ -45,9 +46,11 @@ struct RenderLight : public IComponent
 		ar(shadows, "shadows", "shadows");
 		ar(animations, "animations", "animations");
 		ar(shape, "shape", "shape");
+		ar(projectorOptions, "projectorOptions", "projectorOptions");
+		ar(flare, "flare", "flare");
 
 		ar(radius, "radius", "Specifies how far from the source the light affects the surrounding area.");
-		ar(attenuationRadius, "attenuationRadius", "Specifies the radius of the light bulb.");
+		ar(fovAngle, "fovAngle", "m_angle");
 		ar(effectSlotMaterial, "effectSlotMaterial", "A material for the effects slot.");
 	}
 
@@ -59,56 +62,17 @@ struct RenderLight : public IComponent
 	Cry::DefaultComponents::ILightComponent::SShadows shadows;
 	Cry::DefaultComponents::ILightComponent::SAnimations animations;
 	Cry::DefaultComponents::ILightComponent::SShape shape;
+	Cry::DefaultComponents::CProjectorLightComponent::SProjectorOptions projectorOptions;
+	Cry::DefaultComponents::CProjectorLightComponent::SFlare flare;
+
 
 	/** Specifies how far from the source the light affects the surrounding area. */
-	float radius {10.0f};
+	Schematyc::Range<0, std::numeric_limits<int>::max()> radius = 10.f;
 
-	/** Specifies the radius of the light bulb. */
-	// TODO: Implement this value.
-	float attenuationRadius {0.1f};
+	/** Limit the field of view and / or frustum angle.  */
+	CryTransform::CClampedAngle<0, 180> fovAngle = 45.0_degrees;
 
 	/** A material for the effects slot. */
 	Schematyc::MaterialFileName effectSlotMaterial;
-};
-
-
-struct ProjectorLight : public IComponent
-{
-	ProjectorLight() = default;
-	ProjectorLight(float projectorFoV, Schematyc::TextureFileName projectorTexture, float projectorFrustumAngle, float projectorNearPlane)
-		: projectorFoV(projectorFoV), projectorTexture(projectorTexture), projectorFrustumAngle(projectorFrustumAngle), projectorNearPlane(projectorNearPlane) {};
-
-	virtual ~ProjectorLight() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"projector-light"_hs};
-
-		return nameHS;
-	}
-
-
-	void Serialize(Serialization::IArchive& ar) override final
-	{
-		ar(projectorFoV, "projectorFoV", "Specifies the Angle on which the light texture is projected.");
-		ar(projectorTexture, "projectorTexture", " A texture to used for custom falloff.");
-		ar(projectorFrustumAngle, "projectorFrustumAngle", "Frustum angle for the projected light / texture.");
-		ar(projectorNearPlane, "projectorNearPlane", "Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on.");
-	}
-
-	/** Specifies the Angle on which the light texture is projected. */
-	float projectorFoV {90.0f};
-
-	/** A texture to used for custom falloff. */
-	Schematyc::TextureFileName projectorTexture;
-
-	/** Frustum angle for the projected light / texture. */
-	// TODO: Implement this value.
-	float projectorFrustumAngle {45.f};
-
-	/** Set the near plane for the projector, any surfaces closer to the light source than this value will not be projected on. */
-	// TODO: Implement this value.
-	float projectorNearPlane {0.0f};
 };
 }

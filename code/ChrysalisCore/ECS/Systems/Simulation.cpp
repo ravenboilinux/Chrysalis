@@ -275,7 +275,7 @@ void CSimulation::SaveSimulationData()
 		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
 		ECS::Spell,
 		ECS::ItemClass,
-		ECS::RenderLight, ECS::ProjectorLight>(actorSerial);
+		ECS::RenderLight>(actorSerial);
 	actorSerial.SaveToFile("chrysalis/parameters/items/test_out_snapshot.xml");
 
 	// Spell prototypes.
@@ -292,7 +292,7 @@ void CSimulation::SaveSimulationData()
 		ECS::SpellActionSwitch,
 		ECS::SpellActionOpen, ECS::SpellActionClose, 
 		ECS::SpellActionUnlock, ECS::SpellActionLock,
-		ECS::RenderLight,ECS::ProjectorLight>(spellSerial);
+		ECS::RenderLight>(spellSerial);
 
 	spellSerial.SaveToFile("chrysalis/parameters/spells/spells_snapshot.xml");
 }

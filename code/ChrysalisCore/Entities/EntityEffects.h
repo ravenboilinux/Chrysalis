@@ -114,8 +114,7 @@ public:
 	 \return	A TAttachedEffectId.
 	 */
 
-	TAttachedEffectId AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
-		const ECS::RenderLight& renderLight, const ECS::ProjectorLight& projectorLight);
+	TAttachedEffectId AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot, const ECS::RenderLight& renderLight);
 
 
 	/**

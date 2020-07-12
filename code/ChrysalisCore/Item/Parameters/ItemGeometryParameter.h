@@ -17,6 +17,7 @@ enum eGeometrySlot
 	eIGS_Aux1,
 	eIGS_ThirdPersonAux,
 	eIGS_Last,
+
 	eIGS_LastAnimSlot = eIGS_OwnerAnimGraphLooped + 1,
 	eIGS_LastLayerSlot = eIGS_ThirdPerson + 1
 };

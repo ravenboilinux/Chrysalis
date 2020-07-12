@@ -100,6 +100,25 @@ bool Serialize(Serialization::IArchive& ar, ILightComponent::SShape& desc, const
 
 	return true;
 }
+
+
+bool Serialize(Serialization::IArchive& ar, CProjectorLightComponent::SProjectorOptions& desc, const char* szName, const char* szLabel)
+{
+	ar(desc.m_nearPlane, "nearPlane", "nearPlane");
+	ar(desc.m_texturePath, "texturePath", "Texture Path");
+	ar(desc.m_materialPath, "materialPath", "Material Path");
+
+	return true;
+}
+
+
+bool Serialize(Serialization::IArchive& ar, CProjectorLightComponent::SFlare& desc, const char* szName, const char* szLabel)
+{
+	ar(desc.m_angle, "angle", "angle");
+	ar(desc.m_texturePath, "texturePath", "Texture Path");
+
+	return true;
+}
 }
 }
 
