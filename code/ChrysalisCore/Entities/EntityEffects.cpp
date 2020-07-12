@@ -269,52 +269,6 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 	auto pOwnerEntity = gEnv->pEntitySystem->GetEntity(m_ownerEntityId);
 	CRY_ASSERT(pOwnerEntity);
 
-	//SRenderLight light;
-
-	//light.m_nEntityId = pOwnerEntity->GetId();
-	//
-	//light.SetLightColor(renderLight.color.m_color * renderLight.color.m_diffuseMultiplier);
-	//light.SetSpecularMult(renderLight.color.m_specularMultiplier);
-	//light.m_nLightStyle = renderLight.animations.m_style;
-	//light.SetAnimSpeed(renderLight.animations.m_speed);
-
-	//// TODO: The radius needs to be brought in line with CProjectorLightComponent.
-	////light.SetRadius(renderLight.attenuationRadius, renderLight.attenuationRadius);
-	//light.SetRadius(renderLight.radius, renderLight.radius);
-
-	//light.m_fLightFrustumAngle = projectorLight.projectorFoV * 0.5f;
-
-	//// #TODO: Plan a way to get bitsets from Articy to code.
-	//light.m_Flags = DLF_DEFERRED_LIGHT | DLF_THIS_AREA_ONLY;
-	////light.m_Flags |= renderLight.deferred ? DLF_DEFERRED_LIGHT : 0;
-	////light.m_Flags |= renderLight.castShadows ? DLF_CASTSHADOW_MAPS : 0;
-
-
-	//if (projectorLight.projectorTexture.value.length() > 0)
-	//{
-	//	light.m_pLightImage = gEnv->pRenderer->EF_LoadTexture(projectorLight.projectorTexture.value, FT_DONT_STREAM);
-
-	//	if (!light.m_pLightImage || !light.m_pLightImage->IsTextureLoaded())
-	//	{
-	//		GameWarning("[EntityEffects] Entity '%s' failed to load projecting light texture '%s'!", pOwnerEntity->GetName(), projectorLight.projectorTexture.value.c_str());
-	//		return EFFECTID_INVALID;
-	//	}
-	//}
-
-	//if ((light.m_pLightImage != nullptr) && light.m_pLightImage->IsTextureLoaded())
-	//{
-	//	light.m_Flags |= DLF_PROJECT;
-	//}
-	//else
-	//{
-	//	if (light.m_pLightImage)
-	//	{
-	//		light.m_pLightImage->Release();
-	//	}
-	//	light.m_pLightImage = nullptr;
-	//	light.m_Flags |= DLF_POINT;
-	//}
-
 	SRenderLight light;
 
 	light.m_nLightStyle = renderLight.animations.m_style;
@@ -349,7 +303,7 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 	if (renderLight.options.m_bAmbient)
 		light.m_Flags |= DLF_AMBIENT;
 
-	//TODO: Automatically add DLF_FAKE when using beams or flares
+	// TODO: Automatically add DLF_FAKE when using beams or flares.
 
 	bool shouldCastShadows = false;
 	if (renderLight.shadows.m_castShadowSpec != Cry::DefaultComponents::EMiniumSystemSpec::Disabled)
@@ -377,7 +331,9 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 		light.m_nShadowUpdateRatio = max((uint16)1, (uint16)(shadowUpdateRatio * (1 << DL_SHADOW_UPDATE_SHIFT)));
 	}
 	else
+	{
 		light.m_Flags &= ~DLF_CASTSHADOW_MAPS;
+	}
 
 	light.SetRadius(renderLight.radius, renderLight.options.m_attenuationBulbSize);
 
@@ -465,11 +421,7 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 
 	pOwnerEntity->UpdateLightClipBounds(light);
 
-
-
-
-
-
+	// Need a custom material?
 	IMaterial* pMaterial = nullptr;
 	if (renderLight.effectSlotMaterial.value.length() > 0)
 	{
