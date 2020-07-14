@@ -10,6 +10,9 @@
 #include <Animation/PoseAligner/PoseAligner.h>
 #include <Actor/Animation/ActorAnimation.h>
 
+// TEST: entity effect adding a light.
+#include <Entities/EntityEffects.h>
+
 
 namespace Chrysalis
 {
@@ -351,6 +354,16 @@ public:
 
 			m_pEntity->UpdateComponentEventMask(this);
 		}
+
+		// TEST: entity effect adding a light.
+		// Provide them with an effects controller for this entity.
+		ECS::RenderLight renderLight;
+		renderLight.projectorOptions.m_texturePath = "chrysalis/textures/lights/flashlight_projector.dds";
+		renderLight.radius = 30.0f;
+		m_effectsController.Init(GetEntityId());
+		//int slotId = GetOrMakeEntitySlotId();
+		int slotId = 0;
+		m_effectsController.AttachLight(slotId, "Flashlight", Vec3(0.0f, 0.6f, 1.0f), Vec3(0.0f, 1.0f, 0.0f).normalized(), eGeometrySlot::eIGS_Aux0, renderLight);
 	}
 
 
@@ -421,5 +434,8 @@ protected:
 	float m_turnAngle {0.f};
 
 	bool m_bGroundAlignment {false};
+
+	// TEST: entity effect adding a light.
+	CEffectsController m_effectsController;
 };
 }

@@ -12,9 +12,6 @@
 #include <Interfaces/ISpell.h>
 #include <Snaplocks/Snaplock.h>
 
-// TEST: entity effect adding a light.
-#include <Entities/EntityEffects.h>
-
 
 namespace Chrysalis
 {
@@ -402,9 +399,5 @@ public:
 
 		return nullptr;
 	};
-
-
-	// TEST: entity effect adding a light.
-	CEffectsController m_effectsController;
 };
 }

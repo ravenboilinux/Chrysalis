@@ -67,9 +67,9 @@ void SpawnParticleWithEntity(const IEntity* pTargetEntity, const int targetSlot,
 			else if (slotInfo.pCharacter)
 			{
 				// Get helper position from character.
-				IAttachmentManager *pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
+				IAttachmentManager* pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
 
-				if (IAttachment *pAttachment = pAttachmentManager->GetInterfaceByName(helperName))
+				if (IAttachment* pAttachment = pAttachmentManager->GetInterfaceByName(helperName))
 				{
 					newSpawnParams.position = pAttachment->GetAttWorldAbsolute().t;
 				}
@@ -120,7 +120,7 @@ void CEffectsController::FreeAllEffects()
 	{
 		CRY_ASSERT(index < (int)m_attachedEffects.size());
 
-		DetachEffect(m_attachedEffects [index].id);
+		DetachEffect(m_attachedEffects[index].id);
 		index--;
 	}
 
@@ -184,7 +184,7 @@ TAttachedEffectId CEffectsController::AttachParticleEffect(const char* effectNam
 }
 
 
-TAttachedEffectId CEffectsController::AttachParticleEffect(IParticleEffect* pParticleEffect, const int targetSlot, const char *helperName, const SEffectAttachParams &attachParams)
+TAttachedEffectId CEffectsController::AttachParticleEffect(IParticleEffect* pParticleEffect, const int targetSlot, const char* helperName, const SEffectAttachParams& attachParams)
 {
 	auto pOwnerEntity = gEnv->pEntitySystem->GetEntity(m_ownerEntityId);
 	CRY_ASSERT(pOwnerEntity);
@@ -223,8 +223,8 @@ TAttachedEffectId CEffectsController::AttachParticleEffect(IParticleEffect* pPar
 		}
 		else if (slotInfo.pCharacter)
 		{
-			IAttachmentManager *pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
-			IAttachment *pAttachment = pAttachmentManager->GetInterfaceByName(helperName);
+			IAttachmentManager* pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
+			IAttachment* pAttachment = pAttachmentManager->GetInterfaceByName(helperName);
 
 			if (pAttachment)
 			{
@@ -252,7 +252,7 @@ TAttachedEffectId CEffectsController::AttachParticleEffect(IParticleEffect* pPar
 }
 
 
-TAttachedEffectId CEffectsController::AttachParticleEffect(const char *effectName, const int targetSlot, const char *helperName, const SEffectAttachParams &attachParams)
+TAttachedEffectId CEffectsController::AttachParticleEffect(const char* effectName, const int targetSlot, const char* helperName, const SEffectAttachParams& attachParams)
 {
 	auto pOwnerEntity = gEnv->pEntitySystem->GetEntity(m_ownerEntityId);
 	CRY_ASSERT(pOwnerEntity);
@@ -263,7 +263,7 @@ TAttachedEffectId CEffectsController::AttachParticleEffect(const char *effectNam
 }
 
 
-TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const char *helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
+TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const char* helperName, Vec3 offset, Vec3 direction, eGeometrySlot firstSafeSlot,
 	const ECS::RenderLight& renderLight)
 {
 	auto pOwnerEntity = gEnv->pEntitySystem->GetEntity(m_ownerEntityId);
@@ -482,10 +482,10 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 
 		// HACK: I am applying a rotation to orient the light down the Y axis instead of the engine system of the X axis.
 		//Matrix34 localEffectMtx = Matrix34(Matrix33::CreateRotationVDir(direction));
-		Matrix34 localEffectMtx = Matrix34(Matrix33::CreateRotationVDir(direction * Matrix33::CreateRotationZ(gf_PI * -0.5f)));		
+		Matrix34 localEffectMtx = Matrix34(Matrix33::CreateRotationVDir(direction * Matrix33::CreateRotationZ(gf_PI * -0.5f)));
 		localEffectMtx.SetTranslation(localHelperPosition);
 		pOwnerEntity->SetSlotLocalTM(effectInfo.entityEffectSlot, localEffectMtx);
-		
+
 
 		m_attachedEffects.push_back(effectInfo);
 
@@ -493,12 +493,12 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 	}
 	else if (slotInfo.pCharacter)
 	{
-		IAttachmentManager *pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
-		IAttachment *pAttachment = pAttachmentManager->GetInterfaceByName(helperName);
+		IAttachmentManager* pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
+		IAttachment* pAttachment = pAttachmentManager->GetInterfaceByName(helperName);
 
 		if (pAttachment)
 		{
-			CLightAttachment *pLightAttachment = new CLightAttachment();
+			CLightAttachment* pLightAttachment = new CLightAttachment();
 			pLightAttachment->LoadLight(light);
 
 			ILightSource* pLightSource = pLightAttachment->GetLightSource();
@@ -555,11 +555,11 @@ void CEffectsController::DetachEffect(const TAttachedEffectId effectId)
 		}
 		else
 		{
-			ICharacterInstance *pCharacter = pOwnerEntity->GetCharacter(effectInfo.characterEffectSlot);
+			ICharacterInstance* pCharacter = pOwnerEntity->GetCharacter(effectInfo.characterEffectSlot);
 			if (pCharacter)
 			{
-				IAttachmentManager *pAttachmentManager = pCharacter->GetIAttachmentManager();
-				IAttachment *pAttachment = pAttachmentManager->GetInterfaceByName(effectInfo.helperName.c_str());
+				IAttachmentManager* pAttachmentManager = pCharacter->GetIAttachmentManager();
+				IAttachment* pAttachment = pAttachmentManager->GetInterfaceByName(effectInfo.helperName.c_str());
 				if (pAttachment)
 				{
 					pAttachment->ClearBinding();
@@ -581,7 +581,7 @@ IParticleEmitter* CEffectsController::GetEffectEmitter(const TAttachedEffectId e
 
 	if (effectCit != m_attachedEffects.end())
 	{
-		const SEffectInfo &effectInfo = *effectCit;
+		const SEffectInfo& effectInfo = *effectCit;
 
 		if (effectInfo.entityEffectSlot >= 0)
 		{
@@ -597,14 +597,14 @@ IParticleEmitter* CEffectsController::GetEffectEmitter(const TAttachedEffectId e
 			SEntitySlotInfo slotInfo;
 			if (pOwnerEntity->GetSlotInfo(effectInfo.characterEffectSlot, slotInfo) && slotInfo.pCharacter)
 			{
-				IAttachmentManager *pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
-				IAttachment *pAttachment = pAttachmentManager->GetInterfaceByName(effectInfo.helperName.c_str());
+				IAttachmentManager* pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
+				IAttachment* pAttachment = pAttachmentManager->GetInterfaceByName(effectInfo.helperName.c_str());
 				if (pAttachment)
 				{
-					IAttachmentObject *pAttachmentObject = pAttachment->GetIAttachmentObject();
+					IAttachmentObject* pAttachmentObject = pAttachment->GetIAttachmentObject();
 					if (pAttachmentObject != nullptr && (pAttachmentObject->GetAttachmentType() == IAttachmentObject::eAttachment_Effect))
 					{
-						return static_cast<CEffectAttachment *>(pAttachmentObject)->GetEmitter();
+						return static_cast<CEffectAttachment*>(pAttachmentObject)->GetEmitter();
 					}
 				}
 			}
@@ -624,7 +624,7 @@ ILightSource* CEffectsController::GetLightSource(const TAttachedEffectId effectI
 
 	if (effectCit != m_attachedEffects.end())
 	{
-		const SEffectInfo &effectInfo = *effectCit;
+		const SEffectInfo& effectInfo = *effectCit;
 
 		if (effectInfo.entityEffectSlot >= 0)
 		{
@@ -640,11 +640,11 @@ ILightSource* CEffectsController::GetLightSource(const TAttachedEffectId effectI
 			SEntitySlotInfo slotInfo;
 			if (pOwnerEntity->GetSlotInfo(effectInfo.characterEffectSlot, slotInfo) && slotInfo.pCharacter)
 			{
-				IAttachmentManager *pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
-				IAttachment *pAttachment = pAttachmentManager->GetInterfaceByName(effectInfo.helperName.c_str());
+				IAttachmentManager* pAttachmentManager = slotInfo.pCharacter->GetIAttachmentManager();
+				IAttachment* pAttachment = pAttachmentManager->GetInterfaceByName(effectInfo.helperName.c_str());
 				if (pAttachment)
 				{
-					IAttachmentObject *pAttachmentObject = pAttachment->GetIAttachmentObject();
+					IAttachmentObject* pAttachmentObject = pAttachment->GetIAttachmentObject();
 					if (pAttachmentObject != nullptr && (pAttachmentObject->GetAttachmentType() == IAttachmentObject::eAttachment_Light))
 					{
 						return static_cast<CLightAttachment*>(pAttachmentObject)->GetLightSource();
@@ -673,7 +673,7 @@ void CEffectsController::SetEffectWorldTM(const TAttachedEffectId effectId, cons
 
 	if (effectCit != m_attachedEffects.end())
 	{
-		const SEffectInfo &effectInfo = *effectCit;
+		const SEffectInfo& effectInfo = *effectCit;
 		SEntitySlotInfo slotInfo;
 
 		if (effectInfo.entityEffectSlot >= 0)
@@ -697,7 +697,7 @@ void CEffectsController::UpdateEntitySlotEffectLocationsFromHelpers()
 	auto pOwnerEntity = gEnv->pEntitySystem->GetEntity(m_ownerEntityId);
 	for (int i = 0; i < numEffects; ++i)
 	{
-		SEffectInfo& effectInfo = m_attachedEffects [i];
+		SEffectInfo& effectInfo = m_attachedEffects[i];
 
 		if (effectInfo.entityEffectSlot >= 0 && effectInfo.characterEffectSlot >= 0 && !effectInfo.helperName.empty())
 		{
