@@ -7,19 +7,16 @@ namespace Chrysalis
 // #TODO: Dig into the code to find out what this does.
 enum eGeometrySlot
 {
-	eIGS_FirstPerson = 0,
-	eIGS_ThirdPerson,
-	eIGS_Owner,
-	eIGS_OwnerAnimGraph,
-	eIGS_OwnerAnimGraphLooped,
-	eIGS_Aux0,
-	eIGS_Destroyed,
-	eIGS_Aux1,
-	eIGS_ThirdPersonAux,
-	eIGS_Last,
-
-	eIGS_LastAnimSlot = eIGS_OwnerAnimGraphLooped + 1,
-	eIGS_LastLayerSlot = eIGS_ThirdPerson + 1
+	eIGS_FirstPerson = 0,		// First person character.
+	eIGS_ThirdPerson,			// Third person character.
+	eIGS_Owner,					// Mostly used in item code. Appears in weapon code.
+	eIGS_OwnerAnimGraph,		// Deprecated (probably).
+	eIGS_OwnerAnimGraphLooped,	// Deprecated (probably).
+	eIGS_Aux0,					// Gun turrets and items.
+	eIGS_Destroyed,				// Gun turret and item resource.
+	eIGS_Aux1,					// Gun turret, item, laser.
+	eIGS_ThirdPersonAux,		// Item, JAW, laser.
+	eIGS_Last,					// End of reserved slot list.
 };
 
 
