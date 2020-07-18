@@ -203,20 +203,20 @@ void CActorComponent::Update(SEntityUpdateContext* pCtx)
 		auto results = m_pAwarenessComponent->GetNearDotFiltered();
 		if (results.size() > 0)
 		{
-			//auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
+			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
 
-			// Do they have a spell book? Should we display a UI for their spells.
-			//if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
-			//{
-			//	auto spellCollection = pSpellbookComponent->GetSpellColllection();
+			// HACK: Quick way to display spell UI. Comment out when handing out a build.
+			if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
+			{
+				auto spellCollection = pSpellbookComponent->GetSpellColllection();
 
-			//	int spellId {1};
-			//	for (auto& spell : spellCollection.spells)
-			//	{
-			//		CryWatch("Spell %d : %s", spellId, spell.spellName.c_str());
-			//		spellId++;
-			//	}
-			//}
+				int spellId {1};
+				for (auto& spell : spellCollection.spells)
+				{
+					CryWatch("Spell %d : %s", spellId, spell.spellName.c_str());
+					spellId++;
+				}
+			}
 		}
 	}
 
@@ -728,7 +728,7 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 
 						CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
 
-						ECS::Simulation.CastSpellByName(spell.spellName, GetECSEntity(), 
+						ECS::Simulation.CastSpellByName(spell.spellName, GetECSEntity(),
 							pTargetActor->GetECSEntity(), GetEntityId(), pTargetActor->GetEntityId());
 					}
 					else

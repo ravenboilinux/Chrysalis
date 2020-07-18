@@ -242,6 +242,12 @@ add_sources("Skeleton_uber.cpp"
 		"Components/Skeleton/JointManipulationComponent.cpp"
 		"Components/Skeleton/JointManipulationComponent.h"
 )
+add_sources("Slidable_uber.cpp"
+    PROJECTS Chrysalis
+    SOURCE_GROUP "Components\\\\Slidable"
+		"Components/Slidable/SlidableComponent.cpp"
+		"Components/Slidable/SlidableComponent.h"
+)
 add_sources("Snaplocks_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "Components\\\\Snaplocks"
