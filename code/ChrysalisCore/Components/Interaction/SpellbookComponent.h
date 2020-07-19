@@ -21,7 +21,7 @@ struct ISpellCasting
 struct ISpellCastManager
 {
 	/** Queue a spell up, ready for casting. */
-	virtual bool QueueSpellCast(ISpellCasting& spellCasting) = 0;
+	virtual bool QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting) = 0;
 };
 
 
@@ -82,7 +82,7 @@ public:
 
 
 	// ISpellCastManager
-	bool QueueSpellCast(ISpellCasting& spellCasting) override;
+	bool QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting) override;
 	// ~ISpellCastManager
 
 
@@ -157,8 +157,7 @@ private:
 	IInteractionPtr m_selectedInteraction {IInteractionPtr()};
 
 	// HACK: KISS - no queue for the moment.
-	//std::queue<ISpellCasting> m_spellQueue;
-	//std::shared_ptr<ISpellCasting> m_spellCasting;
-	ISpellCasting* m_spellCasting {nullptr};
+	std::queue<std::shared_ptr<ISpellCasting>> m_spellQueue;
+	std::shared_ptr<ISpellCasting> m_spellCasting;
 };
 }

@@ -409,9 +409,9 @@ void SpellCastOpen(float dt, entt::registry& registry)
 			{
 				if (auto* pSpellbookComponent = pSourceEntity->GetComponent<CSpellbookComponent>())
 				{
-					// HACK: Need to use sharedptr instead, this will drop out of scope before it's finished being used.
-					Chrysalis::SpellCastOpen spellCastOpen (name, spell, sourceAndTarget);
-					pSpellbookComponent->QueueSpellCast(spellCastOpen);
+					// Toss the spell onto the source entity's queue.
+					auto spellCast = std::make_shared<Chrysalis::SpellCastOpen>(name, spell, sourceAndTarget);
+					pSpellbookComponent->QueueSpellCast(spellCast);
 				}
 			}
 		}

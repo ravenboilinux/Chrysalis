@@ -51,11 +51,17 @@ void CSpellbookComponent::Initialize()
 // ***
 
 
-bool CSpellbookComponent::QueueSpellCast(ISpellCasting& spellCasting)
+bool CSpellbookComponent::QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting)
 {
-	m_spellCasting = &spellCasting;
+	// Just let them queue up one extra spell at a time, to help alleviate network lag issues.
+	if (m_spellQueue.size() <= 1)
+	{
+		m_spellQueue.push(spellCasting);
+		return true;
+	}
 
-	return true;
+	// We didn't queue the spell, let them know.
+	return false;
 }
 
 
@@ -139,6 +145,16 @@ void CSpellbookComponent::OnInteractionStart(IActor& actor)
 	CRY_ASSERT_MESSAGE(m_selectedInteraction, "Be sure to set an interaction before attempting to call it.");
 	m_selectedInteraction->OnInteractionStart(actor);
 
+	if (!m_spellQueue.empty())
+	{
+		m_spellCasting = m_spellQueue.front();
+		m_spellQueue.pop();
+	}
+	else
+	{
+		m_spellCasting.reset();
+	}
+
 	if (m_spellCasting)
 	{
 		m_spellCasting->OnSpellStart();
@@ -168,8 +184,8 @@ void CSpellbookComponent::OnInteractionComplete(IActor& actor)
 		m_spellCasting->OnSpellComplete();
 	}
 
-	// HACK: TEST: MEMORY LEAK ISSUE, JUST HERE FOR QUICK TESTING.
-	m_spellCasting = nullptr;
+	// We're done with this spell now.
+	m_spellCasting.reset();
 }
 
 CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterSpellbookComponent)
