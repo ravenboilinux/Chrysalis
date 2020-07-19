@@ -103,12 +103,6 @@ void RegisterComponentsWithMeta()
 		.ctor<&assign<ECS::Spell>, entt::as_alias_t>();
 
 	// Spell actions.
-	//entt::meta<ECS::SpellActionOpenDoor>()
-	//	.base<ECS::IComponent>()
-	//	.type(ECS::SpellActionOpenDoor().GetHashedName())
-	//	.ctor<&assign<ECS::SpellActionOpenDoor>, entt::as_alias_t>();
-
-	// Spell actions.
 	entt::meta<ECS::SpellActionSchematyc>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionSchematyc().GetHashedName())

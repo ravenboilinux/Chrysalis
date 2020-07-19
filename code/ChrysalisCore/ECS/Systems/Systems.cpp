@@ -9,6 +9,7 @@
 #include <Actor/Animation/Actions/ActorAnimationActionCooperative.h>
 #include <Components/Animation/ActorAnimationComponent.h>
 #include <Components/Actor/ActorComponent.h>
+#include <Components/Interaction/SpellbookComponent.h>
 
 
 namespace Chrysalis::ECS
@@ -386,6 +387,41 @@ bool IsSpellCastable(const ECS::Spell& spell, const ECS::SourceAndTarget& source
 }
 
 
+void SpellCastOpen(float dt, entt::registry& registry)
+{
+	// Check for spell cast components.
+	auto view = registry.view<ECS::SpellActionOpen, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	for (auto& entity : view)
+	{
+		// Get the components.
+		auto& name = view.get<ECS::Name>(entity);
+		auto& spell = view.get<ECS::Spell>(entity);
+		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
+
+		// Check validity of the spell cast request.
+		if (IsSpellCastable(spell, sourceAndTarget))
+		{
+			// Do something.
+			CryLogAlways("Spellcast: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+
+			// Does the source actor have a spellbook for this cast?
+			if (auto* pSourceEntity = gEnv->pEntitySystem->GetEntity(sourceAndTarget.crySourceEntityId))
+			{
+				if (auto* pSpellbookComponent = pSourceEntity->GetComponent<CSpellbookComponent>())
+				{
+					// HACK: Need to use sharedptr instead, this will drop out of scope before it's finished being used.
+					Chrysalis::SpellCastOpen spellCastOpen (name, spell, sourceAndTarget);
+					pSpellbookComponent->QueueSpellCast(spellCastOpen);
+				}
+			}
+		}
+
+		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
+		registry.destroy(entity);
+	}
+}
+
+
 void SpellCastTake(float dt, entt::registry& registry)
 {
 	// Check for spell cast components.
@@ -503,6 +539,7 @@ void SpellCastSwitch(float dt, entt::registry& registry)
 
 void SystemWorldSpellCasts(float dt, entt::registry& registry)
 {
+	SpellCastOpen(dt, registry);
 	SpellCastTake(dt, registry);
 	SpellCastDrop(dt, registry);
 	SpellCastSwitch(dt, registry);

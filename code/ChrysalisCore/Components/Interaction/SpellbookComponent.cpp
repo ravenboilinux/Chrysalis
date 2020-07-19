@@ -47,21 +47,34 @@ void CSpellbookComponent::Initialize()
 
 
 // ***
+// *** ISpellCastManager
+// ***
+
+
+bool CSpellbookComponent::QueueSpellCast(ISpellCasting& spellCasting)
+{
+	m_spellCasting = &spellCasting;
+
+	return true;
+}
+
+
+// ***
 // *** CSpellbookComponent
 // ***
 
 
 void CSpellbookComponent::AddInteraction(IInteractionPtr interaction)
 {
-	m_Interactions.push_back(interaction);
+	m_interactionQueue.push_back(interaction);
 }
 
 
 void CSpellbookComponent::RemoveInteraction(string verb)
 {
-	m_Interactions.erase(std::remove_if(m_Interactions.begin(), m_Interactions.end(),
+	m_interactionQueue.erase(std::remove_if(m_interactionQueue.begin(), m_interactionQueue.end(),
 		[&](IInteractionPtr i) { return i->GetVerb().compare(verb) == 0; }),
-		m_Interactions.end());
+		m_interactionQueue.end());
 }
 
 
@@ -69,7 +82,7 @@ std::vector<string> CSpellbookComponent::GetVerbs(bool includeHidden)
 {
 	std::vector<string> verbs;
 
-	for (auto& it : m_Interactions)
+	for (auto& it : m_interactionQueue)
 	{
 		if (it->IsEnabled())
 		{
@@ -86,7 +99,7 @@ std::vector<string> CSpellbookComponent::GetVerbs(bool includeHidden)
 
 IInteractionWeakPtr CSpellbookComponent::GetInteraction(string verb)
 {
-	for (auto& it : m_Interactions)
+	for (auto& it : m_interactionQueue)
 	{
 		if ((it->GetVerb().compare(verb) == 0) && (it->IsEnabled()))
 		{
@@ -102,7 +115,7 @@ IInteractionWeakPtr CSpellbookComponent::GetInteraction(string verb)
 
 IInteractionWeakPtr CSpellbookComponent::SelectInteractionVerb(string verb)
 {
-	for (auto& it : m_Interactions)
+	for (auto& it : m_interactionQueue)
 	{
 		if ((it->GetVerb().compare(verb) == 0) && (it->IsEnabled()))
 		{
@@ -125,6 +138,11 @@ void CSpellbookComponent::OnInteractionStart(IActor& actor)
 {
 	CRY_ASSERT_MESSAGE(m_selectedInteraction, "Be sure to set an interaction before attempting to call it.");
 	m_selectedInteraction->OnInteractionStart(actor);
+
+	if (m_spellCasting)
+	{
+		m_spellCasting->OnSpellStart();
+	}
 }
 
 
@@ -132,6 +150,11 @@ void CSpellbookComponent::OnInteractionTick(IActor& actor)
 {
 	CRY_ASSERT_MESSAGE(m_selectedInteraction, "Be sure to set an interaction before attempting to call it.");
 	m_selectedInteraction->OnInteractionTick(actor);
+
+	if (m_spellCasting)
+	{
+		m_spellCasting->OnSpellTick();
+	}
 }
 
 
@@ -139,6 +162,14 @@ void CSpellbookComponent::OnInteractionComplete(IActor& actor)
 {
 	CRY_ASSERT_MESSAGE(m_selectedInteraction, "Be sure to set an interaction before attempting to call it.");
 	m_selectedInteraction->OnInteractionComplete(actor);
+
+	if (m_spellCasting)
+	{
+		m_spellCasting->OnSpellComplete();
+	}
+
+	// HACK: TEST: MEMORY LEAK ISSUE, JUST HERE FOR QUICK TESTING.
+	m_spellCasting = nullptr;
 }
 
 CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterSpellbookComponent)

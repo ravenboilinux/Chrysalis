@@ -7,6 +7,52 @@
 
 namespace Chrysalis
 {
+/** React to events in the lifetime of a spell cast. */
+
+struct ISpellCasting
+{
+	virtual void OnSpellStart() = 0;
+	virtual void OnSpellTick() = 0;
+	virtual void OnSpellComplete() = 0;
+};
+
+
+/** Interface to allow queueing a spell for execution. */
+struct ISpellCastManager
+{
+	/** Queue a spell up, ready for casting. */
+	virtual bool QueueSpellCast(ISpellCasting& spellCasting) = 0;
+};
+
+
+struct SpellCastOpen : public ISpellCasting
+{
+
+	SpellCastOpen(ECS::Name name, ECS::Spell spell, ECS::SourceAndTarget sourceAndTarget)
+		:name(name), spell(spell), sourceAndTarget(sourceAndTarget) {}
+	~SpellCastOpen() = default;
+
+	// ISpellCasting
+	virtual void OnSpellStart()
+	{
+		CryLogAlways("Spell cast open: start");
+	}
+
+	virtual void OnSpellTick() {
+		CryLogAlways("Spell cast open: tick");
+	}
+
+	virtual void OnSpellComplete() {
+		CryLogAlways("Spell cast open: complete");
+	}
+	// ~ISpellCasting
+
+	ECS::Name name;
+	ECS::Spell spell;
+	ECS::SourceAndTarget sourceAndTarget;
+};
+
+
 /**
 Allows an entity to have a spellbook which can hold spells both castable by the entity, as well as from outside
 sources if desired.
@@ -15,7 +61,7 @@ sources if desired.
 **/
 
 class CSpellbookComponent
-	: public IEntityComponent
+	: public IEntityComponent, public ISpellCastManager
 {
 protected:
 	// IEntityComponent
@@ -33,6 +79,11 @@ public:
 		static CryGUID id = "{654A1648-663E-414B-97C1-0A7B12D3072F}"_cry_guid;
 		return id;
 	}
+
+
+	// ISpellCastManager
+	bool QueueSpellCast(ISpellCasting& spellCasting) override;
+	// ~ISpellCastManager
 
 
 	/** An entry in the spellbook. This should name the spell, and provide meta information on casting
@@ -60,8 +111,8 @@ public:
 		/** Provide a means of disabling spells. */
 		bool enabled {true};
 	};
-	
-	
+
+
 	/*** A collection of spell entries. This is the soul of a spellbook. Every spell that can be cast
 	should be found in this collection. */
 	struct SSpellCollection
@@ -72,7 +123,7 @@ public:
 		{
 			desc.SetGUID("{CF8E39CE-CC1E-4E05-9536-B1403723CC5B}"_cry_guid);
 		}
-		
+
 
 		void Serialize(Serialization::IArchive& ar)
 		{
@@ -101,7 +152,13 @@ private:
 	/** A collection of spells which can potentially be cast. */
 	SSpellCollection m_spellCollection;
 
-	std::vector<IInteractionPtr> m_Interactions;
+	// Older interaction system - looking at spell casting now instead.
+	std::vector<IInteractionPtr> m_interactionQueue;
 	IInteractionPtr m_selectedInteraction {IInteractionPtr()};
+
+	// HACK: KISS - no queue for the moment.
+	//std::queue<ISpellCasting> m_spellQueue;
+	//std::shared_ptr<ISpellCasting> m_spellCasting;
+	ISpellCasting* m_spellCasting {nullptr};
 };
 }

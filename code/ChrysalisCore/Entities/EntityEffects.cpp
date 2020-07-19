@@ -482,7 +482,8 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 
 		// HACK: I am applying a rotation to orient the light down the Y axis instead of the engine system of the X axis.
 		//Matrix34 localEffectMtx = Matrix34(Matrix33::CreateRotationVDir(direction));
-		Matrix34 localEffectMtx = Matrix34(Matrix33::CreateRotationVDir(direction * Matrix33::CreateRotationZ(gf_PI * -0.5f)));
+		//Matrix34 localEffectMtx = Matrix34(Matrix33::CreateRotationVDir(direction * Matrix33::CreateRotationZ(gf_PI * -0.5f)));
+		Matrix34 localEffectMtx = Matrix34(Matrix33::CreateRotationVDir(direction));
 		localEffectMtx.SetTranslation(localHelperPosition);
 		pOwnerEntity->SetSlotLocalTM(effectInfo.entityEffectSlot, localEffectMtx);
 
@@ -515,7 +516,8 @@ TAttachedEffectId CEffectsController::AttachLight(const int targetSlot, const ch
 			{
 				// HACK: I am applying a rotation to orient the light down the Y axis instead of the engine system of the X axis.
 				//pAttachment->SetAttRelativeDefault(QuatT(Quat::CreateRotationVDir(direction), offset));
-				pAttachment->SetAttRelativeDefault(QuatT(Quat::CreateRotationVDir(direction * Matrix33::CreateRotationZ(gf_PI * -0.5f)), offset));
+				//pAttachment->SetAttRelativeDefault(QuatT(Quat::CreateRotationVDir(direction * Matrix33::CreateRotationZ(gf_PI * -0.5f)), offset));
+				pAttachment->SetAttRelativeDefault(QuatT(Quat::CreateRotationVDir(direction), offset));
 			}
 		}
 		else

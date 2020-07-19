@@ -359,7 +359,9 @@ public:
 		// Provide them with an effects controller for this entity.
 		ECS::RenderLight renderLight;
 		renderLight.projectorOptions.m_texturePath = "chrysalis/textures/lights/flashlight_projector.dds";
-		renderLight.radius = 30.0f;
+		renderLight.radius = 12.0f;
+		renderLight.color.m_diffuseMultiplier = 10.0f;
+		renderLight.color.m_specularMultiplier = 10.0f;
 		m_effectsController.Init(GetEntityId());
 		//int slotId = GetOrMakeEntitySlotId();
 		int slotId = 0;
