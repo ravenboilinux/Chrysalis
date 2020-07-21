@@ -12,6 +12,11 @@
 
 // TEST: entity effect adding a light.
 #include <Entities/EntityEffects.h>
+#include <entt/entt.hpp>
+#include <ECS/Systems/Simulation.h>
+#include <ECS/Components/RenderLight.h>
+#include <ECS/Components/Spells/Spell.h>
+#include <ECS/ECS.h>
 
 
 namespace Chrysalis
@@ -359,10 +364,16 @@ public:
 		// Provide them with an effects controller for this entity.
 		ECS::RenderLight renderLight;
 		renderLight.projectorOptions.m_texturePath = "chrysalis/textures/lights/flashlight_projector.dds";
-		renderLight.radius = 12.0f;
-		renderLight.color.m_diffuseMultiplier = 10.0f;
-		renderLight.color.m_specularMultiplier = 10.0f;
 		m_effectsController.Init(GetEntityId());
+		
+		// HACK: Try and get the params from a spell for now.
+		entt::entity spellEntity = ECS::Simulation.GetSpellByName("Flashlight");
+		if (spellEntity != entt::null)
+		{
+			auto* spellRegistry = ECS::Simulation.GetSpellRegistry();
+			renderLight = spellRegistry->get<ECS::RenderLight>(spellEntity);
+		}
+
 		//int slotId = GetOrMakeEntitySlotId();
 		int slotId = 0;
 		m_effectsController.AttachLight(slotId, "Flashlight", Vec3(0.0f, 0.6f, 1.0f), Vec3(0.0f, 1.0f, 0.0f).normalized(), eGeometrySlot::eIGS_Aux0, renderLight);
