@@ -352,12 +352,6 @@ add_sources("Game_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "Game"
 )
-add_sources("Cache_uber.cpp"
-    PROJECTS Chrysalis
-    SOURCE_GROUP "Game\\\\Cache"
-		"Game/Cache/GameCache.cpp"
-		"Game/Cache/GameCache.h"
-)
 add_sources("Interfaces_uber.cpp"
     PROJECTS Chrysalis
     SOURCE_GROUP "Interfaces"
@@ -379,20 +373,6 @@ add_sources("Accessory_uber.cpp"
     SOURCE_GROUP "Item\\\\Accessory"
 		"Item/Accessory/Accessory.cpp"
 		"Item/Accessory/Accessory.h"
-)
-add_sources("Parameters_uber.cpp"
-    PROJECTS Chrysalis
-    SOURCE_GROUP "Item\\\\Parameters"
-		"Item/Parameters/ItemAccessoryParameter.cpp"
-		"Item/Parameters/ItemBaseParameter.cpp"
-		"Item/Parameters/ItemGeometryParameter.cpp"
-		"Item/Parameters/ItemLaserParameter.cpp"
-		"Item/Parameters/ItemParameter.cpp"
-		"Item/Parameters/ItemAccessoryParameter.h"
-		"Item/Parameters/ItemBaseParameter.h"
-		"Item/Parameters/ItemGeometryParameter.h"
-		"Item/Parameters/ItemLaserParameter.h"
-		"Item/Parameters/ItemParameter.h"
 )
 add_sources("Weapon_uber.cpp"
     PROJECTS Chrysalis
@@ -420,13 +400,6 @@ add_sources("Schematyc_uber.cpp"
 		"Schematyc/CoreEnv.cpp"
 		"Schematyc/General.cpp"
 		"Schematyc/CoreEnv.h"
-)
-add_sources("SharedParameters_uber.cpp"
-    PROJECTS Chrysalis
-    SOURCE_GROUP "SharedParameters"
-		"SharedParameters/FogVolume.cpp"
-		"SharedParameters/FogVolume.h"
-		"SharedParameters/SharedParameters.h"
 )
 add_sources("Spells_uber.cpp"
     PROJECTS Chrysalis

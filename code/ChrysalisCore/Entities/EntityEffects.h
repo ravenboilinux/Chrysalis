@@ -3,14 +3,28 @@
 #include <entt/entt.hpp>
 #include <ECS/Components/RenderLight.h>
 
-#include <SharedParameters/FogVolume.h>
-#include <Item/Parameters/ItemGeometryParameter.h>
 #include <CryEntitySystem/IEntity.h>
 #include <CryParticleSystem\IParticles.h>
 
 
 namespace Chrysalis
 {
+// #TODO: Dig into the code to find out what this does.
+enum eGeometrySlot
+{
+	eIGS_FirstPerson = 0,		// First person character.
+	eIGS_ThirdPerson,			// Third person character.
+	eIGS_Owner,					// Mostly used in item code. Appears in weapon code.
+	eIGS_OwnerAnimGraph,		// Deprecated (probably).
+	eIGS_OwnerAnimGraphLooped,	// Deprecated (probably).
+	eIGS_Aux0,					// Gun turrets and items.
+	eIGS_Destroyed,				// Gun turret and item resource.
+	eIGS_Aux1,					// Gun turret, item, laser.
+	eIGS_ThirdPersonAux,		// Item, JAW, laser.
+	eIGS_Last,					// End of reserved slot list.
+};
+
+
 typedef uint32 TAttachedEffectId;
 const TAttachedEffectId EFFECTID_INVALID = 0;
 

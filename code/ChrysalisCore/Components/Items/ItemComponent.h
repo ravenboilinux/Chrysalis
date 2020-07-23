@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Item/Parameters/ItemBaseParameter.h>
 #include <Entities/EntityEffects.h>
 #include <Components/Actor/ActorComponent.h>
 #include <Interfaces/IItem.h>
@@ -172,8 +171,6 @@ private:
 	// ***
 
 public:
-	void GetSharedParameters(XmlNodeRef rootParams);
-
 	enum eItemHand
 	{
 		eIH_Right = 0, // indicates the right hand of the actor
@@ -293,8 +290,6 @@ private:
 	\return	true if it succeeds, false if it fails.
 	*/
 	virtual bool ShouldBindOnInit() const { return true; }
-
-	SItemBaseParameterConstPtr m_itemBaseParameter;
 
 	/** A component that allows for management of snaplocks. */
 	CSnaplockComponent* m_pSnaplockComponent {nullptr};
