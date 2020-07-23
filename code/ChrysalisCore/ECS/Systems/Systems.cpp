@@ -219,7 +219,7 @@ void SystemApplyQiUtilisation(entt::registry& registry)
 		// Get the components..
 		auto& qiUse = view.get<ECS::UtiliseQi>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
-		
+
 		// Get the qi component for the target entity and apply the usage to it's modifier.
 		ECS::Qi* targetQi {nullptr};
 		if (qiUse.targetTargetType == TargetTargetType::target)
@@ -487,8 +487,8 @@ void SpellCastSwitch(float dt, entt::registry& registry)
 			// Do something.
 			CryLogAlways("Spellcast: %s, Source: %d, Target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
 			CryLogAlways("SourceId: %d, TargetId: %d", sourceAndTarget.crySourceEntityId, sourceAndTarget.cryTargetEntityId);
-			
-			
+
+
 			// TODO: All this really belongs somewhere else more related to what it's doing so it doesn't pollute the
 			// clean code for systems.
 
@@ -520,7 +520,7 @@ void SpellCastSwitch(float dt, entt::registry& registry)
 							sourceAndTarget.cryTargetEntityId,
 							pActor->GetMannequinParams()->fragmentIDs.Interaction, TagState {TAG_STATE_EMPTY}, pActor->GetMannequinParams()->tagIDs.ScopeSlave, tags);
 						//action->AddEventListener(this);
-						
+
 						pActor->QueueAction(*action);
 
 						//// Disable after a single use.

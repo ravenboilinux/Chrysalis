@@ -242,7 +242,7 @@ void CInteractComponent::OnActionAnimationExit()
 }
 
 
-void CInteractComponent::OnActionAnimationEvent(ICharacterInstance * pCharacter, const AnimEventInstance & event)
+void CInteractComponent::OnActionAnimationEvent(ICharacterInstance* pCharacter, const AnimEventInstance& event)
 {
 	CryLogAlways("CInteractComponent::AnimEvent: %s", event.m_EventName);
 
