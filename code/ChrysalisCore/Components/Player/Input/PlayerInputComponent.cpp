@@ -5,10 +5,10 @@
 #include "CrySchematyc/Env/Elements/EnvComponent.h"
 #include "CrySchematyc/Env/IEnvRegistrar.h"
 #include <CryMath/Cry_Math.h>
-#include "Components/Player/PlayerComponent.h"
 #include <Components/Actor/ActorComponent.h>
-#include "../Camera/CameraManagerComponent.h"
-#include "../Camera/ICameraComponent.h"
+#include "Components/Player/PlayerComponent.h"
+#include "Components/Player/Camera/CameraManagerComponent.h"
+#include "Components/Player/Camera/ICameraComponent.h"
 #include <Console/CVars.h>
 
 
@@ -58,9 +58,9 @@ void CPlayerInputComponent::ProcessEvent(const SEntityEvent& event)
 {
 	switch (event.event)
 	{
-	case EEntityEvent::Update:
-		Update();
-		break;
+		case EEntityEvent::Update:
+			Update();
+			break;
 	}
 }
 
@@ -68,7 +68,7 @@ void CPlayerInputComponent::ProcessEvent(const SEntityEvent& event)
 void CPlayerInputComponent::RegisterActionMaps()
 {
 	CryLogAlways("Registering the action maps.");
-	
+
 	// Get the input component, wraps access to action mapping so we can easily get callbacks when inputs are triggered.
 	m_pInputComponent = m_pEntity->GetOrCreateComponent<Cry::DefaultComponents::CInputComponent>();
 
@@ -245,8 +245,6 @@ high priority.
 **/
 void CPlayerInputComponent::Update()
 {
-	static float frameTime = gEnv->pTimer->GetFrameTime();
-
 	// We can just add up all the acculmated requests to find out how much pitch / yaw is being requested.
 	// It's also a good time to filter out any small movement requests to stabilise the camera / etc.
 	m_lastPitchDelta = m_mousePitchDelta + m_xiPitchDelta;
@@ -277,42 +275,42 @@ Vec3 CPlayerInputComponent::GetMovement(const Quat& baseRotation)
 	// camera direction. 
 	switch (m_inputFlags)
 	{
-	case (TInputFlags)EInputFlag::Forward:
-		quatRelativeDirection = Quat::CreateIdentity();
-		break;
+		case (TInputFlags)EInputFlag::Forward:
+			quatRelativeDirection = Quat::CreateIdentity();
+			break;
 
-	case ((TInputFlags)EInputFlag::Forward | (TInputFlags)EInputFlag::Right):
-		quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(45.0f));
-		break;
+		case ((TInputFlags)EInputFlag::Forward | (TInputFlags)EInputFlag::Right):
+			quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(45.0f));
+			break;
 
-	case (TInputFlags)EInputFlag::Right:
-		quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(90.0f));
-		break;
+		case (TInputFlags)EInputFlag::Right:
+			quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(90.0f));
+			break;
 
-	case ((TInputFlags)EInputFlag::Backward | (TInputFlags)EInputFlag::Right):
-		quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(135.0f));
-		break;
+		case ((TInputFlags)EInputFlag::Backward | (TInputFlags)EInputFlag::Right):
+			quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(135.0f));
+			break;
 
-	case (TInputFlags)EInputFlag::Backward:
-		quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(180.0f));
-		break;
+		case (TInputFlags)EInputFlag::Backward:
+			quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(180.0f));
+			break;
 
-	case ((TInputFlags)EInputFlag::Backward | (TInputFlags)EInputFlag::Left):
-		quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(225.0f));
-		break;
+		case ((TInputFlags)EInputFlag::Backward | (TInputFlags)EInputFlag::Left):
+			quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(225.0f));
+			break;
 
-	case (TInputFlags)EInputFlag::Left:
-		quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(270.0f));
-		break;
+		case (TInputFlags)EInputFlag::Left:
+			quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(270.0f));
+			break;
 
-	case ((TInputFlags)EInputFlag::Forward | (TInputFlags)EInputFlag::Left):
-		quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(315.0f));
-		break;
+		case ((TInputFlags)EInputFlag::Forward | (TInputFlags)EInputFlag::Left):
+			quatRelativeDirection = Quat::CreateRotationZ(DEG2RAD(315.0f));
+			break;
 
-	default:
-		quatRelativeDirection = Quat::CreateIdentity();
-		allowMovement = false;
-		break;
+		default:
+			quatRelativeDirection = Quat::CreateIdentity();
+			allowMovement = false;
+			break;
 	}
 
 	// Create a vector based on key direction. This is computed in local space for the base rotation.
@@ -327,28 +325,28 @@ void CPlayerInputComponent::HandleInputFlagChange(TInputFlags flags, int activat
 {
 	switch (type)
 	{
-	case EInputFlagType::Hold:
-	{
-		if (activationMode & eIS_Pressed)
+		case EInputFlagType::Hold:
 		{
-			m_inputFlags |= flags;
+			if (activationMode & eIS_Pressed)
+			{
+				m_inputFlags |= flags;
+			}
+			else if (activationMode & eIS_Released)
+			{
+				m_inputFlags &= ~flags;
+			}
 		}
-		else if (activationMode & eIS_Released)
-		{
-			m_inputFlags &= ~flags;
-		}
-	}
-	break;
+		break;
 
-	case EInputFlagType::Toggle:
-	{
-		if (activationMode & eIS_Released)
+		case EInputFlagType::Toggle:
 		{
-			// Toggle the bit(s)
-			m_inputFlags ^= flags;
+			if (activationMode & eIS_Released)
+			{
+				// Toggle the bit(s)
+				m_inputFlags ^= flags;
+			}
 		}
-	}
-	break;
+		break;
 	}
 }
 
@@ -574,17 +572,17 @@ void CPlayerInputComponent::OnActionInteraction(int activationMode, float value)
 {
 	switch (activationMode)
 	{
-	case eAAM_OnPress:
-		IF_ACTOR_DO(OnActionInteractionStart);
-		break;
+		case eAAM_OnPress:
+			IF_ACTOR_DO(OnActionInteractionStart);
+			break;
 
-	case eAAM_OnHold:
-		IF_ACTOR_DO(OnActionInteractionTick);
-		break;
+		case eAAM_OnHold:
+			IF_ACTOR_DO(OnActionInteractionTick);
+			break;
 
-	case eAAM_OnRelease:
-		IF_ACTOR_DO(OnActionInteractionEnd);
-		break;
+		case eAAM_OnRelease:
+			IF_ACTOR_DO(OnActionInteractionEnd);
+			break;
 	}
 }
 

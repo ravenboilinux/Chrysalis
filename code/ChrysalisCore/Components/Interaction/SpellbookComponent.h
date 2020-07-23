@@ -11,8 +11,34 @@ namespace Chrysalis
 
 struct ISpellCasting
 {
+	/**
+	Called at the start of a spell cast. Generally called on a downward keypress.
+	**/
+
 	virtual void OnSpellStart() = 0;
+
+	/**
+	Called each game frame a spell is stil casting. This will be called multiple times, as long as the player is
+	holding down the key / button.
+	**/
+
 	virtual void OnSpellTick() = 0;
+
+	/**
+	Called when a spellcast is interupted by something. Spell casting can continue, but with some penalty applied.
+	**/
+	virtual void OnSpellInterupt() = 0;
+
+	/**
+	Called when an spellcast fails or fizzles e.g. target out of range during channelling.
+	**/
+
+	virtual void OnSpellFail() = 0;
+
+	/**
+	Called when an interaction is completed normally. Generally called on an upward keypress.
+	**/
+
 	virtual void OnSpellComplete() = 0;
 };
 
@@ -33,18 +59,11 @@ struct SpellCastOpen : public ISpellCasting
 	~SpellCastOpen() = default;
 
 	// ISpellCasting
-	virtual void OnSpellStart()
-	{
-		CryLogAlways("Spell cast open: start");
-	}
-
-	virtual void OnSpellTick() {
-		CryLogAlways("Spell cast open: tick");
-	}
-
-	virtual void OnSpellComplete() {
-		CryLogAlways("Spell cast open: complete");
-	}
+	virtual void OnSpellStart() { CryLogAlways("Spell cast open: start"); }
+	virtual void OnSpellTick() { /*CryLogAlways("Spell cast open: tick");*/ }
+	virtual void OnSpellInterupt() { CryLogAlways("Spell cast open: interupt"); }
+	virtual void OnSpellFail() { CryLogAlways("Spell cast open: fail"); }
+	virtual void OnSpellComplete() { CryLogAlways("Spell cast open: complete"); }
 	// ~ISpellCasting
 
 	ECS::Name name;

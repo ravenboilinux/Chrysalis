@@ -259,14 +259,18 @@ public:
 	void OnActionItemPickup() override;
 	void OnActionItemDrop() override;
 	void OnActionItemToss() override;
+	
 	void OnActionBarUse(int actionBarId) override;
 	void OnFunctionBarUse(int actionBarId) override;
+	
 	void OnActionInspectStart() override;
 	void OnActionInspect() override;
 	void OnActionInspectEnd() override;
+	
 	void OnActionInteractionStart() override;
 	void OnActionInteractionTick() override;
 	void OnActionInteractionEnd() override;
+	
 	void OnActionCrouchToggle() override { m_pActorControllerComponent->OnActionCrouchToggle(); };
 	void OnActionCrawlToggle() override { m_pActorControllerComponent->OnActionCrawlToggle(); };
 	void OnActionKneelToggle() override { m_pActorControllerComponent->OnActionKneelToggle(); };
