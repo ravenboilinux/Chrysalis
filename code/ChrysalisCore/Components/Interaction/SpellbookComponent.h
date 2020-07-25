@@ -1,7 +1,8 @@
 #pragma once
 
-#include <Entities/Interaction/IEntityInteraction.h>
+#include <Components/Player/PlayerComponent.h>
 #include <ECS/Components/Spells/Spell.h>
+#include <Entities/Interaction/IEntityInteraction.h>
 #include <entt/entt.hpp>
 
 
@@ -80,7 +81,7 @@ sources if desired.
 **/
 
 class CSpellbookComponent
-	: public IEntityComponent, public ISpellCastManager
+	: public IEntityComponent, public ISpellCastManager, public CPlayerInputComponent::IInputEventListener
 {
 protected:
 	// IEntityComponent
@@ -103,6 +104,14 @@ public:
 	// ISpellCastManager
 	bool QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting) override;
 	// ~ISpellCastManager
+
+
+	// CPlayerInputComponent::IInputEventListener
+	virtual void OnInputEscape(int activationMode) override;
+	virtual void OnInputInteraction(int activationMode) override;
+	virtual void OnInputActionBarUse(int activationMode, int buttonId) override;
+	virtual void OnInputFunctionBarUse(int activationMode, int buttonId) override;
+	// ~CPlayerInputComponent::IInputEventListener
 
 
 	/** An entry in the spellbook. This should name the spell, and provide meta information on casting

@@ -66,6 +66,68 @@ bool CSpellbookComponent::QueueSpellCast(std::shared_ptr<ISpellCasting> spellCas
 
 
 // ***
+// *** CPlayerInputComponent::IInputEventListener
+// ***
+
+
+void CSpellbookComponent::OnInputEscape(int activationMode)
+{
+	CryLogAlways("CSpellbookComponent::OnInputEscape");
+}
+
+void CSpellbookComponent::OnInputInteraction(int activationMode)
+{
+	switch (activationMode)
+	{
+		case eAAM_OnPress:
+			CryLogAlways("CSpellbookComponent::OnInputInteraction - Press");
+			break;
+
+		case eAAM_OnHold:
+			break;
+
+		case eAAM_OnRelease:
+			CryLogAlways("CSpellbookComponent::OnInputInteraction - Release");
+			break;
+	}
+}
+
+void CSpellbookComponent::OnInputActionBarUse(int activationMode, int buttonId)
+{
+	switch (activationMode)
+	{
+		case eAAM_OnPress:
+			CryLogAlways("CSpellbookComponent::OnInputActionBarUse - Press: %d", buttonId);
+			break;
+
+		case eAAM_OnHold:
+			break;
+
+		case eAAM_OnRelease:
+			CryLogAlways("CSpellbookComponent::OnInputActionBarUse - Release: %d", buttonId);
+			break;
+	}
+}
+
+void CSpellbookComponent::OnInputFunctionBarUse(int activationMode, int buttonId)
+{
+	switch (activationMode)
+	{
+		case eAAM_OnPress:
+			CryLogAlways("CSpellbookComponent::OnInputFunctionBarUse - Press: %d", buttonId);
+			break;
+
+		case eAAM_OnHold:
+			break;
+
+		case eAAM_OnRelease:
+			CryLogAlways("CSpellbookComponent::OnInputFunctionBarUse - Release: %d", buttonId);
+			break;
+	}
+}
+
+
+// ***
 // *** CSpellbookComponent
 // ***
 

@@ -66,7 +66,7 @@ enum EActorClassType
 /** Base class for any components that wish to provide actor services. */
 
 struct CActorComponent
-	: public IEntityComponent, public IActor, public ISpellParticipant
+	: public IEntityComponent, public IActor, public ISpellParticipant, public CPlayerInputComponent::IInputEventListener
 {
 protected:
 	// IEntityComponent
@@ -78,6 +78,14 @@ protected:
 	// ISpellParticipant
 	const entt::entity GetECSEntity() const override { return m_ecsEntity; };
 	// ~ISpellParticipant
+
+	// CPlayerInputComponent::IInputEventListener
+	virtual void OnInputEscape(int activationMode) override;
+	virtual void OnInputInteraction(int activationMode) override;
+	virtual void OnInputActionBarUse(int activationMode, int buttonId) override;
+	virtual void OnInputFunctionBarUse(int activationMode, int buttonId) override;
+	// ~CPlayerInputComponent::IInputEventListener
+
 
 	virtual void Update(SEntityUpdateContext* pCtx);
 

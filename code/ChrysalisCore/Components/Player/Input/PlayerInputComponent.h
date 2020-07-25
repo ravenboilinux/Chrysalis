@@ -4,7 +4,6 @@
 #include <IActionMapManager.h>
 #include <DefaultComponents/Input/InputComponent.h>
 #include "Components/Player/PlayerComponent.h"
-//#include "Utility/Listener.h"
 
 
 namespace Chrysalis
@@ -147,21 +146,37 @@ public:
 	TInputFlags GetMovementDirectionFlags() const { return m_inputFlags; };
 
 
-	///** Listen for 'special' keys and be notified when they are input e.g. ESC, Examine. */
-	//struct IInputSpecialListener
-	//{
-	//	virtual ~IInputSpecialListener() = default;
+	/** Listen for important keys and be notified when they are input e.g. ESC, interact, spellcast. */
+	struct IInputEventListener
+	{
+		/** Escape key - generally means to exit an activity or UI panel. */
+		virtual void OnInputEscape(int activationMode) = 0;
 
-	//	virtual void OnInputSpecialEsc() = 0;
-	//	virtual void OnInputSpecialExamine() = 0;
-	//};
+		/** Generic key for an interaction. */
+		virtual void OnInputInteraction(int activationMode) = 0;
+
+		/** One of a handful of action keys grouped as a single action bar. */
+		virtual void OnInputActionBarUse(int activationMode, int buttonId) = 0;
+
+		/** One of a handful of function keys grouped as a single function bar. */
+		virtual void OnInputFunctionBarUse(int activationMode, int buttonId) = 0;
+	};
 
 
-	///** Get the manager for the listener.*/
-	//TListener<IInputSpecialListener*>GetListenerManager() { return m_listenersSpecial; }
+	void AddEventListener(IInputEventListener* pListener)
+	{
+		stl::push_back_unique(m_listeners, pListener);
+	}
+
+	void RemoveEventListener(IInputEventListener* pListener)
+	{
+		m_listeners.remove(pListener);
+	}
 
 protected:
 	void OnActionEscape(int activationMode, float value);
+	void OnActionInteraction(int activationMode, float value);
+
 	void OnActionExamine(int activationMode, float value);
 
 	void OnActionRotateYaw(int activationMode, float value);
@@ -180,7 +195,6 @@ protected:
 	void OnActionItemUse(int activationMode, float value);
 	void OnActionItemPickup(int activationMode, float value);
 	void OnActionItemDrop(int activationMode, float value);
-	void OnActionInteraction(int activationMode, float value);
 
 
 	/**
@@ -312,7 +326,7 @@ private:
 	*/
 	float m_xiYawFilter {0.0001f};
 
-	/** Listens for special keystrokes. */
-	//TListener<IInputSpecialListener*> m_listenersSpecial;
+	/** Listeners for animation events. */
+	std::list<IInputEventListener*> m_listeners;
 };
 }

@@ -65,7 +65,7 @@ void CActorAnimationActionCooperative::Install()
 void CActorAnimationActionCooperative::OnAnimationEvent(ICharacterInstance* pCharacter, const AnimEventInstance& event)
 {
 	// Notify listeners.
-	for (auto it : m_listenersList)
+	for (auto it : m_listeners)
 		it->OnActionAnimationEvent(pCharacter, event);
 }
 
@@ -105,7 +105,7 @@ void CActorAnimationActionCooperative::Enter()
 	//}
 
 	// Notify listeners.
-	for (auto it : m_listenersList)
+	for (auto it : m_listeners)
 		it->OnActionAnimationEnter();
 }
 
@@ -115,7 +115,7 @@ void CActorAnimationActionCooperative::Fail(EActionFailure actionFailure)
 	CAnimationAction::Fail(actionFailure);
 
 	// Notify listeners.
-	for (auto it : m_listenersList)
+	for (auto it : m_listeners)
 		it->OnActionAnimationFail(actionFailure);
 }
 
@@ -157,7 +157,7 @@ void CActorAnimationActionCooperative::Exit()
 	RemoveTargetFromSlaveContext();
 
 	// Notify listeners.
-	for (auto it : m_listenersList)
+	for (auto it : m_listeners)
 		it->OnActionAnimationExit();
 }
 

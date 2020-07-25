@@ -76,6 +76,10 @@ void CPlayerInputComponent::RegisterActionMaps()
 	m_pInputComponent->RegisterAction("player", "special_esc", [this](int activationMode, float value) { OnActionEscape(activationMode, value); });
 	m_pInputComponent->BindAction("player", "special_esc", eAID_KeyboardMouse, EKeyId::eKI_Escape);
 
+	// Interaction.
+	m_pInputComponent->RegisterAction("player", "player_interaction", [this](int activationMode, float value) { OnActionInteraction(activationMode, value); });
+	m_pInputComponent->BindAction("player", "player_interaction", eAID_KeyboardMouse, EKeyId::eKI_Mouse1);
+
 	// Move left.
 	m_pInputComponent->RegisterAction("player", "move_left", [this](int activationMode, float value) { HandleInputFlagChange((TInputFlags)EInputFlag::Left, activationMode); });
 	m_pInputComponent->BindAction("player", "move_left", eAID_KeyboardMouse, EKeyId::eKI_A);
@@ -99,10 +103,6 @@ void CPlayerInputComponent::RegisterActionMaps()
 	// Examine.
 	m_pInputComponent->RegisterAction("player", "special_examine", [this](int activationMode, float value) { OnActionExamine(activationMode, value); });
 	m_pInputComponent->BindAction("player", "special_examine", eAID_KeyboardMouse, EKeyId::eKI_Z);
-
-	// Interaction.
-	m_pInputComponent->RegisterAction("player", "player_interaction", [this](int activationMode, float value) { OnActionInteraction(activationMode, value); });
-	m_pInputComponent->BindAction("player", "player_interaction", eAID_KeyboardMouse, EKeyId::eKI_Mouse1);
 
 	// Mouse yaw and pitch handlers.
 	m_pInputComponent->RegisterAction("player", "mouse_rotateyaw", [this](int activationMode, float value) { OnActionRotateYaw(activationMode, value); });
@@ -351,32 +351,6 @@ void CPlayerInputComponent::HandleInputFlagChange(TInputFlags flags, int activat
 }
 
 
-void CPlayerInputComponent::OnActionEscape(int activationMode, float value)
-{
-	if (activationMode == eAAM_OnPress)
-	{
-		CryLogAlways("Escape");
-
-		//// Notify listeners.
-		//for (auto it : m_listenersSpecial.GetListeners())
-		//	it->OnInputSpecialEsc();
-	}
-}
-
-
-void CPlayerInputComponent::OnActionExamine(int activationMode, float value)
-{
-	if (activationMode == eAAM_OnPress)
-	{
-		CryLogAlways("Examine");
-
-		//// Notify listeners.
-		//for (auto it : m_listenersSpecial.GetListeners())
-		//	it->OnInputSpecialExamine();
-	}
-}
-
-
 void CPlayerInputComponent::OnActionRotateYaw(int activationMode, float value)
 {
 	float cl_mouseSensitivity = CChrysalisCorePlugin::Get() ? g_cvars.m_cl_mouseSensitivity : 1.0f;
@@ -515,25 +489,50 @@ void CPlayerInputComponent::OnActionItemToss(int activationMode, float value)
 }
 
 
-void CPlayerInputComponent::OnActionBarUse(int activationMode, int buttonId)
+void CPlayerInputComponent::OnActionEscape(int activationMode, float value)
 {
-	//if (activationMode == eAAM_OnPress || activationMode == eAAM_OnHold)
 	if (activationMode == eAAM_OnPress)
 	{
-		CryLogAlways("OnActionBarUse: %d", buttonId);
-		if (auto pActorComponent = CPlayerComponent::GetLocalActor())
-			pActorComponent->OnActionBarUse(buttonId);
+		// Notify listeners.
+		for (auto it : m_listeners)
+			it->OnInputEscape(activationMode);
 	}
+}
+
+
+void CPlayerInputComponent::OnActionInteraction(int activationMode, float value)
+{
+	// Notify listeners.
+	for (auto it : m_listeners)
+		it->OnInputInteraction(activationMode);
+}
+
+
+void CPlayerInputComponent::OnActionBarUse(int activationMode, int buttonId)
+{
+	// Notify listeners.
+	for (auto it : m_listeners)
+		it->OnInputActionBarUse(activationMode, buttonId);
 }
 
 
 void CPlayerInputComponent::OnFunctionBarUse(int activationMode, int buttonId)
 {
+	// Notify listeners.
+	for (auto it : m_listeners)
+		it->OnInputFunctionBarUse(activationMode, buttonId);
+}
+
+
+void CPlayerInputComponent::OnActionExamine(int activationMode, float value)
+{
 	if (activationMode == eAAM_OnPress)
 	{
-		CryLogAlways("OnFunctionBarUse: F%d", buttonId);
-		if (auto pActorComponent = CPlayerComponent::GetLocalActor())
-			pActorComponent->OnFunctionBarUse(buttonId);
+		CryLogAlways("Examine");
+
+		//// Notify listeners.
+		//for (auto it : m_listenersSpecial.GetListeners())
+		//	it->OnInputSpecialExamine();
 	}
 }
 
@@ -567,24 +566,6 @@ void CPlayerInputComponent::OnActionInspectEnd(int activationMode, float value)
 		IF_ACTOR_DO(OnActionInspectEnd);
 }
 
-
-void CPlayerInputComponent::OnActionInteraction(int activationMode, float value)
-{
-	switch (activationMode)
-	{
-		case eAAM_OnPress:
-			IF_ACTOR_DO(OnActionInteractionStart);
-			break;
-
-		case eAAM_OnHold:
-			IF_ACTOR_DO(OnActionInteractionTick);
-			break;
-
-		case eAAM_OnRelease:
-			IF_ACTOR_DO(OnActionInteractionEnd);
-			break;
-	}
-}
 
 CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterPlayerInputComponent)
 }

@@ -147,6 +147,7 @@ void CActorComponent::Initialize()
 	if (GetEntityId() == gEnv->pGameFramework->GetClientActorId())
 	{
 		// Tells this instance to trigger areas and that it's the local player.
+		// BUG: HACK: We may not be the local player! That flag likely needs toggling as we enter and exit control of the actor.
 		m_pEntity->AddFlags(ENTITY_FLAG_TRIGGER_AREAS | ENTITY_FLAG_LOCAL_PLAYER);
 		CryLogAlways("CActorComponent::HandleEvent(): Entity \"%s\" became the local character!", m_pEntity->GetName());
 	}
@@ -465,8 +466,11 @@ IItemReceipt* CActorComponent::GetCurrentItem(bool includeVehicle) const
 
 void CActorComponent::OnPlayerAttach(CPlayerComponent& player)
 {
-	// Make a note of the player for back reference.
+	// Make a note of the player for future reference.
 	m_pPlayer = &player;
+
+	// Request player input messages be sent to us now.
+	m_pPlayer->GetPlayerInput()->AddEventListener(this);
 
 	// Default assumption is we now control the character.
 	//m_isAIControlled = false;
@@ -478,6 +482,10 @@ void CActorComponent::OnPlayerAttach(CPlayerComponent& player)
 
 void CActorComponent::OnPlayerDetach()
 {
+	// Request player input messages stop being sent to us now.
+	m_pPlayer->GetPlayerInput()->RemoveEventListener(this);
+
+	// That's it, make the player illegal to use again.
 	m_pPlayer = nullptr;
 
 	// #TODO: Detach the camera.
@@ -714,6 +722,7 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 			// Figure out which entity is being targetted.
 			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
 
+			// BROKEN: Not all spells will target an actor - there needs to be a path for handling non-actors too.
 			if (auto pTargetActor = pTargetEntity->GetComponent<CActorComponent>())
 			{
 				// Do they have a spell book?
@@ -728,8 +737,9 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 
 						CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
 
-						ECS::Simulation.CastSpellByName(spell.spellName, GetECSEntity(),
-							pTargetActor->GetECSEntity(), GetEntityId(), pTargetActor->GetEntityId());
+						ECS::Simulation.CastSpellByName(spell.spellName, 
+							GetECSEntity(), pTargetActor->GetECSEntity(),
+							GetEntityId(), pTargetActor->GetEntityId());
 					}
 					else
 					{
@@ -942,6 +952,71 @@ void CActorComponent::InteractionEnd(IInteraction* pInteraction)
 	isBusyInInteraction = false;
 	m_pInteraction = nullptr;
 	m_interactionEntityId = INVALID_ENTITYID; // HACK: FIX: This seems weak, look for a better way to handle keeping an entity Id for later.
+}
+
+
+// ***
+// *** CPlayerInputComponent::IInputEventListener
+// ***
+
+
+void CActorComponent::OnInputEscape(int activationMode)
+{
+	CryLogAlways("CActorComponent::OnInputEscape");
+}
+
+
+void CActorComponent::OnInputInteraction(int activationMode)
+{
+	switch (activationMode)
+	{
+		case eAAM_OnPress:
+			CryLogAlways("CActorComponent::OnInputInteraction - Press");
+			break;
+
+		case eAAM_OnHold:
+			break;
+
+		case eAAM_OnRelease:
+			CryLogAlways("CActorComponent::OnInputInteraction - Release");
+			break;
+	}
+}
+
+
+void CActorComponent::OnInputActionBarUse(int activationMode, int buttonId)
+{
+	switch (activationMode)
+	{
+		case eAAM_OnPress:
+			CryLogAlways("CActorComponent::OnInputActionBarUse - Press: %d", buttonId);
+			break;
+
+		case eAAM_OnHold:
+			break;
+
+		case eAAM_OnRelease:
+			CryLogAlways("CActorComponent::OnInputActionBarUse - Release: %d", buttonId);
+			break;
+	}
+}
+
+
+void CActorComponent::OnInputFunctionBarUse(int activationMode, int buttonId)
+{
+	switch (activationMode)
+	{
+		case eAAM_OnPress:
+			CryLogAlways("CActorComponent::OnInputFunctionBarUse - Press: %d", buttonId);
+			break;
+
+		case eAAM_OnHold:
+			break;
+
+		case eAAM_OnRelease:
+			CryLogAlways("CActorComponent::OnInputFunctionBarUse - Release: %d", buttonId);
+			break;
+	}
 }
 
 
