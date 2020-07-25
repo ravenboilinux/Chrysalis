@@ -46,19 +46,19 @@ DECLARE_SNAPLOCK_TYPE(SLT_ACTOR_RIGHTFOOT, "Actor Right Foot", 0xB3619CEF068F438
 /** Represents all of the available actor class types. */
 enum EActorClassType
 {
-	///< Actor is a plain actor.
+	/** Actor is a plain actor. */
 	EACT_ACTOR = 0,
 
-	///< Actor is a player.
+	/** Actor is a player. */
 	EACT_PLAYER,
 
-	///< Actor is a character.
+	/** Actor is a character. */
 	EACT_CHARACTER,
 
-	///< Actor is a mount.
+	/** Actor is a mount. */
 	EACT_MOUNT,
 
-	///< Actor is a pet.
+	/** Actor is a pet. */
 	EACT_PET,
 };
 
@@ -245,7 +245,7 @@ private:
 	/** The pre-determined fate for this actor. */
 	CFate m_fate;
 
-	/** The identifier for this actor in the ECS */
+	/** The identifier for this spell participant in the ECS. */
 	entt::entity m_ecsEntity {entt::null};
 
 	// ***

@@ -31,12 +31,12 @@
 #include <Components/Snaplocks/SnaplockComponent.h>
 #include <CryDynamicResponseSystem/IDynamicResponseSystem.h>
 #include <entt/entt.hpp>
-#include <ECS/Systems/Simulation.h>
 #include <ECS/Components/Components.h>
 #include <ECS/Components/Health.h>
 #include <ECS/Components/Qi.h>
 #include <ECS/Components/Spells/Spell.h>
 #include <ECS/ECS.h>
+#include <ECS/Systems/Simulation.h>
 
 
 
@@ -722,29 +722,25 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 			// Figure out which entity is being targetted.
 			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
 
-			// BROKEN: Not all spells will target an actor - there needs to be a path for handling non-actors too.
-			if (auto pTargetActor = pTargetEntity->GetComponent<CActorComponent>())
+			// Do they have a spell book?
+			if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
 			{
-				// Do they have a spell book?
-				if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
+				auto spellCollection = pSpellbookComponent->GetSpellColllection();
+
+				// Make sure there is a matching spell for this action bar.
+				if (spellCollection.spells.size() >= actionBarId)
 				{
-					auto spellCollection = pSpellbookComponent->GetSpellColllection();
+					auto spell = spellCollection.spells[actionBarId - 1];
 
-					// Make sure there is a matching spell for this action bar.
-					if (spellCollection.spells.size() >= actionBarId)
-					{
-						auto spell = spellCollection.spells[actionBarId - 1];
+					CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
 
-						CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
-
-						ECS::Simulation.CastSpellByName(spell.spellName, 
-							GetECSEntity(), pTargetActor->GetECSEntity(),
-							GetEntityId(), pTargetActor->GetEntityId());
-					}
-					else
-					{
-						CryLogAlways("No spell defined.");
-					}
+					ECS::Simulation.CastSpellByName(spell.spellName,
+						GetECSEntity(), pSpellbookComponent->GetECSEntity(),
+						GetEntityId(), pSpellbookComponent->GetEntityId());
+				}
+				else
+				{
+					CryLogAlways("No spell defined.");
 				}
 			}
 		}
@@ -990,6 +986,7 @@ void CActorComponent::OnInputActionBarUse(int activationMode, int buttonId)
 	{
 		case eAAM_OnPress:
 			CryLogAlways("CActorComponent::OnInputActionBarUse - Press: %d", buttonId);
+			OnActionBarUse(buttonId);
 			break;
 
 		case eAAM_OnHold:

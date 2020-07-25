@@ -1,78 +1,13 @@
 #pragma once
 
 #include <Components/Player/PlayerComponent.h>
-#include <ECS/Components/Spells/Spell.h>
 #include <Entities/Interaction/IEntityInteraction.h>
 #include <entt/entt.hpp>
+#include <Spells/Spells.h>
 
 
 namespace Chrysalis
 {
-/** React to events in the lifetime of a spell cast. */
-
-struct ISpellCasting
-{
-	/**
-	Called at the start of a spell cast. Generally called on a downward keypress.
-	**/
-
-	virtual void OnSpellStart() = 0;
-
-	/**
-	Called each game frame a spell is stil casting. This will be called multiple times, as long as the player is
-	holding down the key / button.
-	**/
-
-	virtual void OnSpellTick() = 0;
-
-	/**
-	Called when a spellcast is interupted by something. Spell casting can continue, but with some penalty applied.
-	**/
-	virtual void OnSpellInterupt() = 0;
-
-	/**
-	Called when an spellcast fails or fizzles e.g. target out of range during channelling.
-	**/
-
-	virtual void OnSpellFail() = 0;
-
-	/**
-	Called when an interaction is completed normally. Generally called on an upward keypress.
-	**/
-
-	virtual void OnSpellComplete() = 0;
-};
-
-
-/** Interface to allow queueing a spell for execution. */
-struct ISpellCastManager
-{
-	/** Queue a spell up, ready for casting. */
-	virtual bool QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting) = 0;
-};
-
-
-struct SpellCastOpen : public ISpellCasting
-{
-
-	SpellCastOpen(ECS::Name name, ECS::Spell spell, ECS::SourceAndTarget sourceAndTarget)
-		:name(name), spell(spell), sourceAndTarget(sourceAndTarget) {}
-	~SpellCastOpen() = default;
-
-	// ISpellCasting
-	virtual void OnSpellStart() { CryLogAlways("Spell cast open: start"); }
-	virtual void OnSpellTick() { /*CryLogAlways("Spell cast open: tick");*/ }
-	virtual void OnSpellInterupt() { CryLogAlways("Spell cast open: interupt"); }
-	virtual void OnSpellFail() { CryLogAlways("Spell cast open: fail"); }
-	virtual void OnSpellComplete() { CryLogAlways("Spell cast open: complete"); }
-	// ~ISpellCasting
-
-	ECS::Name name;
-	ECS::Spell spell;
-	ECS::SourceAndTarget sourceAndTarget;
-};
-
-
 /**
 Allows an entity to have a spellbook which can hold spells both castable by the entity, as well as from outside
 sources if desired.
@@ -81,11 +16,12 @@ sources if desired.
 **/
 
 class CSpellbookComponent
-	: public IEntityComponent, public ISpellCastManager, public CPlayerInputComponent::IInputEventListener
+	: public IEntityComponent, public ISpellParticipant, public ISpellCastManager, public CPlayerInputComponent::IInputEventListener
 {
 protected:
 	// IEntityComponent
 	void Initialize() override;
+	void ProcessEvent(const SEntityEvent& event) override;
 	// ~IEntityComponent
 
 public:
@@ -99,6 +35,11 @@ public:
 		static CryGUID id = "{654A1648-663E-414B-97C1-0A7B12D3072F}"_cry_guid;
 		return id;
 	}
+
+
+	// ISpellParticipant
+	const entt::entity GetECSEntity() const override { return m_ecsEntity; };
+	// ~ISpellParticipant
 
 
 	// ISpellCastManager
@@ -177,6 +118,9 @@ public:
 	const SSpellCollection& GetSpellColllection() const { return m_spellCollection; }
 
 private:
+	/** The identifier for this spell participant in the ECS. */
+	entt::entity m_ecsEntity {entt::null};
+
 	/** A collection of spells which can potentially be cast. */
 	SSpellCollection m_spellCollection;
 
