@@ -1,154 +1,9 @@
 <entities>
  <entity>
   <components>
-   <name CryXmlVersion="2" name="Flashlight" displayName="Flashlight"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="12" specularMultiplier="12" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="0" style="0" speed="1" shape="point" twoSided="false" texturePath="chrysalis/textures/lights/flashlight_projector.dds" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="13" fovAngle="0.30000001" effectSlotMaterial="">
-    <Color r="1" g="1" b="1" a="1"/>
-   </render-light>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Lock" displayName="Lock"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <lock CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Unlock" displayName="Unlock"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <unlock CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Close" displayName="Close"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <close CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Open" displayName="Open"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <open CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Switch" displayName="Switch"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <switch CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Throw" displayName="Throw"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <throw CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Drop" displayName="Drop"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <drop CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Take" displayName="Take"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <take CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Examine" displayName="Examine"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <examine CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Inspect" displayName="Inspect"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <inspect CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="DRS" displayName="DRS"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <drs CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Schematyc" displayName="Schematyc"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-   <schematyc CryXmlVersion="2"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Life Steal" displayName="Life Steal"/>
-   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
-   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
-   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Mana Burn" displayName="Mana Burn"/>
-   <damage CryXmlVersion="2" targetTargetType="target" quantity="8" damageType="qi"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="target" quantity="16"/>
-   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
-   <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Innervate" displayName="Innervate"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="20"/>
-   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
-   <spell CryXmlVersion="2" spell-rewire="regenerate" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="HealAndRenew" displayName="HealAndRenew"/>
-   <heal CryXmlVersion="2" targetTargetType="target" quantity="12"/>
-   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
-   <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Renew" displayName="Renew"/>
-   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="3" duration="10" interval="2"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
-   <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Heal" displayName="Heal"/>
-   <heal CryXmlVersion="2" targetTargetType="target" quantity="17"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
-   <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
-  </components>
- </entity>
- <entity>
-  <components>
-   <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
-   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
-   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="11"/>
+   <name CryXmlVersion="2" name="Fireball" displayName="Fireball"/>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="14" damageType="fire"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="7"/>
    <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
   </components>
  </entity>
@@ -162,10 +17,155 @@
  </entity>
  <entity>
   <components>
-   <name CryXmlVersion="2" name="Fireball" displayName="Fireball"/>
-   <damage CryXmlVersion="2" targetTargetType="target" quantity="14" damageType="fire"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="7"/>
+   <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="11"/>
    <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Heal" displayName="Heal"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="17"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Renew" displayName="Renew"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="3" duration="10" interval="2"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="HealAndRenew" displayName="HealAndRenew"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="12"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Innervate" displayName="Innervate"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="20"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
+   <spell CryXmlVersion="2" spell-rewire="regenerate" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Mana Burn" displayName="Mana Burn"/>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="8" damageType="qi"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="target" quantity="16"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Life Steal" displayName="Life Steal"/>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Schematyc" displayName="Schematyc"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <schematyc CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="DRS" displayName="DRS"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <drs CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Inspect" displayName="Inspect"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <inspect CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Examine" displayName="Examine"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <examine CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Take" displayName="Take"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <take CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Drop" displayName="Drop"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <drop CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Throw" displayName="Throw"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <throw CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Switch" displayName="Switch"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <switch CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Open" displayName="Open"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <open CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Close" displayName="Close"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <close CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Unlock" displayName="Unlock"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <unlock CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Lock" displayName="Lock"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <lock CryXmlVersion="2"/>
+  </components>
+ </entity>
+ <entity>
+  <components>
+   <name CryXmlVersion="2" name="Flashlight" displayName="Flashlight"/>
+   <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="12" specularMultiplier="12" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="0" style="0" speed="1" shape="point" twoSided="false" texturePath="chrysalis/textures/lights/flashlight_projector.dds" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="13" fovAngle="0.30000001" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
 </entities>

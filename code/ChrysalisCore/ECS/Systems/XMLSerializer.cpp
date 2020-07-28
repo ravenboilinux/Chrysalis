@@ -46,17 +46,13 @@ void LoadECSFromXML(string fileName, entt::registry& registry)
 					auto hash = entt::hashed_string {componentNode->getTag()};
 
 					// Ask the system for the class and default construct a component of that type.
-					if (auto component = entt::resolve(hash))
+					if (auto component = entt::resolve_id(hash))
 					{
 						// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
 						auto any = component.construct(entity, &registry);
 
-						// Get the properties node - this holds all the properties for this component.
-						//XmlNodeRef propertiesNode = componentNode->findChild("properties");
-
 						// Serialise the properties across to the component.
 						auto& iComponent = any.cast<ECS::IComponent>();
-						//Serialization::LoadXmlNode(iComponent, propertiesNode);
 						Serialization::LoadXmlNode(iComponent, componentNode);
 					}
 				}

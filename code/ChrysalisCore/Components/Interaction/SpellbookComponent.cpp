@@ -51,7 +51,7 @@ void CSpellbookComponent::Initialize()
 	m_ecsEntity = actorRegistry->create();
 
 	// Name component.
-	actorRegistry->assign<ECS::Name>(m_ecsEntity,
+	actorRegistry->emplace<ECS::Name>(m_ecsEntity,
 		m_pEntity->GetName(), m_pEntity->GetName());
 
 }

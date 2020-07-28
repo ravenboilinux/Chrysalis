@@ -68,7 +68,7 @@ void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity
 	}
 
 	// The source and target for the spell need to be added to the entity.
-	registry.assign<ECS::SourceAndTarget>(spellEntity, source, target, sourceEntityId, targetEntityId);
+	registry.emplace<ECS::SourceAndTarget>(spellEntity, source, target, sourceEntityId, targetEntityId);
 
 	// TODO: Do we really need a set of custom rewires on top of the ones for source and target?
 	// Delete this code if it's not needed.
@@ -112,19 +112,19 @@ void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEnti
 	auto spellEntity = GetSpellByName(spellName);
 	if (spellEntity != entt::null)
 	{
-		// Make use of the create feature to copy the spell prototype into the actor registry.
-		auto newEntity = m_actorRegistry.create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
-			ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-			ECS::Spell,
-			ECS::SpellActionSchematyc, ECS::SpellActionDRS,
-			ECS::SpellActionInspect, ECS::SpellActionExamine,
-			ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
-			ECS::SpellActionSwitch,
-			ECS::SpellActionOpen, ECS::SpellActionClose,
-			ECS::SpellActionUnlock, ECS::SpellActionLock>(spellEntity, m_spellRegistry);
+		//// Make use of the create feature to copy the spell prototype into the actor registry.
+		//auto newEntity = m_actorRegistry.create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
+		//	ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
+		//	ECS::Spell,
+		//	ECS::SpellActionSchematyc, ECS::SpellActionDRS,
+		//	ECS::SpellActionInspect, ECS::SpellActionExamine,
+		//	ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
+		//	ECS::SpellActionSwitch,
+		//	ECS::SpellActionOpen, ECS::SpellActionClose,
+		//	ECS::SpellActionUnlock, ECS::SpellActionLock>(spellEntity, m_spellRegistry);
 
-		// Do fixups.
-		RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity, crySourceEntityId, cryTargetEntityId);
+		//// Do fixups.
+		//RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity, crySourceEntityId, cryTargetEntityId);
 	}
 }
 
@@ -268,7 +268,8 @@ void CSimulation::SaveSimulationData()
 {
 	// Actor related.
 	ECS::SerialiseECS actorSerial;
-	m_actorRegistry.snapshot()
+
+	entt::snapshot {m_actorRegistry}
 		.entities(actorSerial)
 		.component<ECS::Name, ECS::Prototype,
 		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
@@ -280,9 +281,10 @@ void CSimulation::SaveSimulationData()
 
 	// Spell prototypes.
 	ECS::SerialiseECS spellSerial;
-	m_spellRegistry.snapshot()
+
+	entt::snapshot {m_spellRegistry}
 		.entities(spellSerial)
-		.component<ECS::Name, ECS::Prototype,
+		.component < ECS::Name, ECS::Prototype,
 		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
 		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
 		ECS::Spell,

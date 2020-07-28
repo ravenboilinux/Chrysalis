@@ -123,17 +123,17 @@ void CActorComponent::Initialize()
 	m_ecsEntity = actorRegistry->create();
 
 	// Name component.
-	actorRegistry->assign<ECS::Name>(m_ecsEntity,
+	actorRegistry->emplace<ECS::Name>(m_ecsEntity,
 		m_pEntity->GetName(), m_pEntity->GetName());
 
 	// Health component.
 	ECS::AttributeType<float> health {100.0f, 0.0f, 0.0f};
-	actorRegistry->assign<ECS::Health>(m_ecsEntity,
+	actorRegistry->emplace<ECS::Health>(m_ecsEntity,
 		health);
 
 	// Qi component.
 	ECS::AttributeType<float> qi {100.0f, 0.0f, 0.0f};
-	actorRegistry->assign<ECS::Qi>(m_ecsEntity,
+	actorRegistry->emplace<ECS::Qi>(m_ecsEntity,
 		qi);
 
 	// Default is for a character to be controlled by AI.
