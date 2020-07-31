@@ -27,10 +27,10 @@ void CloneComponent(const entt::registry& sourceRegistry, const entt::entity sou
 
 /** Takes a reference to a spell and applies the needed fixups. This is mainly going to fix up the source and targets
 	for now. */
-void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity,
+void CSimulation::RewireSpell(entt::registry& spellcastingRegistry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity,
 	EntityId crySourceEntityId, EntityId cryTargetEntityId)
 {
-	ECS::Spell& spell = registry.get<ECS::Spell>(spellEntity);
+	ECS::Spell& spell = spellcastingRegistry.get<ECS::Spell>(spellEntity);
 
 	entt::entity source {entt::null};
 	entt::entity target {entt::null};
@@ -75,7 +75,7 @@ void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity
 	}
 
 	// The source and target for the spell need to be added to the entity.
-	registry.emplace<ECS::SourceAndTarget>(spellEntity, source, target, sourceEntityId, targetEntityId);
+	spellcastingRegistry.emplace<ECS::SourceAndTarget>(spellEntity, source, target, sourceEntityId, targetEntityId);
 
 	// TODO: Do we really need a set of custom rewires on top of the ones for source and target?
 	// Delete this code if it's not needed.
@@ -257,32 +257,32 @@ void CSimulation::Update(const float deltaTime)
 void CSimulation::UpdateImmediate(const float deltaTime)
 {
 	// Simluate some direct heals and direct damage.
-	ECS::SystemApplyDamage(m_spellcastingRegistry);
-	ECS::SystemApplyHeal(m_spellcastingRegistry);
-	ECS::SystemHealthCheck(m_spellcastingRegistry);
+	ECS::SystemApplyDamage(m_spellcastingRegistry, m_actorRegistry);
+	ECS::SystemApplyHeal(m_spellcastingRegistry, m_actorRegistry);
+	ECS::SystemHealthCheck(m_spellcastingRegistry, m_actorRegistry);
 
 	// Simluate some direct qi use and replenishment.
-	ECS::SystemApplyQiUtilisation(m_spellcastingRegistry);
-	ECS::SystemApplyQiReplenishment(m_spellcastingRegistry);
+	ECS::SystemApplyQiUtilisation(m_spellcastingRegistry, m_actorRegistry);
+	ECS::SystemApplyQiReplenishment(m_spellcastingRegistry, m_actorRegistry);
 }
 
 
 void CSimulation::UpdateTick(const float deltaTime)
 {
 	// Health ticks.
-	ECS::SystemApplyDamageOverTime(deltaTime, m_spellcastingRegistry);
-	ECS::SystemApplyHealOverTime(deltaTime, m_spellcastingRegistry);
-	ECS::SystemHealthCheck(m_spellcastingRegistry);
+	ECS::SystemApplyDamageOverTime(deltaTime, m_spellcastingRegistry, m_actorRegistry);
+	ECS::SystemApplyHealOverTime(deltaTime, m_spellcastingRegistry, m_actorRegistry);
+	ECS::SystemHealthCheck(m_spellcastingRegistry, m_actorRegistry);
 
 	// Qi ticks.
-	ECS::SystemApplyQiUtilisationOverTime(deltaTime, m_spellcastingRegistry);
-	ECS::SystemApplyQiReplenishmentOverTime(deltaTime, m_spellcastingRegistry);
+	ECS::SystemApplyQiUtilisationOverTime(deltaTime, m_spellcastingRegistry, m_actorRegistry);
+	ECS::SystemApplyQiReplenishmentOverTime(deltaTime, m_spellcastingRegistry, m_actorRegistry);
 }
 
 
 void CSimulation::UpdateWorldSpellcasts(const float deltaTime)
 {
-	ECS::SystemWorldSpellCasts(deltaTime, m_spellcastingRegistry);
+	ECS::SystemWorldSpellCasts(deltaTime, m_spellcastingRegistry, m_actorRegistry);
 }
 
 

@@ -15,6 +15,11 @@ struct ISpellParticipant
 	\return entt::null if it fails, else the entity identifier.
 	**/
 	virtual const entt::entity GetECSEntity() const = 0;
+
+	/**
+	Sets the ECS entity identifier for this participant.
+	**/
+	virtual void SetECSEntity(entt::entity entityId) = 0;
 };
 
 

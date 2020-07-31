@@ -121,6 +121,9 @@ void CActorComponent::Initialize()
 
 	// Need a new entity bound to this one for both their lives.
 	m_ecsEntity = actorRegistry->create();
+	
+	// We want to be sure they share the same ID.
+	m_pSpellbookComponent->SetECSEntity(m_ecsEntity);
 
 	// Name component.
 	actorRegistry->emplace<ECS::Name>(m_ecsEntity,
@@ -222,11 +225,11 @@ void CActorComponent::Update(SEntityUpdateContext* pCtx)
 	}
 
 	// DEBUG: Let's see some data.
-	//auto registry = ECS::Simulation.GetActorRegistry();
-	//auto& health = registry->get<ECS::Health>(m_ecsEntity);
-	//CryWatch("%s - health: %.2f", m_pEntity->GetName(), health.health.GetAttribute());
-	//auto& qi = registry->get<ECS::Qi>(m_ecsEntity);
-	//CryWatch("%s - qi: %.2f", m_pEntity->GetName(), qi.qi.GetAttribute());
+	auto registry = ECS::Simulation.GetActorRegistry();
+	auto& health = registry->get<ECS::Health>(m_ecsEntity);
+	CryWatch("%s - health: %.2f", m_pEntity->GetName(), health.health.GetAttribute());
+	auto& qi = registry->get<ECS::Qi>(m_ecsEntity);
+	CryWatch("%s - qi: %.2f", m_pEntity->GetName(), qi.qi.GetAttribute());
 }
 
 

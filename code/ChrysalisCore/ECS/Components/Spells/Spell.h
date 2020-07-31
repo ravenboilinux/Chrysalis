@@ -71,7 +71,7 @@ enum class TargetAggressionType
 
 enum class SpellCastStyle
 {
-	instant,			// Spell is cast instantly. Can't be interupted. Can be cast while moving.
+	immediate,			// Spell is cast instantly. Can't be interupted. Can be cast while moving.
 	movementAllowed,	// A cast time applies - may be cast while moving.
 	turret,				// A cast time applies. No movement allowed.
 	channelled			// Continuous concentration requirement. No movement allowed.
@@ -156,9 +156,10 @@ enum class BuffType
 
 enum class SpellcastPayload
 {
-	instant,			// The spell payload fires instantly.
-	channelled,			// The spell payload is channelled over time.
-	onCompletion,		// The spell payload lands on completion of the cast duration.
+	immediate,			// The spell payload fires immediately.
+	channelledActive,	// The spell payload is channelled over time as long the key is held down.
+	channelledDuration,	// The spell payload is channelled for the duration of the spell.
+	onCompletion,		// The spell payload fires on completion of the cast duration.
 };
 
 

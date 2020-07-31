@@ -37,7 +37,7 @@ SERIALIZATION_ENUM_END()
 
 // Spell Casting Style.
 SERIALIZATION_ENUM_BEGIN(SpellCastStyle, "Spell Cast Style")
-SERIALIZATION_ENUM(SpellCastStyle::instant, "instant", "instant")
+SERIALIZATION_ENUM(SpellCastStyle::immediate, "immediate", "immediate")
 SERIALIZATION_ENUM(SpellCastStyle::movementAllowed, "movementAllowed", "movementAllowed")
 SERIALIZATION_ENUM(SpellCastStyle::turret, "turret", "turret")
 SERIALIZATION_ENUM(SpellCastStyle::channelled, "channelled", "channelled")
@@ -55,8 +55,9 @@ SERIALIZATION_ENUM_END()
 
 // Spellcast Execution Status.
 SERIALIZATION_ENUM_BEGIN(SpellcastPayload, "Spellcast Payload")
-SERIALIZATION_ENUM(SpellcastPayload::instant, "instant", "instant")
-SERIALIZATION_ENUM(SpellcastPayload::channelled, "channelled", "channelled")
+SERIALIZATION_ENUM(SpellcastPayload::immediate, "immediate", "immediate")
+SERIALIZATION_ENUM(SpellcastPayload::channelledActive, "channelledActive", "channelledActive")
+SERIALIZATION_ENUM(SpellcastPayload::channelledDuration, "channelledDuration", "channelledDuration")
 SERIALIZATION_ENUM(SpellcastPayload::onCompletion, "onCompletion", "onCompletion")
 SERIALIZATION_ENUM_END()
 

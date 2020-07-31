@@ -19,10 +19,10 @@ namespace Chrysalis::ECS
 // ***
 
 
-void SystemApplyDamage(entt::registry& registry)
+void SystemApplyDamage(entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any damage to the damage modifiers.
-	auto view = registry.view<ECS::Damage, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::Damage, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
@@ -33,27 +33,27 @@ void SystemApplyDamage(entt::registry& registry)
 		ECS::Health* targetHealth {nullptr};
 		if (damage.targetTargetType == TargetTargetType::target)
 		{
-			auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+			auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.targetEntity);
 			targetHealth = &health;
 		}
 		else
 		{
-			auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+			auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.sourceEntity);
 			targetHealth = &health;
 		}
 
 		targetHealth->health.modifiers -= damage.quantity;
 
 		// Remove just the component.
-		registry.remove<ECS::Damage>(entity);
+		spellRegistry.remove<ECS::Damage>(entity);
 	}
 }
 
 
-void SystemApplyDamageOverTime(float dt, entt::registry& registry)
+void SystemApplyDamageOverTime(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any damage to the damage modifiers.
-	auto view = registry.view<ECS::DamageOverTime, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::DamageOverTime, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -70,12 +70,12 @@ void SystemApplyDamageOverTime(float dt, entt::registry& registry)
 			ECS::Health* targetHealth {nullptr};
 			if (damage.targetTargetType == TargetTargetType::target)
 			{
-				auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+				auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.targetEntity);
 				targetHealth = &health;
 			}
 			else
 			{
-				auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+				auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.sourceEntity);
 				targetHealth = &health;
 			}
 			targetHealth->health.modifiers -= damage.quantity;
@@ -84,16 +84,16 @@ void SystemApplyDamageOverTime(float dt, entt::registry& registry)
 		if (damage.ticksRemaining <= 0.0f)
 		{
 			// Remove just the component.
-			registry.remove<ECS::DamageOverTime>(entity);
+			spellRegistry.remove<ECS::DamageOverTime>(entity);
 		}
 	}
 }
 
 
-void SystemApplyHeal(entt::registry& registry)
+void SystemApplyHeal(entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any heals to the health modifiers.
-	auto view = registry.view<ECS::Heal, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::Heal, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -104,12 +104,12 @@ void SystemApplyHeal(entt::registry& registry)
 		ECS::Health* targetHealth {nullptr};
 		if (heal.targetTargetType == TargetTargetType::target)
 		{
-			auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+			auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.targetEntity);
 			targetHealth = &health;
 		}
 		else
 		{
-			auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+			auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.sourceEntity);
 			targetHealth = &health;
 		}
 
@@ -126,15 +126,15 @@ void SystemApplyHeal(entt::registry& registry)
 		}
 
 		// Remove just the component.
-		registry.remove<ECS::Heal>(entity);
+		spellRegistry.remove<ECS::Heal>(entity);
 	}
 }
 
 
-void SystemApplyHealOverTime(float dt, entt::registry& registry)
+void SystemApplyHealOverTime(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any heal to the health modifiers.
-	auto view = registry.view<ECS::HealOverTime, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::HealOverTime, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -151,12 +151,12 @@ void SystemApplyHealOverTime(float dt, entt::registry& registry)
 			ECS::Health* targetHealth {nullptr};
 			if (heal.targetTargetType == TargetTargetType::target)
 			{
-				auto& health = registry.get<ECS::Health>(sourceAndTarget.targetEntity);
+				auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.targetEntity);
 				targetHealth = &health;
 			}
 			else
 			{
-				auto& health = registry.get<ECS::Health>(sourceAndTarget.sourceEntity);
+				auto& health = actorRegistry.get<ECS::Health>(sourceAndTarget.sourceEntity);
 				targetHealth = &health;
 			}
 
@@ -176,18 +176,18 @@ void SystemApplyHealOverTime(float dt, entt::registry& registry)
 			if (heal.ticksRemaining <= 0.0f)
 			{
 				// Remove just the component.
-				registry.remove<ECS::HealOverTime>(entity);
+				spellRegistry.remove<ECS::HealOverTime>(entity);
 			}
 		}
 	}
 }
 
 
-void SystemHealthCheck(entt::registry& registry)
+void SystemHealthCheck(entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Update each health component, applying the modifier to it's base to calculate the current health.
 	// Update death status if appropriate.
-	auto view = registry.view<ECS::Health, ECS::SourceAndTarget>();
+	auto view = actorRegistry.view<ECS::Health, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -210,10 +210,10 @@ void SystemHealthCheck(entt::registry& registry)
 // ***
 
 
-void SystemApplyQiUtilisation(entt::registry& registry)
+void SystemApplyQiUtilisation(entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any qi usage to the modifiers.
-	auto view = registry.view<ECS::UtiliseQi, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::UtiliseQi, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -224,12 +224,12 @@ void SystemApplyQiUtilisation(entt::registry& registry)
 		ECS::Qi* targetQi {nullptr};
 		if (qiUse.targetTargetType == TargetTargetType::target)
 		{
-			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+			auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.targetEntity);
 			targetQi = &qi;
 		}
 		else
 		{
-			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+			auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
 			targetQi = &qi;
 		}
 
@@ -237,15 +237,15 @@ void SystemApplyQiUtilisation(entt::registry& registry)
 		targetQi->qi.modifiers -= qiUse.quantity;
 
 		// Remove just the component.
-		registry.remove<ECS::UtiliseQi>(entity);
+		spellRegistry.remove<ECS::UtiliseQi>(entity);
 	}
 }
 
 
-void SystemApplyQiUtilisationOverTime(float dt, entt::registry& registry)
+void SystemApplyQiUtilisationOverTime(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any qi to the modifiers.
-	auto view = registry.view<ECS::UtiliseQiOverTime, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::UtiliseQiOverTime, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -262,12 +262,12 @@ void SystemApplyQiUtilisationOverTime(float dt, entt::registry& registry)
 			ECS::Qi* targetQi {nullptr};
 			if (qiUse.targetTargetType == TargetTargetType::target)
 			{
-				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+				auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.targetEntity);
 				targetQi = &qi;
 			}
 			else
 			{
-				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+				auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
 				targetQi = &qi;
 			}
 			targetQi->qi.modifiers -= qiUse.quantity;
@@ -276,16 +276,16 @@ void SystemApplyQiUtilisationOverTime(float dt, entt::registry& registry)
 		if (qiUse.ticksRemaining <= 0.0f)
 		{
 			// Remove just the component.
-			registry.remove<ECS::UtiliseQiOverTime>(entity);
+			spellRegistry.remove<ECS::UtiliseQiOverTime>(entity);
 		}
 	}
 }
 
 
-void SystemApplyQiReplenishment(entt::registry& registry)
+void SystemApplyQiReplenishment(entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any replenishment to the qi modifiers.
-	auto view = registry.view<ECS::ReplenishQi, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::ReplenishQi, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -296,12 +296,12 @@ void SystemApplyQiReplenishment(entt::registry& registry)
 		ECS::Qi* targetQi {nullptr};
 		if (replenish.targetTargetType == TargetTargetType::target)
 		{
-			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+			auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.targetEntity);
 			targetQi = &qi;
 		}
 		else
 		{
-			auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+			auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
 			targetQi = &qi;
 		}
 
@@ -318,15 +318,15 @@ void SystemApplyQiReplenishment(entt::registry& registry)
 		}
 
 		// Remove just the component.
-		registry.remove<ECS::ReplenishQi>(entity);
+		spellRegistry.remove<ECS::ReplenishQi>(entity);
 	}
 }
 
 
-void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& registry)
+void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Apply any replenishment to the qi modifiers.
-	auto view = registry.view<ECS::ReplenishQiOverTime, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::ReplenishQiOverTime, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components..
@@ -343,12 +343,12 @@ void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& registry)
 			ECS::Qi* targetQi {nullptr};
 			if (replenish.targetTargetType == TargetTargetType::target)
 			{
-				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.targetEntity);
+				auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.targetEntity);
 				targetQi = &qi;
 			}
 			else
 			{
-				auto& qi = registry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
+				auto& qi = actorRegistry.get<ECS::Qi>(sourceAndTarget.sourceEntity);
 				targetQi = &qi;
 			}
 
@@ -367,7 +367,7 @@ void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& registry)
 			if (replenish.ticksRemaining <= 0.0f)
 			{
 				// Remove just the component.
-				registry.remove<ECS::ReplenishQiOverTime>(entity);
+				spellRegistry.remove<ECS::ReplenishQiOverTime>(entity);
 			}
 		}
 	}
@@ -387,10 +387,10 @@ bool IsSpellCastable(const ECS::Spell& spell, const ECS::SourceAndTarget& source
 }
 
 
-void SpellCastOpen(float dt, entt::registry& registry)
+void SpellCastOpen(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionOpen, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::SpellActionOpen, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
@@ -429,7 +429,7 @@ void SpellCastOpen(float dt, entt::registry& registry)
 
 		if (spell.castDuration <= spellcastExecution.executionTime)
 		{
-			// TODO: The spell should cast now if it's not instant cast.
+			// TODO: The spell should cast now if it's not immediate cast.
 
 			// Assumption, it succeeded, yay team!
 			spellcastExecution.castExecutionStatus = SpellCastExecutionStatus::success;
@@ -440,16 +440,16 @@ void SpellCastOpen(float dt, entt::registry& registry)
 		if (spellcastExecution.castExecutionStatus == SpellCastExecutionStatus::success)
 		{
 			CryLogAlways("Spellcast Finished: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
-			registry.destroy(entity);
+			spellRegistry.destroy(entity);
 		}
 	}
 }
 
 
-void SpellCastTake(float dt, entt::registry& registry)
+void SpellCastTake(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionTake, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::SpellActionTake, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
@@ -466,15 +466,15 @@ void SpellCastTake(float dt, entt::registry& registry)
 		}
 
 		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
-		registry.destroy(entity);
+		spellRegistry.destroy(entity);
 	}
 }
 
 
-void SpellCastDrop(float dt, entt::registry& registry)
+void SpellCastDrop(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionDrop, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::SpellActionDrop, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
@@ -491,15 +491,15 @@ void SpellCastDrop(float dt, entt::registry& registry)
 		}
 
 		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
-		registry.destroy(entity);
+		spellRegistry.destroy(entity);
 	}
 }
 
 
-void SpellCastSwitch(float dt, entt::registry& registry)
+void SpellCastSwitch(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionSwitch, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
+	auto view = spellRegistry.view<ECS::SpellActionSwitch, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
@@ -559,16 +559,16 @@ void SpellCastSwitch(float dt, entt::registry& registry)
 		}
 
 		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
-		registry.destroy(entity);
+		spellRegistry.destroy(entity);
 	}
 }
 
 
-void SystemWorldSpellCasts(float dt, entt::registry& registry)
+void SystemWorldSpellCasts(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry)
 {
-	SpellCastOpen(dt, registry);
-	SpellCastTake(dt, registry);
-	SpellCastDrop(dt, registry);
-	SpellCastSwitch(dt, registry);
+	SpellCastOpen(dt, spellRegistry, actorRegistry);
+	SpellCastTake(dt, spellRegistry, actorRegistry);
+	SpellCastDrop(dt, spellRegistry, actorRegistry);
+	SpellCastSwitch(dt, spellRegistry, actorRegistry);
 }
 }

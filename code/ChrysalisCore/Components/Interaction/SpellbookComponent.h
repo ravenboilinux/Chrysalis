@@ -39,6 +39,7 @@ public:
 
 	// ISpellParticipant
 	const entt::entity GetECSEntity() const override { return m_ecsEntity; };
+	virtual void SetECSEntity(entt::entity entityId) { m_ecsEntity = entityId; };
 	// ~ISpellParticipant
 
 

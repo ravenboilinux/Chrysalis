@@ -44,31 +44,30 @@ void CSpellbookComponent::ReflectType(Schematyc::CTypeDesc<CSpellbookComponent>&
 
 void CSpellbookComponent::Initialize()
 {
-	// Get the ECS actor registry.
-	auto actorRegistry = ECS::Simulation.GetActorRegistry();
+	//// Get the ECS actor registry.
+	//auto actorRegistry = ECS::Simulation.GetActorRegistry();
 
-	// Need a new entity bound to this one for both their lives.
-	m_ecsEntity = actorRegistry->create();
+	//// Need a new entity bound to this one for both their lives.
+	//m_ecsEntity = actorRegistry->create();
 
-	// Name component.
-	actorRegistry->emplace<ECS::Name>(m_ecsEntity,
-		m_pEntity->GetName(), m_pEntity->GetName());
-
+	//// Name component.
+	//actorRegistry->emplace<ECS::Name>(m_ecsEntity,
+	//	m_pEntity->GetName(), m_pEntity->GetName());
 }
 
 
 void CSpellbookComponent::ProcessEvent(const SEntityEvent& event)
 {
-	switch (event.event)
-	{
-		case EEntityEvent::Remove:
-		{
-			// Clean up the ECS entity, as it's no longer needed.
-			auto registry = ECS::Simulation.GetActorRegistry();
-			registry->destroy(m_ecsEntity);
-			break;
-		}
-	}
+	//switch (event.event)
+	//{
+	//	case EEntityEvent::Remove:
+	//	{
+	//		// Clean up the ECS entity, as it's no longer needed.
+	//		auto registry = ECS::Simulation.GetActorRegistry();
+	//		registry->destroy(m_ecsEntity);
+	//		break;
+	//	}
+	//}
 }
 
 
