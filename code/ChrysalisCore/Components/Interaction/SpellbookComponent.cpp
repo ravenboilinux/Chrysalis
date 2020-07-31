@@ -73,16 +73,16 @@ void CSpellbookComponent::ProcessEvent(const SEntityEvent& event)
 
 
 // ***
-// *** ISpellCastManager
+// *** ISpellcastManager
 // ***
 
 
-bool CSpellbookComponent::QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting)
+bool CSpellbookComponent::QueueSpellCast(std::shared_ptr<ISpellcasting> spellcasting)
 {
 	// Just let them queue up one extra spell at a time, to help alleviate network lag issues.
 	if (m_spellQueue.size() <= 1)
 	{
-		m_spellQueue.push(spellCasting);
+		m_spellQueue.push(spellcasting);
 		return true;
 	}
 
@@ -235,17 +235,17 @@ void CSpellbookComponent::OnInteractionStart(IActor& actor)
 
 	if (!m_spellQueue.empty())
 	{
-		m_spellCasting = m_spellQueue.front();
+		m_spellcasting = m_spellQueue.front();
 		m_spellQueue.pop();
 	}
 	else
 	{
-		m_spellCasting.reset();
+		m_spellcasting.reset();
 	}
 
-	if (m_spellCasting)
+	if (m_spellcasting)
 	{
-		m_spellCasting->OnSpellStart();
+		m_spellcasting->OnSpellStart();
 	}
 }
 
@@ -255,9 +255,9 @@ void CSpellbookComponent::OnInteractionTick(IActor& actor)
 	CRY_ASSERT_MESSAGE(m_selectedInteraction, "Be sure to set an interaction before attempting to call it.");
 	m_selectedInteraction->OnInteractionTick(actor);
 
-	if (m_spellCasting)
+	if (m_spellcasting)
 	{
-		m_spellCasting->OnSpellTick();
+		m_spellcasting->OnSpellTick();
 	}
 }
 
@@ -267,13 +267,13 @@ void CSpellbookComponent::OnInteractionComplete(IActor& actor)
 	CRY_ASSERT_MESSAGE(m_selectedInteraction, "Be sure to set an interaction before attempting to call it.");
 	m_selectedInteraction->OnInteractionComplete(actor);
 
-	if (m_spellCasting)
+	if (m_spellcasting)
 	{
-		m_spellCasting->OnSpellComplete();
+		m_spellcasting->OnSpellComplete();
 	}
 
 	// We're done with this spell now.
-	m_spellCasting.reset();
+	m_spellcasting.reset();
 }
 
 CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterSpellbookComponent)

@@ -103,6 +103,11 @@ void RegisterComponentsWithMeta()
 		.type(ECS::Spell().GetHashedName())
 		.ctor<&emplace<ECS::Spell>, entt::as_ref_t>();
 
+	entt::meta<ECS::SpellcastExecution>()
+		.base<ECS::IComponent>()
+		.type(ECS::SpellcastExecution().GetHashedName())
+		.ctor<&emplace<ECS::SpellcastExecution>, entt::as_ref_t>();
+
 	// Spell actions.
 	entt::meta<ECS::SpellActionSchematyc>()
 		.base<ECS::IComponent>()

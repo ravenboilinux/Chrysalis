@@ -390,19 +390,30 @@ bool IsSpellCastable(const ECS::Spell& spell, const ECS::SourceAndTarget& source
 void SpellCastOpen(float dt, entt::registry& registry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionOpen, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	auto view = registry.view<ECS::SpellActionOpen, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
 		auto& name = view.get<ECS::Name>(entity);
 		auto& spell = view.get<ECS::Spell>(entity);
+		auto& spellcastExecution = view.get<ECS::SpellcastExecution>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
 
 		// Check validity of the spell cast request.
 		if (IsSpellCastable(spell, sourceAndTarget))
 		{
-			// Do something.
-			CryLogAlways("Spellcast: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+			switch (spellcastExecution.castExecutionStatus)
+			{
+				case SpellCastExecutionStatus::initialised:
+					// The spell is now considered to be in a casting state.
+					spellcastExecution.castExecutionStatus = SpellCastExecutionStatus::casting;
+					CryLogAlways("Spellcast: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+					break;
+
+				case SpellCastExecutionStatus::casting:
+					spellcastExecution.executionTime += dt;
+					break;
+			}
 
 			// Does the source actor have a spellbook for this cast?
 			if (auto* pSourceEntity = gEnv->pEntitySystem->GetEntity(sourceAndTarget.crySourceEntityId))
@@ -410,14 +421,27 @@ void SpellCastOpen(float dt, entt::registry& registry)
 				if (auto* pSpellbookComponent = pSourceEntity->GetComponent<CSpellbookComponent>())
 				{
 					// Toss the spell onto the source entity's queue.
-					auto spellCast = std::make_shared<Chrysalis::SpellCastOpen>(name, spell, sourceAndTarget);
-					pSpellbookComponent->QueueSpellCast(spellCast);
+					auto spellcast = std::make_shared<Chrysalis::SpellCastOpen>(name, spell, sourceAndTarget);
+					pSpellbookComponent->QueueSpellCast(spellcast);
 				}
 			}
 		}
 
-		// Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it. 
-		registry.destroy(entity);
+		if (spell.castDuration <= spellcastExecution.executionTime)
+		{
+			// TODO: The spell should cast now if it's not instant cast.
+
+			// Assumption, it succeeded, yay team!
+			spellcastExecution.castExecutionStatus = SpellCastExecutionStatus::success;
+		}
+
+		// HACK: Destroy the entity. Assumption is each entity only has one of these sorts of spell components on it.
+		// Doing this here for convenience for now.
+		if (spellcastExecution.castExecutionStatus == SpellCastExecutionStatus::success)
+		{
+			CryLogAlways("Spellcast Finished: %s, Source: %d, target: %d", name.displayName.c_str(), sourceAndTarget.sourceEntity, sourceAndTarget.targetEntity);
+			registry.destroy(entity);
+		}
 	}
 }
 
@@ -425,12 +449,13 @@ void SpellCastOpen(float dt, entt::registry& registry)
 void SpellCastTake(float dt, entt::registry& registry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionTake, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	auto view = registry.view<ECS::SpellActionTake, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
 		auto& name = view.get<ECS::Name>(entity);
 		auto& spell = view.get<ECS::Spell>(entity);
+		//auto& spellcastExecution = view.get<ECS::SpellcastExecution>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
 
 		// Check validity of the spell cast request.
@@ -449,12 +474,13 @@ void SpellCastTake(float dt, entt::registry& registry)
 void SpellCastDrop(float dt, entt::registry& registry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionDrop, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	auto view = registry.view<ECS::SpellActionDrop, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
 		auto& name = view.get<ECS::Name>(entity);
 		auto& spell = view.get<ECS::Spell>(entity);
+		//auto& spellcastExecution = view.get<ECS::SpellcastExecution>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
 
 		// Check validity of the spell cast request.
@@ -473,12 +499,13 @@ void SpellCastDrop(float dt, entt::registry& registry)
 void SpellCastSwitch(float dt, entt::registry& registry)
 {
 	// Check for spell cast components.
-	auto view = registry.view<ECS::SpellActionSwitch, ECS::Name, ECS::Spell, ECS::SourceAndTarget>();
+	auto view = registry.view<ECS::SpellActionSwitch, ECS::Name, ECS::Spell, ECS::SpellcastExecution, ECS::SourceAndTarget>();
 	for (auto& entity : view)
 	{
 		// Get the components.
 		auto& name = view.get<ECS::Name>(entity);
 		auto& spell = view.get<ECS::Spell>(entity);
+		//auto& spellcastExecution = view.get<ECS::SpellcastExecution>(entity);
 		auto& sourceAndTarget = view.get<ECS::SourceAndTarget>(entity);
 
 		// Check validity of the spell cast request.

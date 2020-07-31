@@ -16,7 +16,7 @@ sources if desired.
 **/
 
 class CSpellbookComponent
-	: public IEntityComponent, public ISpellParticipant, public ISpellCastManager, public CPlayerInputComponent::IInputEventListener
+	: public IEntityComponent, public ISpellParticipant, public ISpellcastManager, public CPlayerInputComponent::IInputEventListener
 {
 protected:
 	// IEntityComponent
@@ -42,9 +42,9 @@ public:
 	// ~ISpellParticipant
 
 
-	// ISpellCastManager
-	bool QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting) override;
-	// ~ISpellCastManager
+	// ISpellcastManager
+	bool QueueSpellCast(std::shared_ptr<ISpellcasting> spellcasting) override;
+	// ~ISpellcastManager
 
 
 	// CPlayerInputComponent::IInputEventListener
@@ -129,7 +129,7 @@ private:
 	IInteractionPtr m_selectedInteraction {IInteractionPtr()};
 
 	// HACK: KISS - no queue for the moment.
-	std::queue<std::shared_ptr<ISpellCasting>> m_spellQueue;
-	std::shared_ptr<ISpellCasting> m_spellCasting;
+	std::queue<std::shared_ptr<ISpellcasting>> m_spellQueue;
+	std::shared_ptr<ISpellcasting> m_spellcasting;
 };
 }

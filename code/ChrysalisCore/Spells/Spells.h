@@ -6,20 +6,20 @@
 
 namespace Chrysalis
 {
-struct SpellCastOpen : public ISpellCasting
+struct SpellCastOpen : public ISpellcasting
 {
 
 	SpellCastOpen(ECS::Name name, ECS::Spell spell, ECS::SourceAndTarget sourceAndTarget)
 		:name(name), spell(spell), sourceAndTarget(sourceAndTarget) {}
 	~SpellCastOpen() = default;
 
-	// ISpellCasting
+	// ISpellcasting
 	virtual void OnSpellStart() { CryLogAlways("Spell cast open: start"); }
 	virtual void OnSpellTick() { /*CryLogAlways("Spell cast open: tick");*/ }
 	virtual void OnSpellInterupt() { CryLogAlways("Spell cast open: interupt"); }
 	virtual void OnSpellFail() { CryLogAlways("Spell cast open: fail"); }
 	virtual void OnSpellComplete() { CryLogAlways("Spell cast open: complete"); }
-	// ~ISpellCasting
+	// ~ISpellcasting
 
 	ECS::Name name;
 	ECS::Spell spell;

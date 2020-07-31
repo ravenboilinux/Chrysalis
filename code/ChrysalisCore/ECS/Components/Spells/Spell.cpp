@@ -52,4 +52,20 @@ SERIALIZATION_ENUM(SpellRewire::regenerate, "regenerate", "regenerate")
 SERIALIZATION_ENUM(SpellRewire::crowdControl, "crowd-control", "crowd-control")
 SERIALIZATION_ENUM(SpellRewire::custom, "custom", "custom")
 SERIALIZATION_ENUM_END()
+
+// Spellcast Execution Status.
+SERIALIZATION_ENUM_BEGIN(SpellcastPayload, "Spellcast Payload")
+SERIALIZATION_ENUM(SpellcastPayload::instant, "instant", "instant")
+SERIALIZATION_ENUM(SpellcastPayload::channelled, "channelled", "channelled")
+SERIALIZATION_ENUM(SpellcastPayload::onCompletion, "onCompletion", "onCompletion")
+SERIALIZATION_ENUM_END()
+
+// Spellcast Execution Status.
+SERIALIZATION_ENUM_BEGIN(SpellCastExecutionStatus, "Spellcast Execution Status")
+SERIALIZATION_ENUM(SpellCastExecutionStatus::initialised, "initialised", "initialised")
+SERIALIZATION_ENUM(SpellCastExecutionStatus::casting, "casting", "casting")
+SERIALIZATION_ENUM(SpellCastExecutionStatus::failed, "failed", "failed")
+SERIALIZATION_ENUM(SpellCastExecutionStatus::cancelled, "cancelled", "cancelled")
+SERIALIZATION_ENUM(SpellCastExecutionStatus::success, "success", "success")
+SERIALIZATION_ENUM_END()
 }

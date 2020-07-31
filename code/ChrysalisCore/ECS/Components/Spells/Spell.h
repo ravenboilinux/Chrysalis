@@ -154,6 +154,24 @@ enum class BuffType
 };
 
 
+enum class SpellcastPayload
+{
+	instant,			// The spell payload fires instantly.
+	channelled,			// The spell payload is channelled over time.
+	onCompletion,		// The spell payload lands on completion of the cast duration.
+};
+
+
+enum class SpellCastExecutionStatus
+{
+	initialised,		// The spell is ready to start casting.
+	casting,			// The spell is currently casting.
+	failed,				// The spell cast failed, whiffed or fizzled.
+	cancelled,			// The player requested a cancel of the spell cast.
+	success,			// The spell completed successfully.
+};
+
+
 struct Spell : public IComponent
 {
 	Spell() = default;
@@ -178,6 +196,7 @@ struct Spell : public IComponent
 		ar(globalCooldown, "globalCooldown", "Global cooldown. The number of seconds before *any* spell can be cast again.");
 		ar(sourceTargetType, "sourceTargetType", "Source of the spell - typically none or self.");
 		ar(targetTargetType, "targetTargetType", "Target for the spell. May target self, others, or even AoEs.");
+		ar(spellcastPayload, "spellcastPayload", "At what time should the spell payload be delivered?");
 	}
 
 
@@ -202,6 +221,9 @@ struct Spell : public IComponent
 	/** Global cooldown. The number of seconds before *any* spell can be cast again. */
 	float globalCooldown {0.0f};
 
+	/** At what time should the spell payload be delivered? */
+	SpellcastPayload spellcastPayload {SpellcastPayload::onCompletion};
+
 	// Source for the spell will generally only be none or self.
 	TargetType sourceTargetType {TargetType::self};
 	
@@ -211,5 +233,34 @@ struct Spell : public IComponent
 
 	// Which sort of targets can this spell be cast upon?
 	TargetAggressionType targetAggressionType {TargetAggressionType::allied};
+};
+
+
+struct SpellcastExecution : public IComponent
+{
+	SpellcastExecution() = default;
+	virtual ~SpellcastExecution() = default;
+
+
+	virtual const entt::hashed_string& GetHashedName() const
+	{
+		static constexpr entt::hashed_string nameHS {"spellcast-execution"_hs};
+
+		return nameHS;
+	}
+
+
+	void Serialize(Serialization::IArchive& ar) override final
+	{
+		ar(executionTime, "execution-time", "Duration the spell has been executing.");
+		ar(castExecutionStatus, "cast-execution-status", "Status of the casting mechanic.");
+	}
+
+
+	/** Duration the spell has been executing. */
+	float executionTime {0.0f};
+
+	/** Status of the casting mechanic. */
+	SpellCastExecutionStatus castExecutionStatus {SpellCastExecutionStatus::initialised};
 };
 }

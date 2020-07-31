@@ -20,7 +20,7 @@ struct ISpellParticipant
 
 /** React to events in the lifetime of a spell cast. */
 
-struct ISpellCasting
+struct ISpellcasting
 {
 	/**
 	Called at the start of a spell cast. Generally called on a downward keypress.
@@ -55,9 +55,9 @@ struct ISpellCasting
 
 
 /** Interface to allow queueing a spell for execution. */
-struct ISpellCastManager
+struct ISpellcastManager
 {
 	/** Queue a spell up, ready for casting. */
-	virtual bool QueueSpellCast(std::shared_ptr<ISpellCasting> spellCasting) = 0;
+	virtual bool QueueSpellCast(std::shared_ptr<ISpellcasting> spellcasting) = 0;
 };
 }

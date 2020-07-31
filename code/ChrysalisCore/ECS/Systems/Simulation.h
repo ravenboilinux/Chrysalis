@@ -35,6 +35,9 @@ public:
 	/** Get a reference to the spell registry, which keeps prototypes for all the spells. */
 	entt::registry* GetSpellRegistry() { return &m_spellRegistry; }
 
+	/** Get a reference to the spell casting registry. This is where spells are executed. */
+	entt::registry* GetSpellCastingRegistry() { return &m_spellcastingRegistry; }
+
 	/** Performs some important fixups to the spell entity, based on the type of spell. Source and target entities
 	are rewired to work as expected. */
 	void RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity,
@@ -51,6 +54,7 @@ public:
 private:
 	entt::registry m_actorRegistry;
 	entt::registry m_spellRegistry;
+	entt::registry m_spellcastingRegistry;
 
 	// Required to clone components between registries.
 	using StampFunction = void(const entt::registry&, const entt::entity, entt::registry&, const entt::entity);
