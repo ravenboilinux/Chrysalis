@@ -18,6 +18,13 @@
 
 namespace Chrysalis::ECS
 {
+template<typename Type>
+void CloneComponent(const entt::registry& sourceRegistry, const entt::entity sourceEntity, entt::registry& targetRegistry, const entt::entity targetEntity)
+{
+	targetRegistry.emplace_or_replace<Type>(targetEntity, sourceRegistry.get<Type>(sourceEntity));
+}
+
+
 /** Takes a reference to a spell and applies the needed fixups. This is mainly going to fix up the source and targets
 	for now. */
 void CSimulation::RewireSpell(entt::registry& registry, entt::entity spellEntity, entt::entity sourceEntity, entt::entity targetEntity,
@@ -112,19 +119,13 @@ void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEnti
 	auto spellEntity = GetSpellByName(spellName);
 	if (spellEntity != entt::null)
 	{
-		//// Make use of the create feature to copy the spell prototype into the actor registry.
-		//auto newEntity = m_actorRegistry.create<ECS::Name, ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
-		//	ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-		//	ECS::Spell,
-		//	ECS::SpellActionSchematyc, ECS::SpellActionDRS,
-		//	ECS::SpellActionInspect, ECS::SpellActionExamine,
-		//	ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
-		//	ECS::SpellActionSwitch,
-		//	ECS::SpellActionOpen, ECS::SpellActionClose,
-		//	ECS::SpellActionUnlock, ECS::SpellActionLock>(spellEntity, m_spellRegistry);
+		auto newEntity = m_actorRegistry.create();
 
-		//// Do fixups.
-		//RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity, crySourceEntityId, cryTargetEntityId);
+		m_spellRegistry.visit(spellEntity, [this, spellEntity, newEntity](const auto type_id)
+			{ stampFunctionMap[type_id](m_spellRegistry, spellEntity, m_actorRegistry, newEntity); });
+
+		// Do fixups.
+		RewireSpell(m_actorRegistry, newEntity, sourceEntity, targetEntity, crySourceEntityId, cryTargetEntityId);
 	}
 }
 
@@ -170,6 +171,54 @@ const entt::entity GetVillain(entt::registry& registry)
 void CSimulation::Init()
 {
 	ECS::RegisterComponentsWithMeta();
+
+	// TODO: This is bound to be a point of failure, as new components which are registered do not get added to this list.
+	// Need to find a way to do this closer to the registration code.
+	
+	// The base component is required in order to call the .base function.
+	stampFunctionMap[entt::type_info<ECS::IComponent>::id()] = &CloneComponent<ECS::IComponent>;
+
+	// General.
+	stampFunctionMap[entt::type_info<ECS::Name>::id()] = &CloneComponent<ECS::Name>;
+	stampFunctionMap[entt::type_info<ECS::Prototype>::id()] = &CloneComponent<ECS::Prototype>;
+	stampFunctionMap[entt::type_info<ECS::SourceAndTarget>::id()] = &CloneComponent<ECS::SourceAndTarget>;
+
+	// Health.
+	stampFunctionMap[entt::type_info<ECS::Health>::id()] = &CloneComponent<ECS::Health>;
+	stampFunctionMap[entt::type_info<ECS::Damage>::id()] = &CloneComponent<ECS::Damage>;
+	stampFunctionMap[entt::type_info<ECS::DamageOverTime>::id()] = &CloneComponent<ECS::DamageOverTime>;
+	stampFunctionMap[entt::type_info<ECS::Heal>::id()] = &CloneComponent<ECS::Heal>;
+	stampFunctionMap[entt::type_info<ECS::HealOverTime>::id()] = &CloneComponent<ECS::HealOverTime>;
+
+	// Qi.
+	stampFunctionMap[entt::type_info<ECS::Qi>::id()] = &CloneComponent<ECS::Qi>;
+	stampFunctionMap[entt::type_info<ECS::UtiliseQi>::id()] = &CloneComponent<ECS::UtiliseQi>;
+	stampFunctionMap[entt::type_info<ECS::UtiliseQiOverTime>::id()] = &CloneComponent<ECS::UtiliseQiOverTime>;
+	stampFunctionMap[entt::type_info<ECS::ReplenishQi>::id()] = &CloneComponent<ECS::ReplenishQi>;
+	stampFunctionMap[entt::type_info<ECS::ReplenishQiOverTime>::id()] = &CloneComponent<ECS::ReplenishQiOverTime>;
+
+	// Spell.
+	stampFunctionMap[entt::type_info<ECS::Spell>::id()] = &CloneComponent<ECS::Spell>;
+
+	// Spell actions.
+	stampFunctionMap[entt::type_info<ECS::SpellActionSchematyc>::id()] = &CloneComponent<ECS::SpellActionSchematyc>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionDRS>::id()] = &CloneComponent<ECS::SpellActionDRS>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionInspect>::id()] = &CloneComponent<ECS::SpellActionInspect>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionExamine>::id()] = &CloneComponent<ECS::SpellActionExamine>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionTake>::id()] = &CloneComponent<ECS::SpellActionTake>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionDrop>::id()] = &CloneComponent<ECS::SpellActionDrop>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionThrow>::id()] = &CloneComponent<ECS::SpellActionThrow>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionSwitch>::id()] = &CloneComponent<ECS::SpellActionSwitch>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionOpen>::id()] = &CloneComponent<ECS::SpellActionOpen>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionClose>::id()] = &CloneComponent<ECS::SpellActionClose>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionUnlock>::id()] = &CloneComponent<ECS::SpellActionUnlock>;
+	stampFunctionMap[entt::type_info<ECS::SpellActionLock>::id()] = &CloneComponent<ECS::SpellActionLock>;
+
+	// Environment.
+	stampFunctionMap[entt::type_info<ECS::RenderLight>::id()] = &CloneComponent<ECS::RenderLight>;
+
+	// Items.
+	stampFunctionMap[entt::type_info<ECS::ItemClass>::id()] = &CloneComponent<ECS::ItemClass>;
 }
 
 
@@ -292,7 +341,7 @@ void CSimulation::SaveSimulationData()
 		ECS::SpellActionInspect, ECS::SpellActionExamine,
 		ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
 		ECS::SpellActionSwitch,
-		ECS::SpellActionOpen, ECS::SpellActionClose, 
+		ECS::SpellActionOpen, ECS::SpellActionClose,
 		ECS::SpellActionUnlock, ECS::SpellActionLock,
 		ECS::RenderLight>(spellSerial);
 

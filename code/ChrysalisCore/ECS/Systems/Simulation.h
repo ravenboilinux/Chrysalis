@@ -51,5 +51,9 @@ public:
 private:
 	entt::registry m_actorRegistry;
 	entt::registry m_spellRegistry;
+
+	// Required to clone components between registries.
+	using StampFunction = void(const entt::registry&, const entt::entity, entt::registry&, const entt::entity);
+	std::unordered_map<entt::id_type, StampFunction*> stampFunctionMap;
 };
 }
