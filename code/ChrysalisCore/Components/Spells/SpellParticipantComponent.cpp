@@ -25,15 +25,15 @@ static void RegisterSpellParticipantComponent(Schematyc::IEnvRegistrar& registra
 void CSpellParticipantComponent::ReflectType(Schematyc::CTypeDesc<CSpellParticipantComponent>& desc)
 {
 	desc.SetGUID(CSpellParticipantComponent::IID());
-	desc.SetEditorCategory("Actors");
-	desc.SetLabel("Spellbook");
+	desc.SetEditorCategory("Spells");
+	desc.SetLabel("Spell Participant");
 	desc.SetDescription("Allow interaction with spells for this entity.");
 	desc.SetIcon("icons:ObjectTypes/light.ico");
 
 	desc.SetComponentFlags({IEntityComponent::EFlags::Singleton});
 
 	// Keep a collection of spells available for use.
-	desc.AddMember(&CSpellParticipantComponent::m_health, 'hlth', "Health", "Health", "Qi", ECS::Health {});
+	desc.AddMember(&CSpellParticipantComponent::m_health, 'hlth', "Health", "Health", "Health", ECS::Health {});
 	desc.AddMember(&CSpellParticipantComponent::m_qi, 'qiqi', "Qi", "Qi", "Qi", ECS::Qi {});
 }
 

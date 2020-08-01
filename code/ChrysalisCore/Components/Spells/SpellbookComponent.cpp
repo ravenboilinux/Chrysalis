@@ -25,9 +25,9 @@ static void RegisterSpellbookComponent(Schematyc::IEnvRegistrar& registrar)
 void CSpellbookComponent::ReflectType(Schematyc::CTypeDesc<CSpellbookComponent>& desc)
 {
 	desc.SetGUID(CSpellbookComponent::IID());
-	desc.SetEditorCategory("Actors");
+	desc.SetEditorCategory("Spells");
 	desc.SetLabel("Spellbook");
-	desc.SetDescription("Allow interaction with spells for this entity.");
+	desc.SetDescription("Maintains a book of spells this entity can cast.");
 	desc.SetIcon("icons:ObjectTypes/light.ico");
 
 	desc.SetComponentFlags({IEntityComponent::EFlags::Singleton});

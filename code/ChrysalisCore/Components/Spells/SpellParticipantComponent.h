@@ -49,6 +49,7 @@ private:
 	/** The identifier for this spell participant in the ECS. */
 	entt::entity m_ecsEntity {entt::null};
 
+	// TODO: Need these to be references or have some way to sync with EnTT.
 	ECS::Health m_health;
 	ECS::Qi m_qi;
 };
