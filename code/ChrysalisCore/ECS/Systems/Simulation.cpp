@@ -129,6 +129,10 @@ void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEnti
 
 		// We supply them an execution context.
 		m_spellcastingRegistry.emplace<ECS::SpellcastExecution>(newEntity);
+
+		// Adjust their qi cast timer.
+		auto& qi = m_actorRegistry.get<ECS::Qi>(sourceEntity);
+		qi.timeSinceLastSpellcast = 0.0f;
 	}
 }
 
@@ -277,12 +281,21 @@ void CSimulation::UpdateTick(const float deltaTime)
 	// Qi ticks.
 	ECS::SystemApplyQiUtilisationOverTime(deltaTime, m_spellcastingRegistry, m_actorRegistry);
 	ECS::SystemApplyQiReplenishmentOverTime(deltaTime, m_spellcastingRegistry, m_actorRegistry);
+
+	// Update the actors qi, health, whatever.
+	UpdateActors(deltaTime);
 }
 
 
 void CSimulation::UpdateWorldSpellcasts(const float deltaTime)
 {
 	ECS::SystemWorldSpellCasts(deltaTime, m_spellcastingRegistry, m_actorRegistry);
+}
+
+
+void CSimulation::UpdateActors(const float deltaTime)
+{
+	ECS::SystemUpdateActors(deltaTime, m_actorRegistry);
 }
 
 

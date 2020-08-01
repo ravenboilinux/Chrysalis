@@ -6,8 +6,6 @@
 #include "CrySchematyc/Env/IEnvRegistrar.h"
 #include "Components/Player/PlayerComponent.h"
 #include <ECS/ECS.h>
-#include <ECS/Components/Health.h>
-#include <ECS/Components/Qi.h>
 
 
 namespace Chrysalis
@@ -46,37 +44,11 @@ void CSpellbookComponent::ReflectType(Schematyc::CTypeDesc<CSpellbookComponent>&
 
 void CSpellbookComponent::Initialize()
 {
-	// Get the ECS actor registry.
-	auto actorRegistry = ECS::Simulation.GetActorRegistry();
-
-	// Need a new entity bound to this one for both their lives.
-	m_ecsEntity = actorRegistry->create();
-
-	// Name component.
-	actorRegistry->emplace<ECS::Name>(m_ecsEntity, m_pEntity->GetName(), m_pEntity->GetName());
-
-	// Health component.
-	ECS::AttributeType<float> health {100.0f, 0.0f, 0.0f};
-	actorRegistry->emplace<ECS::Health>(m_ecsEntity, health);
-
-	// Qi component.
-	ECS::AttributeType<float> qi {100.0f, 0.0f, 0.0f};
-	actorRegistry->emplace<ECS::Qi>(m_ecsEntity, qi);
 }
 
 
 void CSpellbookComponent::ProcessEvent(const SEntityEvent& event)
 {
-	switch (event.event)
-	{
-		case EEntityEvent::Remove:
-		{
-			// Clean up the ECS entity, as it's no longer needed.
-			auto registry = ECS::Simulation.GetActorRegistry();
-			registry->destroy(m_ecsEntity);
-			break;
-		}
-	}
 }
 
 
@@ -109,6 +81,7 @@ void CSpellbookComponent::OnInputEscape(int activationMode)
 	CryLogAlways("CSpellbookComponent::OnInputEscape");
 }
 
+
 void CSpellbookComponent::OnInputInteraction(int activationMode)
 {
 	switch (activationMode)
@@ -126,6 +99,7 @@ void CSpellbookComponent::OnInputInteraction(int activationMode)
 	}
 }
 
+
 void CSpellbookComponent::OnInputActionBarUse(int activationMode, int buttonId)
 {
 	switch (activationMode)
@@ -142,6 +116,7 @@ void CSpellbookComponent::OnInputActionBarUse(int activationMode, int buttonId)
 			break;
 	}
 }
+
 
 void CSpellbookComponent::OnInputFunctionBarUse(int activationMode, int buttonId)
 {

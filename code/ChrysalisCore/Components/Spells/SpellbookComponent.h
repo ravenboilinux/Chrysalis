@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Components/Player/PlayerComponent.h>
+#include <queue>
+#include <Components/Player/Input/PlayerInputComponent.h>
 #include <Entities/Interaction/IEntityInteraction.h>
-#include <entt/entt.hpp>
 #include <Spells/Spells.h>
 
 
@@ -16,7 +16,7 @@ sources if desired.
 **/
 
 class CSpellbookComponent
-	: public IEntityComponent, public ISpellParticipant, public ISpellcastManager, public CPlayerInputComponent::IInputEventListener
+	: public IEntityComponent, public ISpellcastManager, public CPlayerInputComponent::IInputEventListener
 {
 protected:
 	// IEntityComponent
@@ -35,11 +35,6 @@ public:
 		static CryGUID id = "{654A1648-663E-414B-97C1-0A7B12D3072F}"_cry_guid;
 		return id;
 	}
-
-
-	// ISpellParticipant
-	const entt::entity GetECSEntity() const override { return m_ecsEntity; };
-	// ~ISpellParticipant
 
 
 	// ISpellcastManager

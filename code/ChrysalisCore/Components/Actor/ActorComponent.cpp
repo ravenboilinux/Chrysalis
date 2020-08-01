@@ -2,8 +2,8 @@
 
 #include "ActorComponent.h"
 #include <CryCore/StaticInstanceList.h>
-#include "CrySchematyc/Env/Elements/EnvComponent.h"
-#include "CrySchematyc/Env/IEnvRegistrar.h"
+#include <CrySchematyc/Env/Elements/EnvComponent.h>
+#include <CrySchematyc/Env/IEnvRegistrar.h>
 #include <CryMath/Cry_Math.h>
 #include <CryCore/Assert/CryAssert.h>
 #include <ICryMannequin.h>
@@ -22,8 +22,9 @@
 #include <Animation/ProceduralContext/ProceduralContextAim.h>
 #include <Animation/ProceduralContext/ProceduralContextLook.h>
 #include <Components/Actor/ActorControllerComponent.h>
-#include <Components/Interaction/SpellbookComponent.h>
-#include "Components/Player/PlayerComponent.h"
+#include <Components/Spells/SpellbookComponent.h>
+#include <Components/Spells/SpellParticipantComponent.h>
+#include <Components/Player/PlayerComponent.h>
 #include <Components/Player/Camera/ICameraComponent.h>
 #include <Components/Interaction/EntityAwarenessComponent.h>
 #include <Components/Interaction/EntityInteractionComponent.h>
@@ -83,6 +84,9 @@ void CActorComponent::Initialize()
 	// Spell book.
 	m_pSpellbookComponent = m_pEntity->GetOrCreateComponent<CSpellbookComponent>();
 
+	// Spell participant.
+	m_pSpellParticipantComponent = m_pEntity->GetOrCreateComponent<CSpellParticipantComponent>();
+	
 	// Inventory management.
 	m_pInventoryComponent = m_pEntity->GetOrCreateComponent<CInventoryComponent>();
 
@@ -144,7 +148,7 @@ void CActorComponent::ProcessEvent(const SEntityEvent& event)
 		// All the other components should be initialised before this is called.
 		case EEntityEvent::Initialize:
 			// Make sure we have the same ECS EntityId as the spellbook.
-			m_ecsEntity = m_pSpellbookComponent->GetECSEntity();
+			m_ecsEntity = m_pSpellParticipantComponent->GetECSEntity();
 			break;
 
 		// Physicalize on level start for Launcher
@@ -700,25 +704,29 @@ void CActorComponent::OnActionBarUse(int actionBarId)
 			// Figure out which entity is being targetted.
 			auto pTargetEntity = gEnv->pEntitySystem->GetEntity(results[0]);
 
-			// Do they have a spell book?
-			if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
+			// Spell casts can only land on spell participants.
+			if (auto pSpellParticipantComponent = pTargetEntity->GetComponent<CSpellParticipantComponent>())
 			{
-				auto spellCollection = pSpellbookComponent->GetSpellColllection();
-
-				// Make sure there is a matching spell for this action bar.
-				if (spellCollection.spells.size() >= actionBarId)
+				// Do they have a spell book? We're using their spellbook for this cast instead of our own.
+				if (auto pSpellbookComponent = pTargetEntity->GetComponent<CSpellbookComponent>())
 				{
-					auto spell = spellCollection.spells[actionBarId - 1];
+					auto spellCollection = pSpellbookComponent->GetSpellColllection();
 
-					CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
+					// Make sure there is a matching spell for this action bar.
+					if (spellCollection.spells.size() >= actionBarId)
+					{
+						auto spell = spellCollection.spells[actionBarId - 1];
 
-					ECS::Simulation.CastSpellByName(spell.spellName,
-						GetECSEntity(), pSpellbookComponent->GetECSEntity(),
-						GetEntityId(), pSpellbookComponent->GetEntityId());
-				}
-				else
-				{
-					CryLogAlways("No spell defined.");
+						CryLogAlways("Casting world spell %s.", spell.spellName.c_str());
+
+						ECS::Simulation.CastSpellByName(spell.spellName,
+							GetECSEntity(), pSpellParticipantComponent->GetECSEntity(),
+							GetEntityId(), pSpellbookComponent->GetEntityId());
+					}
+					else
+					{
+						CryLogAlways("No spell defined.");
+					}
 				}
 			}
 		}

@@ -53,9 +53,20 @@ struct Health : public IComponent
 	}
 
 
+	inline bool operator==(const Health& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+	static void ReflectType(Schematyc::CTypeDesc<Health>& desc)
+	{
+		desc.SetGUID("{2B292018-F820-42FA-AA5D-28681E814A4A}"_cry_guid);
+		desc.SetLabel("Health");
+		desc.SetDescription("Health of an actor.");
+	}
+
+
 	void Serialize(Serialization::IArchive& ar) override final
 	{
-		ar(health, "health", "health");
+		ar(health, "health", "The actor's current life force.");
+		ar(isDead, "isDead", "Are they dead?");
+		ar(isImmortal, "isImmortal", "Are they immortal or immune to damage?");
 	}
 
 	/** Health attribute. */
@@ -63,6 +74,9 @@ struct Health : public IComponent
 
 	/** Is the actor dead? */
 	bool isDead {false};
+
+	/** Is the actor immortal? */
+	bool isImmortal {false};
 };
 
 

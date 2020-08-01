@@ -19,4 +19,7 @@ void SystemApplyQiReplenishmentOverTime(float dt, entt::registry& spellRegistry,
 
 // World Spellcasts.
 void SystemWorldSpellCasts(float dt, entt::registry& spellRegistry, entt::registry& actorRegistry);
+
+// Actors.
+void SystemUpdateActors(float dt, entt::registry& actorRegistry);
 }

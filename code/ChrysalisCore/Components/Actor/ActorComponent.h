@@ -20,6 +20,7 @@ class CActorControllerComponent;
 class CEntityAwarenessComponent;
 class CSnaplockComponent;
 class CSpellbookComponent;
+class CSpellParticipantComponent;
 class CInventoryComponent;
 class CEquipmentComponent;
 class IItemReceipt;
@@ -226,6 +227,9 @@ private:
 
 	/** A spellbook allows an actor to access spells and to offer spells to others which can be cast. */
 	CSpellbookComponent* m_pSpellbookComponent {nullptr};
+
+	/** A spell participant component allows spells to be cast onto this entity. */
+	CSpellParticipantComponent* m_pSpellParticipantComponent {nullptr};
 
 	/** Manage their inventory. */
 	CInventoryComponent* m_pInventoryComponent {nullptr};

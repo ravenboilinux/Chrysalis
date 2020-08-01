@@ -23,6 +23,9 @@ public:
 	/** World spellcasts are the various commands for interacting with the world. */
 	void UpdateWorldSpellcasts(const float deltaTime);
 
+	/** Updates to health, qi, etc */
+	void UpdateActors(const float deltaTime);
+
 	/** Temporary function for testing the Simulation during development. */
 	void LoadSimulationData();
 

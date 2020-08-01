@@ -26,13 +26,30 @@ struct Qi : public IComponent
 	}
 
 
+	inline bool operator==(const Qi& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+	static void ReflectType(Schematyc::CTypeDesc<Qi>& desc)
+	{
+		desc.SetGUID("{6C1E5EE5-B467-48BF-843E-5A8D54B51F52}"_cry_guid);
+		desc.SetLabel("Qi");
+		desc.SetDescription("Qi of an actor.");
+	}
+
+
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(qi, "qi", "qi");
+		ar(timeSinceLastSpellcast, "timeSinceLastSpellcast", "Time since they last cast a spell.");
+		ar(qiRegenerationPerSecond, "qiRegenerationPerSecond", "Qi regeneration per second.");
 	}
 
 	/** Qi attribute. */
 	AttributeType<float> qi;
+
+	/** Time delta since the last spell cast. */
+	float timeSinceLastSpellcast {0.0f};
+
+	/** Qi regeneration per second. */
+	float qiRegenerationPerSecond {0.02f};
 };
 
 

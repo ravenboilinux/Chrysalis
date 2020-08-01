@@ -9,7 +9,7 @@
 #include <Actor/Animation/Actions/ActorAnimationActionCooperative.h>
 #include <Components/Animation/ActorAnimationComponent.h>
 #include <Components/Actor/ActorComponent.h>
-#include <Components/Interaction/SpellbookComponent.h>
+#include <Components/Spells/SpellbookComponent.h>
 
 
 namespace Chrysalis::ECS
@@ -570,5 +570,36 @@ void SystemWorldSpellCasts(float dt, entt::registry& spellRegistry, entt::regist
 	SpellCastTake(dt, spellRegistry, actorRegistry);
 	SpellCastDrop(dt, spellRegistry, actorRegistry);
 	SpellCastSwitch(dt, spellRegistry, actorRegistry);
+}
+
+
+void SystemUpdateActors(float dt, entt::registry& actorRegistry)
+{
+	// Allow the qi to regenerate naturally.
+	auto view = actorRegistry.view<ECS::Qi>();
+	for (auto& entity : view)
+	{
+		// Get the components..
+		auto& qi = view.get<ECS::Qi>(entity);
+
+		// Accumulate the time since the last spell cast.
+		qi.timeSinceLastSpellcast += dt;
+
+		// Give them a 5 second timeout after casting a spell before they can regenerate.
+		if (qi.timeSinceLastSpellcast >= 5.0f)
+		{
+			// Check for over-replenishment.
+			float newModifier = qi.qi.modifiers + (qi.qi.base * qi.qiRegenerationPerSecond * dt);
+			if (newModifier > 0.0f)
+			{
+				// It was an over-replenishment.
+				qi.qi.modifiers = 0.0f;
+			}
+			else
+			{
+				qi.qi.modifiers = newModifier;
+			}
+		}
+	}
 }
 }

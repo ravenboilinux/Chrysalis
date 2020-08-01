@@ -169,8 +169,6 @@ add_sources("Interaction_uber.cpp"
 		"Components/Interaction/InteractComponent.h"
 		"Components/Interaction/ItemInteractionComponent.cpp"
 		"Components/Interaction/ItemInteractionComponent.h"
-		"Components/Interaction/SpellbookComponent.cpp"
-		"Components/Interaction/SpellbookComponent.h"
 )
 add_sources("Inventory_uber.cpp"
     PROJECTS Chrysalis
@@ -253,6 +251,14 @@ add_sources("Snaplocks_uber.cpp"
     SOURCE_GROUP "Components\\\\Snaplocks"
 		"Components/Snaplocks/SnaplockComponent.cpp"
 		"Components/Snaplocks/SnaplockComponent.h"
+)
+add_sources("Spells_uber.cpp"
+    PROJECTS Chrysalis
+    SOURCE_GROUP "Components\\\\Spells"
+		"Components/Spells/SpellbookComponent.cpp"
+		"Components/Spells/SpellbookComponent.h"
+		"Components/Spells/SpellParticipantComponent.cpp"
+		"Components/Spells/SpellParticipantComponent.h"
 )
 add_sources("Switchable_uber.cpp"
     PROJECTS Chrysalis
