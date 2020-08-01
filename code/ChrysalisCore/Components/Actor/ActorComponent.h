@@ -72,12 +72,11 @@ protected:
 	// IEntityComponent
 	void Initialize() override;
 	void ProcessEvent(const SEntityEvent& event) override;
-	Cry::Entity::EventFlags GetEventMask() const override { return EEntityEvent::Update | EEntityEvent::Remove; }
+	Cry::Entity::EventFlags GetEventMask() const override { return EEntityEvent::Initialize | EEntityEvent::Update | EEntityEvent::Remove; }
 	// ~IEntityComponent
 
 	// ISpellParticipant
 	const entt::entity GetECSEntity() const override { return m_ecsEntity; };
-	virtual void SetECSEntity(entt::entity entityId) { m_ecsEntity = entityId; };
 	// ~ISpellParticipant
 
 	// CPlayerInputComponent::IInputEventListener

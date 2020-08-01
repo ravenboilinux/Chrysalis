@@ -116,29 +116,6 @@ void CActorComponent::Initialize()
 	m_pSnaplockComponent->AddSnaplock(ISnaplock(SLT_ACTOR_LEFTFOOT, false));
 	m_pSnaplockComponent->AddSnaplock(ISnaplock(SLT_ACTOR_RIGHTFOOT, false));
 
-	// Get the ECS actor registry.
-	auto actorRegistry = ECS::Simulation.GetActorRegistry();
-
-	// Need a new entity bound to this one for both their lives.
-	m_ecsEntity = actorRegistry->create();
-	
-	// We want to be sure they share the same ID.
-	m_pSpellbookComponent->SetECSEntity(m_ecsEntity);
-
-	// Name component.
-	actorRegistry->emplace<ECS::Name>(m_ecsEntity,
-		m_pEntity->GetName(), m_pEntity->GetName());
-
-	// Health component.
-	ECS::AttributeType<float> health {100.0f, 0.0f, 0.0f};
-	actorRegistry->emplace<ECS::Health>(m_ecsEntity,
-		health);
-
-	// Qi component.
-	ECS::AttributeType<float> qi {100.0f, 0.0f, 0.0f};
-	actorRegistry->emplace<ECS::Qi>(m_ecsEntity,
-		qi);
-
 	// Default is for a character to be controlled by AI.
 	//	m_isAIControlled = true;
 	//m_isAIControlled = false;
@@ -164,10 +141,16 @@ void CActorComponent::ProcessEvent(const SEntityEvent& event)
 {
 	switch (event.event)
 	{
+		// All the other components should be initialised before this is called.
+		case EEntityEvent::Initialize:
+			// Make sure we have the same ECS EntityId as the spellbook.
+			m_ecsEntity = m_pSpellbookComponent->GetECSEntity();
+			break;
+
 		// Physicalize on level start for Launcher
 		case EEntityEvent::LevelStarted:
 
-			// Editor specific, physicalize on reset, property change or transform change
+		// Editor specific, physicalize on reset, property change or transform change
 		case EEntityEvent::Reset:
 		case EEntityEvent::EditorPropertyChanged:
 		case EEntityEvent::TransformChangeFinishedInEditor:
@@ -178,14 +161,6 @@ void CActorComponent::ProcessEvent(const SEntityEvent& event)
 		{
 			SEntityUpdateContext* pCtx = (SEntityUpdateContext*)event.nParam[0];
 			Update(pCtx);
-			break;
-		}
-
-		case EEntityEvent::Remove:
-		{
-			// Clean up the ECS entity, as it's no longer needed.
-			auto registry = ECS::Simulation.GetActorRegistry();
-			registry->destroy(m_ecsEntity);
 			break;
 		}
 	}
