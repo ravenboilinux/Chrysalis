@@ -29,6 +29,8 @@ public:
 	struct SLootTableEntry
 	{
 		inline bool operator==(const SLootTableEntry& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+
+
 		static void ReflectType(Schematyc::CTypeDesc<SLootTableEntry>& desc)
 		{
 			desc.SetGUID("{625EAC5E-143D-4C70-A0AE-100C32352DE7}"_cry_guid);

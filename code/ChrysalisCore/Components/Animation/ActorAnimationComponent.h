@@ -58,6 +58,8 @@ public:
 	struct SDefaultScopeSettings
 	{
 		inline bool operator==(const SDefaultScopeSettings& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+
+
 		static void ReflectType(Schematyc::CTypeDesc<SDefaultScopeSettings>& desc)
 		{
 			desc.SetGUID("{B032C89F-15FD-48A1-8B16-24CC9EAE011A}"_cry_guid);

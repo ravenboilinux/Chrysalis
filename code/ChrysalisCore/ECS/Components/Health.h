@@ -54,6 +54,8 @@ struct Health : public IComponent
 
 
 	inline bool operator==(const Health& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+
+
 	static void ReflectType(Schematyc::CTypeDesc<Health>& desc)
 	{
 		desc.SetGUID("{2B292018-F820-42FA-AA5D-28681E814A4A}"_cry_guid);

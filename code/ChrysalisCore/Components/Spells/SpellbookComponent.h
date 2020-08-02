@@ -83,6 +83,7 @@ public:
 	{
 		inline bool operator==(const SSpellCollection& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
 
+
 		static void ReflectType(Schematyc::CTypeDesc<SSpellCollection>& desc)
 		{
 			desc.SetGUID("{CF8E39CE-CC1E-4E05-9536-B1403723CC5B}"_cry_guid);

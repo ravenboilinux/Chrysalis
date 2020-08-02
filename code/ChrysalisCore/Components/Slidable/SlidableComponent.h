@@ -41,6 +41,7 @@ public:
 	{
 		inline bool operator==(const SSliderProperties& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
 
+
 		static void ReflectType(Schematyc::CTypeDesc<SSliderProperties>& desc)
 		{
 			desc.SetGUID("{D808A994-FA5A-43B7-BF7D-70C58639C4C0}"_cry_guid);

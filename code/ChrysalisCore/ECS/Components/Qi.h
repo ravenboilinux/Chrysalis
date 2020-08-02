@@ -27,6 +27,8 @@ struct Qi : public IComponent
 
 
 	inline bool operator==(const Qi& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+
+
 	static void ReflectType(Schematyc::CTypeDesc<Qi>& desc)
 	{
 		desc.SetGUID("{6C1E5EE5-B467-48BF-843E-5A8D54B51F52}"_cry_guid);
