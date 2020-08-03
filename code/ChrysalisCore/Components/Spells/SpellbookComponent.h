@@ -114,9 +114,6 @@ public:
 	const SSpellCollection& GetSpellColllection() const { return m_spellCollection; }
 
 private:
-	/** The identifier for this spell participant in the ECS. */
-	entt::entity m_ecsEntity {entt::null};
-
 	/** A collection of spells which can potentially be cast. */
 	SSpellCollection m_spellCollection;
 

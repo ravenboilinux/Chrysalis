@@ -1,8 +1,0 @@
-<entities>
-  <entity>
-    <components>
-      <name CryXmlVersion="2" name="Flashlight" displayName="@Flashlight"/>
-      <item-class CryXmlVersion="2" maxStackSize="1" animationTag="flashlight" isUniqueInventory="true" isUniqueEquipment="true" isDroppable="true" isAutoDroppable="false" isPickable="true" isAutoPickable="true" isUsable="true" isTradable="true" isConsumable="false"/>
-    </components>
-  </entity>
-</entities>

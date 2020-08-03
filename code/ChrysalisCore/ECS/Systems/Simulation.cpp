@@ -112,7 +112,7 @@ entt::entity CSimulation::GetSpellByName(const char* spellName)
 }
 
 
-/** Queues a spell onto the actor registry - where it will later be processed by the systems. */
+/** Queues a spell onto the spellcasting registry - where it will later be processed by the systems. */
 void CSimulation::CastSpellByName(const char* spellName, entt::entity sourceEntity, entt::entity targetEntity,
 	EntityId crySourceEntityId, EntityId cryTargetEntityId)
 {
@@ -301,31 +301,11 @@ void CSimulation::UpdateActors(const float deltaTime)
 
 void CSimulation::LoadSimulationData()
 {
-	//update(10, saveRegistry);
-	//update(saveRegistry);
+	// Load the spell registry.
+	ECS::LoadECSFromXML("chrysalis/parameters/spells/spell-prototype.xml", m_spellRegistry);
 
 	// Load the actor registry.
-	ECS::LoadECSFromXML("chrysalis/parameters/items/test.xml", m_actorRegistry);
-
-	// Load the spell registry.
-	ECS::LoadECSFromXML("chrysalis/parameters/spells/spells.xml", m_spellRegistry);
-
-	//auto villain = GetVillain(m_actorRegistry);
-	//auto hero = GetHero(m_actorRegistry);
-	//if ((hero != entt::null) && (villain != entt::null))
-	//{
-	//	// Health test data.
-	//	TestAddDamage(hero, villain, m_actorRegistry);
-	//	TestAddDamageOverTime(hero, villain, m_actorRegistry);
-	//	TestAddHeal(hero, villain, m_actorRegistry);
-	//	TestAddHealOverTime(hero, villain, m_actorRegistry);
-
-	//	// Qi test data.
-	//	TestAddUtiliseQi(hero, villain, m_actorRegistry);
-	//	TestAddUtiliseQiOverTime(hero, villain, m_actorRegistry);
-	//	TestAddReplenishQi(hero, villain, m_actorRegistry);
-	//	TestAddReplenishQiOverTime(hero, villain, m_actorRegistry);
-	//}
+	ECS::LoadECSFromXML("chrysalis/parameters/actor/actor.xml", m_actorRegistry);
 }
 
 
@@ -341,8 +321,10 @@ void CSimulation::SaveSimulationData()
 		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
 		ECS::Spell,
 		ECS::ItemClass,
-		ECS::RenderLight>(actorSerial);
-	actorSerial.SaveToFile("chrysalis/parameters/items/test_out_snapshot.xml");
+		ECS::RenderLight,
+		ECS::CrowdControlNone
+		>(actorSerial);
+	actorSerial.SaveToFile("chrysalis/parameters/actor/actor-snapshot.xml");
 
 	// Spell prototypes.
 	ECS::SerialiseECS spellSerial;
@@ -359,8 +341,9 @@ void CSimulation::SaveSimulationData()
 		ECS::SpellActionSwitch,
 		ECS::SpellActionOpen, ECS::SpellActionClose,
 		ECS::SpellActionUnlock, ECS::SpellActionLock,
-		ECS::RenderLight>(spellSerial);
+		ECS::RenderLight
+		>(spellSerial);
 
-	spellSerial.SaveToFile("chrysalis/parameters/spells/spells_snapshot.xml");
+	spellSerial.SaveToFile("chrysalis/parameters/spells/spell-prototype-snapshot.xml");
 }
 }

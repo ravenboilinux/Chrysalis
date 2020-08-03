@@ -23,6 +23,24 @@ struct IComponent
 };
 
 
+//struct TagComponent : public IComponent
+//{
+//	TagComponent() = default;
+//	virtual ~TagComponent() = default;
+//
+//
+//	virtual const entt::hashed_string& GetHashedName() const
+//	{
+//		static constexpr entt::hashed_string nameHS {"tag"_hs};
+//
+//		return nameHS;
+//	}
+//
+//
+//	void Serialize(Serialization::IArchive& archive) override final { ; }
+//};
+
+
 template<typename TYPE>
 struct AttributeType
 {

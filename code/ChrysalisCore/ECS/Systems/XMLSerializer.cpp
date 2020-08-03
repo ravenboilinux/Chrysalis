@@ -8,13 +8,10 @@ namespace Chrysalis::ECS
 {
 void SaveComponent(const XmlNodeRef& node, const IComponent& component)
 {
-	// Create a node for the component and mark it with the GUID so we can lookup the class on loading.
+	// Create a node for the component and mark it with the hashed name so we can lookup the class on loading.
 	XmlNodeRef componentNode = node->newChild(component.GetHashedName().data());
-	//componentNode->setAttr("typeGUID", component.GetGuid());
 
-	// Serialise the properties into a child node to keep it fairly neat and tidy.
-	//XmlNodeRef propertiesNode = componentNode->newChild("properties");
-	//Serialization::SaveXmlNode(propertiesNode, Serialization::SStruct(component));
+	// Serialise it to the node we just made.
 	Serialization::SaveXmlNode(componentNode, Serialization::SStruct(component));
 }
 
@@ -52,7 +49,9 @@ void LoadECSFromXML(string fileName, entt::registry& registry)
 						auto any = component.construct(entity, &registry);
 
 						// Serialise the properties across to the component.
+						// TODO: I need to stop being lazy and using a base class and make this work with a templated function instead on the actual class.
 						auto& iComponent = any.cast<ECS::IComponent>();
+
 						Serialization::LoadXmlNode(iComponent, componentNode);
 					}
 				}

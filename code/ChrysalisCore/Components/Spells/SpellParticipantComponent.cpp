@@ -5,7 +5,9 @@
 #include "CrySchematyc/Env/Elements/EnvComponent.h"
 #include "CrySchematyc/Env/IEnvRegistrar.h"
 #include "Components/Player/PlayerComponent.h"
+#include <entt/core/type_traits.hpp>
 #include <ECS/ECS.h>
+#include <ECS/Components/Spells/Spell.h>
 
 
 namespace Chrysalis
@@ -61,6 +63,11 @@ void CSpellParticipantComponent::Initialize()
 	// Qi component.
 	ECS::AttributeType<float> qi {100.0f, 0.0f, 0.0f};
 	m_qi = actorRegistry->emplace<ECS::Qi>(m_ecsEntity, qi);
+
+	// TEST: adding a tag...
+	actorRegistry->emplace<ECS::CrowdControlNone>(m_ecsEntity);
+	auto& cc = actorRegistry->get<ECS::CrowdControlNone>(m_ecsEntity);
+	CryLogAlways("value = %d", cc.value);
 }
 
 

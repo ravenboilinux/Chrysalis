@@ -32,7 +32,7 @@ struct SerialiseECS
 
 
 	// Output.
-	void operator()(unsigned int entity)
+	void operator()(uint32_t entity)
 	{
 		// Not really sure why this is getting called. Need it defined to prevent compile errors.
 	}

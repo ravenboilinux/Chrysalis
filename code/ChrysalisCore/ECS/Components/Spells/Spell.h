@@ -119,6 +119,11 @@ enum class CrowdControlType
 	stun,						// Movement and rotation restricted. Birds twitter about your head.
 };
 
+using CrowdControlNone = entt::tag<"crowd-control-none"_hs>;
+using CrowdControlBlind = entt::tag<"crowd-control-blind"_hs>;
+using CrowdControlDisarm = entt::tag<"crowd-control-disarm"_hs>;
+//using CrowdControl = entt::tag<"crowd-control-"_hs>;
+
 
 enum class BuffType
 {
