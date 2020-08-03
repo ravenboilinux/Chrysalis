@@ -5,9 +5,6 @@ namespace Chrysalis::ECS
 {
 struct IComponent;
 
-// Serialise a component into an XML node.
-void SaveComponent(const XmlNodeRef& node, const IComponent& component);
-
 // Loads the entities and components from an XML file.
 void LoadECSFromXML(string fileName, entt::registry& registry);
 

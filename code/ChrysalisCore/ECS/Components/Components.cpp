@@ -33,152 +33,181 @@ void RegisterComponentsWithMeta()
 	entt::meta<ECS::Name>()
 		.base<ECS::IComponent>()
 		.type(ECS::Name().GetHashedName())
+		.prop("name-hs"_hs, ECS::Name().GetHashedName())
 		.ctor<&emplace<ECS::Name>, entt::as_ref_t>();
 
 	entt::meta<ECS::Prototype>()
 		.base<ECS::IComponent>()
 		.type(ECS::Prototype().GetHashedName())
+		.prop("name-hs"_hs, ECS::Prototype().GetHashedName())
 		.ctor<&emplace<ECS::Prototype>, entt::as_ref_t>();
 
 	entt::meta<ECS::SourceAndTarget>()
 		.base<ECS::IComponent>()
 		.type(ECS::SourceAndTarget().GetHashedName())
+		.prop("name-hs"_hs, ECS::SourceAndTarget().GetHashedName())
 		.ctor<&emplace<ECS::SourceAndTarget>, entt::as_ref_t>();
 
 	// Health.
 	entt::meta<ECS::Health>()
 		.base<ECS::IComponent>()
 		.type(ECS::Health().GetHashedName())
+		.prop("name-hs"_hs, ECS::Health().GetHashedName())
 		.ctor<&emplace<ECS::Health>, entt::as_ref_t>();
 
 	entt::meta<ECS::Damage>()
 		.base<ECS::IComponent>()
 		.type(ECS::Damage().GetHashedName())
+		.prop("name-hs"_hs, ECS::Damage().GetHashedName())
 		.ctor<&emplace<ECS::Damage>, entt::as_ref_t>();
 
 	entt::meta<ECS::DamageOverTime>()
 		.base<ECS::IComponent>()
 		.type(ECS::DamageOverTime().GetHashedName())
+		.prop("name-hs"_hs, ECS::DamageOverTime().GetHashedName())
 		.ctor<&emplace<ECS::DamageOverTime>, entt::as_ref_t>();
 
 	entt::meta<ECS::Heal>()
 		.base<ECS::IComponent>()
 		.type(ECS::Heal().GetHashedName())
+		.prop("name-hs"_hs, ECS::Heal().GetHashedName())
 		.ctor<&emplace<ECS::Heal>, entt::as_ref_t>();
 
 	entt::meta<ECS::HealOverTime>()
 		.base<ECS::IComponent>()
 		.type(ECS::HealOverTime().GetHashedName())
+		.prop("name-hs"_hs, ECS::HealOverTime().GetHashedName())
 		.ctor<&emplace<ECS::HealOverTime>, entt::as_ref_t>();
 
 	// Qi.
 	entt::meta<ECS::Qi>()
 		.base<ECS::IComponent>()
 		.type(ECS::Qi().GetHashedName())
+		.prop("name-hs"_hs, ECS::Qi().GetHashedName())
 		.ctor<&emplace<ECS::Qi>, entt::as_ref_t>();
 
 	entt::meta<ECS::UtiliseQi>()
 		.base<ECS::IComponent>()
 		.type(ECS::UtiliseQi().GetHashedName())
+		.prop("name-hs"_hs, ECS::UtiliseQi().GetHashedName())
 		.ctor<&emplace<ECS::UtiliseQi>, entt::as_ref_t>();
 
 	entt::meta<ECS::UtiliseQiOverTime>()
 		.base<ECS::IComponent>()
 		.type(ECS::UtiliseQiOverTime().GetHashedName())
+		.prop("name-hs"_hs, ECS::UtiliseQiOverTime().GetHashedName())
 		.ctor<&emplace<ECS::UtiliseQiOverTime>, entt::as_ref_t>();
 
 	entt::meta<ECS::ReplenishQi>()
 		.base<ECS::IComponent>()
 		.type(ECS::ReplenishQi().GetHashedName())
+		.prop("name-hs"_hs, ECS::ReplenishQi().GetHashedName())
 		.ctor<&emplace<ECS::ReplenishQi>, entt::as_ref_t>();
 
 	entt::meta<ECS::ReplenishQiOverTime>()
 		.base<ECS::IComponent>()
 		.type(ECS::ReplenishQiOverTime().GetHashedName())
+		.prop("name-hs"_hs, ECS::ReplenishQiOverTime().GetHashedName())
 		.ctor<&emplace<ECS::ReplenishQiOverTime>, entt::as_ref_t>();
 
 	// Spell.
 	entt::meta<ECS::Spell>()
 		.base<ECS::IComponent>()
 		.type(ECS::Spell().GetHashedName())
+		.prop("name-hs"_hs, ECS::Spell().GetHashedName())
 		.ctor<&emplace<ECS::Spell>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellcastExecution>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellcastExecution().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellcastExecution().GetHashedName())
 		.ctor<&emplace<ECS::SpellcastExecution>, entt::as_ref_t>();
 
 	// Spell actions.
 	entt::meta<ECS::SpellActionSchematyc>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionSchematyc().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionSchematyc().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionSchematyc>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionDRS>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionDRS().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionDRS().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionDRS>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionInspect>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionInspect().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionInspect().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionInspect>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionExamine>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionExamine().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionExamine().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionExamine>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionTake>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionTake().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionTake().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionTake>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionDrop>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionDrop().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionDrop().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionDrop>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionThrow>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionThrow().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionThrow().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionThrow>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionSwitch>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionSwitch().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionSwitch().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionSwitch>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionOpen>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionOpen().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionOpen().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionOpen>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionClose>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionClose().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionClose().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionClose>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionUnlock>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionUnlock().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionUnlock().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionUnlock>, entt::as_ref_t>();
 
 	entt::meta<ECS::SpellActionLock>()
 		.base<ECS::IComponent>()
 		.type(ECS::SpellActionLock().GetHashedName())
+		.prop("name-hs"_hs, ECS::SpellActionLock().GetHashedName())
 		.ctor<&emplace<ECS::SpellActionLock>, entt::as_ref_t>();
 
 	// Environment.
 	entt::meta<ECS::RenderLight>()
 		.base<ECS::IComponent>()
 		.type(ECS::RenderLight().GetHashedName())
+		.prop("name-hs"_hs, ECS::RenderLight().GetHashedName())
 		.ctor<&emplace<ECS::RenderLight>, entt::as_ref_t>();
 
 	// Items.
 	entt::meta<ECS::ItemClass>()
 		.base<ECS::IComponent>()
 		.type(ECS::ItemClass().GetHashedName())
+		.prop("name-hs"_hs, ECS::ItemClass().GetHashedName())
 		.ctor<&emplace<ECS::ItemClass>, entt::as_ref_t>();
 
 
@@ -186,6 +215,7 @@ void RegisterComponentsWithMeta()
 	// It also breaks on loading thanks to not being derived from IComponent - need to see if there is a way to remove that base class.
 	entt::meta<ECS::CrowdControlNone>()
 		//.base<ECS::IComponent>()
-		.type("crowd-control-none"_hs);
+		.type("crowd-control-none"_hs)
+		.prop("name-hs"_hs, "crowd-control-none"_hs);
 }
 }

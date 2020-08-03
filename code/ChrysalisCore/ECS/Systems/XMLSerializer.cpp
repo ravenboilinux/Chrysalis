@@ -6,13 +6,34 @@
 
 namespace Chrysalis::ECS
 {
-void SaveComponent(const XmlNodeRef& node, const IComponent& component)
+template<typename Type>
+void SaveComponent(const XmlNodeRef& node, const Type& component)
 {
-	// Create a node for the component and mark it with the hashed name so we can lookup the class on loading.
-	XmlNodeRef componentNode = node->newChild(component.GetHashedName().data());
+	// Components need a prop meta value that allows us to associate their type with a string used to serialise them.
+	if (auto prop = entt::resolve<Type>().prop("name-hs"_hs))
+	{
+		// Create a node for the component and mark it with the hashed name so we can lookup the class on loading.
+		auto hashedName = prop.value().cast<entt::hashed_string>();
+		XmlNodeRef componentNode = node->newChild(hashedName.data());
 
-	// Serialise it to the node we just made.
-	Serialization::SaveXmlNode(componentNode, Serialization::SStruct(component));
+		// Serialise it to the node we just made.
+		Serialization::SaveXmlNode(componentNode, Serialization::SStruct(component));
+	}
+}
+
+
+//template<typename Type>
+void LoadComponent(const XmlNodeRef& node, entt::hashed_string hash, entt::registry& registry, entt::entity entity)
+{
+	if (auto component = entt::resolve_id(hash))
+	{
+		// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
+		auto any = component.construct(entity, &registry);
+		//auto x = entt::resolve<Type>();
+		//auto x = entt::type_info<my_type>::id();
+		auto& iComponent = any.cast<ECS::IComponent>();
+		Serialization::LoadXmlNode(iComponent, node);
+	}
 }
 
 
@@ -42,18 +63,20 @@ void LoadECSFromXML(string fileName, entt::registry& registry)
 					// Using the tag as a unique ID for the class for now.
 					auto hash = entt::hashed_string {componentNode->getTag()};
 
+					LoadComponent(componentNode, hash, registry, entity);
+
 					// Ask the system for the class and default construct a component of that type.
-					if (auto component = entt::resolve_id(hash))
-					{
-						// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
-						auto any = component.construct(entity, &registry);
+					//if (auto component = entt::resolve_id(hash))
+					//{
+						//// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
+						//auto any = component.construct(entity, &registry);
 
-						// Serialise the properties across to the component.
-						// TODO: I need to stop being lazy and using a base class and make this work with a templated function instead on the actual class.
-						auto& iComponent = any.cast<ECS::IComponent>();
+						//// Serialise the properties across to the component.
+						//// TODO: I need to stop being lazy and using a base class and make this work with a templated function instead on the actual class.
+						//auto& iComponent = any.cast<ECS::IComponent>();
 
-						Serialization::LoadXmlNode(iComponent, componentNode);
-					}
+						//Serialization::LoadXmlNode(iComponent, componentNode);
+					//}
 				}
 			}
 		}
