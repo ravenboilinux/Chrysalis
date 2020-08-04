@@ -168,7 +168,7 @@ void CSimulation::Init()
 
 	// TODO: This is bound to be a point of failure, as new components which are registered do not get added to this list.
 	// Need to find a way to do this closer to the registration code.
-	
+
 	// The base component is required in order to call the .base function.
 	stampFunctionMap[entt::type_info<ECS::IComponent>::id()] = &CloneComponent<ECS::IComponent>;
 
@@ -293,13 +293,23 @@ void CSimulation::LoadSimulationData()
 
 	// Load the actor registry.
 	ECS::LoadECSFromXML("chrysalis/parameters/actor/actor.xml", m_actorRegistry);
+
+
+	// TODO: WIP: Trying it the hard way.
+
+	// Spell prototypes.
+	//ECS::SerialiseECSInput spellSerial;
+	//spellSerial.LoadFromFile("chrysalis/parameters/spells/spell-prototype.xml");
+	//entt::snapshot_loader {m_spellRegistry}
+	//	.entities(spellSerial)
+	//	.component<ECS::Name, ECS::Health, ECS::Damage>(spellSerial);
 }
 
 
 void CSimulation::SaveSimulationData()
 {
 	// Actor related.
-	ECS::SerialiseECS actorSerial;
+	ECS::SerialiseECSOutput actorSerial;
 
 	entt::snapshot {m_actorRegistry}
 		.entities(actorSerial)
@@ -314,7 +324,7 @@ void CSimulation::SaveSimulationData()
 	actorSerial.SaveToFile("chrysalis/parameters/actor/actor-snapshot.xml");
 
 	// Spell prototypes.
-	ECS::SerialiseECS spellSerial;
+	ECS::SerialiseECSOutput spellSerial;
 
 	entt::snapshot {m_spellRegistry}
 		.entities(spellSerial)
