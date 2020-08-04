@@ -20,21 +20,50 @@ struct SerialiseECS
 	}
 
 
-	// Input.
-	// NOTE: Missing one function, but we're not doing input yet, so haven't chased it up yet.
+	// ***
+	// *** Input
+	// ***
+
+	// Input hasn't been implemented or tested as yet.
+
+	/** Called for each type to announce the number of entities of that type. */
+	void operator()(std::underlying_type_t<entt::entity>& count)
+	{
+		int a = 1;
+		a++;
+	}
+
+
+	/** Called for each entity. */
+	void operator()(entt::entity&)
+	{
+		int a = 1;
+		a++;
+	}
+
+
+	/** Called for each entity and component type combination. */
 	template<typename Type>
 	void operator()(entt::entity& entity, Type& component)
 	{
+		int a = 1;
+		a++;
 	}
 
+	// ***
+	// *** Output
+	// ***
 
-	// Output.
-	void operator()(uint32_t entity)
+	
+	/** Called for each type to announce the number of entities of that type. */
+	void operator()(std::underlying_type_t<entt::entity> count)
 	{
-		// Not really sure why this is getting called. Need it defined to prevent compile errors.
+		int a = 1;
+		a++;
 	}
 	
 
+	/** Called for each entity. */
 	void operator()(entt::entity entity)
 	{
 		if (m_entitiesNode)
@@ -43,8 +72,8 @@ struct SerialiseECS
 			XmlNodeRef entityNode = m_entitiesNode->newChild("entity");
 			XmlNodeRef componentsNode = entityNode->newChild("components");
 
-			// The static cast is pretty dirty, but I'm not sure there's another way given it's an opaque type.
-			entityNode->setAttr("entityId", static_cast<entt::id_type>(entity));
+			// This static cast should be fine with common underlying types.
+			entityNode->setAttr("entityId", static_cast<std::underlying_type_t<entt::entity>>(entity));
 			
 			// Store a copy in a map to enable fast lookup when iterating the components.
 			m_nodeMap[entity] = componentsNode;
@@ -52,6 +81,7 @@ struct SerialiseECS
 	}
 
 
+	/** Called for each entity and component type combination. */
 	template<typename Type>
 	void operator()(entt::entity entity, const Type& component)
 	{
