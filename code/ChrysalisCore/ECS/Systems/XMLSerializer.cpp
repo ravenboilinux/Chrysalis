@@ -19,6 +19,10 @@ void SaveComponent(const XmlNodeRef& node, const Type& component)
 		// Serialise it to the node we just made.
 		Serialization::SaveXmlNode(componentNode, Serialization::SStruct(component));
 	}
+	else
+	{
+		CryLogAlways("The component's hashed name (.prop(\"name-hs\") isn't in the registry");
+	}
 }
 
 
@@ -27,22 +31,14 @@ void LoadComponent(const XmlNodeRef& node, entt::hashed_string hash, entt::regis
 {
 	if (auto component = entt::resolve_id(hash))
 	{
-		//auto x = entt::resolve_id(hash);
-
 		//if (auto func = entt::resolve_id(hash).func("serialize"_hs))
 		//{
-		//	func_t instance {};
-		//	func.invoke(node);
-		//	int a = 1;
-		//	a++;
+		//	auto any = component.construct(entity, &registry);
+		//	func.invoke(any, node);
 		//}
-
-
 
 		// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
 		auto any = component.construct(entity, &registry);
-		//auto x = entt::resolve<Type>();
-		//auto x = entt::type_info<my_type>::id();
 		auto& iComponent = any.cast<ECS::IComponent>();
 		Serialization::LoadXmlNode(iComponent, node);
 	}
