@@ -45,14 +45,6 @@ struct Health : public IComponent
 	}
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"health"_hs};
-
-		return nameHS;
-	}
-
-
 	inline bool operator==(const Health& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
 
 
@@ -93,14 +85,6 @@ struct Damage : public IComponent
 	}
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"damage"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
@@ -130,14 +114,6 @@ struct DamageOverTime : public IComponent
 		duration(duration), interval(interval)
 	{
 		ticksRemaining = duration / interval;
-	}
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"damage-over-time"_hs};
-
-		return nameHS;
 	}
 
 
@@ -184,14 +160,6 @@ struct Heal : public IComponent
 	}
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"heal"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
@@ -215,14 +183,6 @@ struct HealOverTime : public IComponent
 		float duration, float interval) :
 		quantity(quantity), duration(duration), interval(interval)
 	{
-	}
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"heal-over-time"_hs};
-
-		return nameHS;
 	}
 
 

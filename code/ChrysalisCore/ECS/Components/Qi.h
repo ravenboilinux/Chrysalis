@@ -18,14 +18,6 @@ struct Qi : public IComponent
 	}
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"qi"_hs};
-
-		return nameHS;
-	}
-
-
 	inline bool operator==(const Qi& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
 
 
@@ -66,14 +58,6 @@ struct UtiliseQi : public IComponent
 	}
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"utilise-qi"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
@@ -97,14 +81,6 @@ struct UtiliseQiOverTime : public IComponent
 		float duration, float interval) :
 		quantity(quantity), duration(duration), interval(interval)
 	{
-	}
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"utilise-qi-over-time"_hs};
-
-		return nameHS;
 	}
 
 
@@ -147,14 +123,6 @@ struct ReplenishQi : public IComponent
 	}
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"replenish-qi"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
@@ -178,14 +146,6 @@ struct ReplenishQiOverTime : public IComponent
 		float duration, float interval) :
 		quantity(quantity), duration(duration), interval(interval)
 	{
-	}
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"replenish-qi-over-time"_hs};
-
-		return nameHS;
 	}
 
 

@@ -12,14 +12,6 @@ struct SpellActionSchematyc : public IComponent
 	virtual ~SpellActionSchematyc() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"schematyc"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
@@ -29,14 +21,6 @@ struct SpellActionDRS : public IComponent
 {
 	SpellActionDRS() = default;
 	virtual ~SpellActionDRS() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"drs"_hs};
-
-		return nameHS;
-	}
 
 
 	void Serialize(Serialization::IArchive& archive) override final { ; }
@@ -50,14 +34,6 @@ struct SpellActionInspect : public IComponent
 	virtual ~SpellActionInspect() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"inspect"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
@@ -66,14 +42,6 @@ struct SpellActionExamine : public IComponent
 {
 	SpellActionExamine() = default;
 	virtual ~SpellActionExamine() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"examine"_hs};
-
-		return nameHS;
-	}
 
 
 	void Serialize(Serialization::IArchive& archive) override final { ; }
@@ -87,14 +55,6 @@ struct SpellActionTake : public IComponent
 	virtual ~SpellActionTake() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"take"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
@@ -104,14 +64,6 @@ struct SpellActionDrop : public IComponent
 {
 	SpellActionDrop() = default;
 	virtual ~SpellActionDrop() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"drop"_hs};
-
-		return nameHS;
-	}
 
 
 	void Serialize(Serialization::IArchive& archive) override final { ; }
@@ -125,14 +77,6 @@ struct SpellActionThrow : public IComponent
 	virtual ~SpellActionThrow() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"throw"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
@@ -142,14 +86,6 @@ struct SpellActionSwitch : public IComponent
 {
 	SpellActionSwitch() = default;
 	virtual ~SpellActionSwitch() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"switch"_hs};
-
-		return nameHS;
-	}
 
 
 	void Serialize(Serialization::IArchive& archive) override final { ; }
@@ -165,14 +101,6 @@ struct SpellActionOpen : public IComponent
 	virtual ~SpellActionOpen() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"open"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
@@ -182,14 +110,6 @@ struct SpellActionClose : public IComponent
 {
 	SpellActionClose() = default;
 	virtual ~SpellActionClose() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"close"_hs};
-
-		return nameHS;
-	}
 
 
 	void Serialize(Serialization::IArchive& archive) override final { ; }
@@ -203,14 +123,6 @@ struct SpellActionUnlock : public IComponent
 	virtual ~SpellActionUnlock() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"unlock"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& archive) override final { ; }
 };
 
@@ -220,14 +132,6 @@ struct SpellActionLock : public IComponent
 {
 	SpellActionLock() = default;
 	virtual ~SpellActionLock() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"lock"_hs};
-
-		return nameHS;
-	}
 
 
 	void Serialize(Serialization::IArchive& archive) override final { ; }

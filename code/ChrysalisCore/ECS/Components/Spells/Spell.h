@@ -184,14 +184,6 @@ struct Spell : public IComponent
 	virtual ~Spell() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"spell"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(spellRewire, "spell-rewire", "Actions which need to be taken before spell can be fired.");
@@ -246,14 +238,6 @@ struct SpellcastExecution : public IComponent
 {
 	SpellcastExecution() = default;
 	virtual ~SpellcastExecution() = default;
-
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"spellcast-execution"_hs};
-
-		return nameHS;
-	}
 
 
 	void Serialize(Serialization::IArchive& ar) override final

@@ -30,14 +30,6 @@ struct RenderLight : public IComponent
 	virtual ~RenderLight() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"render-light"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(optics, "optics", "optics");

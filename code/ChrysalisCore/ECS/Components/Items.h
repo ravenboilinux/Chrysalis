@@ -11,14 +11,6 @@ struct ItemClass : public IComponent
 	virtual ~ItemClass() = default;
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"item-class"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(maxStackSize, "maxStackSize", "maxStackSize");

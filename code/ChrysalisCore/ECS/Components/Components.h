@@ -11,34 +11,9 @@ struct IComponent
 	IComponent() = default;
 	virtual ~IComponent() = default;
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"icomponent"_hs};
-
-		return nameHS;
-	}
-
 	// This should be pure virtual but the ECS needs to be able to instantiate the struct, so...here's nothing.
 	virtual void Serialize(Serialization::IArchive& archive) { ; }
 };
-
-
-//struct TagComponent : public IComponent
-//{
-//	TagComponent() = default;
-//	virtual ~TagComponent() = default;
-//
-//
-//	virtual const entt::hashed_string& GetHashedName() const
-//	{
-//		static constexpr entt::hashed_string nameHS {"tag"_hs};
-//
-//		return nameHS;
-//	}
-//
-//
-//	void Serialize(Serialization::IArchive& archive) override final { ; }
-//};
 
 
 template<typename TYPE>
@@ -96,14 +71,6 @@ struct Name : public IComponent
 	}
 
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"name"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(name, "name", "The name of this entity. It should be unique.");
@@ -134,14 +101,6 @@ struct Prototype : public IComponent
 	}
 	
 
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"prototype"_hs};
-
-		return nameHS;
-	}
-
-
 	void Serialize(Serialization::IArchive& ar) override final
 	{
 		ar(name, "name", "Unique name of the prototype for this entity.");
@@ -162,14 +121,6 @@ struct SourceAndTarget : public IComponent
 		sourceEntity(sourceEntity), targetEntity(targetEntity), crySourceEntityId(crySourceEntityId), cryTargetEntityId(cryTargetEntityId)
 	{
 	}
-
-	virtual const entt::hashed_string& GetHashedName() const
-	{
-		static constexpr entt::hashed_string nameHS {"source-and-target"_hs};
-
-		return nameHS;
-	}
-
 
 	void Serialize(Serialization::IArchive& ar) override final
 	{

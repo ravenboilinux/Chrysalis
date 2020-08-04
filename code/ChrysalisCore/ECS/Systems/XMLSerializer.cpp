@@ -27,6 +27,18 @@ void LoadComponent(const XmlNodeRef& node, entt::hashed_string hash, entt::regis
 {
 	if (auto component = entt::resolve_id(hash))
 	{
+		//auto x = entt::resolve_id(hash);
+
+		//if (auto func = entt::resolve_id(hash).func("serialize"_hs))
+		//{
+		//	func_t instance {};
+		//	func.invoke(node);
+		//	int a = 1;
+		//	a++;
+		//}
+
+
+
 		// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
 		auto any = component.construct(entity, &registry);
 		//auto x = entt::resolve<Type>();
