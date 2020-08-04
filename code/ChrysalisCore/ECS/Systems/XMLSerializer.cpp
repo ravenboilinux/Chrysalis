@@ -37,8 +37,10 @@ void LoadComponent(const XmlNodeRef& node, entt::hashed_string hash, entt::regis
 		//	func.invoke(any, node);
 		//}
 
-		// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
+		// Uses the registry to construct a default component, assign it to the entity, and then return a reference for us to use.
 		auto any = component.construct(entity, &registry);
+		
+		// Cheating, casting it to a base class and using polymorphism to copy across the values in node to iComponent.
 		auto& iComponent = any.cast<ECS::IComponent>();
 		Serialization::LoadXmlNode(iComponent, node);
 	}
@@ -71,20 +73,9 @@ void LoadECSFromXML(string fileName, entt::registry& registry)
 					// Using the tag as a unique ID for the class for now.
 					auto hash = entt::hashed_string {componentNode->getTag()};
 
+					// Load em.
+					// TODO: Needs to work without using a base class and polymorphism.
 					LoadComponent(componentNode, hash, registry, entity);
-
-					// Ask the system for the class and default construct a component of that type.
-					//if (auto component = entt::resolve_id(hash))
-					//{
-						//// Uses the registry to construct a component, assign it to the entity, and then return a reference for us to use.
-						//auto any = component.construct(entity, &registry);
-
-						//// Serialise the properties across to the component.
-						//// TODO: I need to stop being lazy and using a base class and make this work with a templated function instead on the actual class.
-						//auto& iComponent = any.cast<ECS::IComponent>();
-
-						//Serialization::LoadXmlNode(iComponent, componentNode);
-					//}
 				}
 			}
 		}

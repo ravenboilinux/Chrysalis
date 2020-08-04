@@ -76,19 +76,6 @@ void CSimulation::RewireSpell(entt::registry& spellcastingRegistry, entt::entity
 
 	// The source and target for the spell need to be added to the entity.
 	spellcastingRegistry.emplace<ECS::SourceAndTarget>(spellEntity, source, target, sourceEntityId, targetEntityId);
-
-	// TODO: Do we really need a set of custom rewires on top of the ones for source and target?
-	// Delete this code if it's not needed.
-
-	//auto& spell = registry.get<ECS::Spell>(spellEntity);
-	//switch (spell.spellRewire)
-	//{
-	//case ECS::SpellRewire::custom:
-	//	break;
-
-	//default:
-	//	break;
-	//}
 }
 
 
