@@ -125,6 +125,8 @@ using CrowdControlDisarm = entt::tag<"crowd-control-disarm"_hs>;
 //using CrowdControl = entt::tag<"crowd-control-"_hs>;
 
 
+bool Serialize(Serialization::IArchive& ar, CrowdControlNone value, const char* name, const char* label);
+
 enum class BuffType
 {
 	none,

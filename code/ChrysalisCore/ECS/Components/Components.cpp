@@ -243,7 +243,6 @@ void RegisterComponentsWithMeta()
 	// TODO: Add tags...this is enough to register one, but I don't like the way it repeats the hash name in the .type
 	// It also breaks on loading thanks to not being derived from IComponent - need to see if there is a way to remove that base class.
 	entt::meta<ECS::CrowdControlNone>()
-		//.base<ECS::IComponent>()
 		.type("crowd-control-none"_hs)
 		.prop("name-hs"_hs, "crowd-control-none"_hs);
 	

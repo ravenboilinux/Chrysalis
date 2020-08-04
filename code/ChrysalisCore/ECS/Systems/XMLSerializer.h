@@ -33,7 +33,7 @@ struct SerialiseECS
 	{
 		// Not really sure why this is getting called. Need it defined to prevent compile errors.
 	}
-
+	
 
 	void operator()(entt::entity entity)
 	{
@@ -43,6 +43,9 @@ struct SerialiseECS
 			XmlNodeRef entityNode = m_entitiesNode->newChild("entity");
 			XmlNodeRef componentsNode = entityNode->newChild("components");
 
+			// The static cast is pretty dirty, but I'm not sure there's another way given it's an opaque type.
+			entityNode->setAttr("entityId", static_cast<entt::id_type>(entity));
+			
 			// Store a copy in a map to enable fast lookup when iterating the components.
 			m_nodeMap[entity] = componentsNode;
 		}
