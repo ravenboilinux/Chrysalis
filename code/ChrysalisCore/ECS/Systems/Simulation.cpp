@@ -288,51 +288,35 @@ void CSimulation::UpdateActors(const float deltaTime)
 
 void CSimulation::LoadSimulationData()
 {
-	//// Load the spell registry.
-	//ECS::LoadECSFromXML("chrysalis/parameters/spells/spell-prototype.xml", m_spellRegistry);
+	// Load the spell registry.
+	ECS::LoadECSFromXML("chrysalis/parameters/spells/spell-prototype.xml", m_spellRegistry);
 
 	//// Load the actor registry.
 	//ECS::LoadECSFromXML("chrysalis/parameters/actor/actor.xml", m_actorRegistry);
 
-
 	// TODO: WIP: Trying it the hard way.
 
 	// Spell prototypes.
-	ECS::SerialiseECSInput spellSerial;
-	spellSerial.LoadFromFile("chrysalis/parameters/spells/spell-prototype.xml");
-	entt::snapshot_loader {m_spellRegistry}
-		.entities(spellSerial)
-		.component<ECS::Name, ECS::Prototype,
-		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
-		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-		ECS::Spell,
-		ECS::SpellActionSchematyc, ECS::SpellActionDRS,
-		ECS::SpellActionInspect, ECS::SpellActionExamine,
-		ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
-		ECS::SpellActionSwitch,
-		ECS::SpellActionOpen, ECS::SpellActionClose,
-		ECS::SpellActionUnlock, ECS::SpellActionLock,
-		ECS::RenderLight>(spellSerial);
+	//ECS::SerialiseECSInput spellSerial;
+	//spellSerial.LoadFromFile("chrysalis/parameters/spells/spell-prototype.xml");
+	//entt::snapshot_loader {m_spellRegistry}
+	//	.entities(spellSerial)
+	//	.component<ECS::Name, ECS::Prototype,
+	//	ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
+	//	ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
+	//	ECS::Spell,
+	//	ECS::SpellActionSchematyc, ECS::SpellActionDRS,
+	//	ECS::SpellActionInspect, ECS::SpellActionExamine,
+	//	ECS::SpellActionTake, ECS::SpellActionDrop, ECS::SpellActionThrow,
+	//	ECS::SpellActionSwitch,
+	//	ECS::SpellActionOpen, ECS::SpellActionClose,
+	//	ECS::SpellActionUnlock, ECS::SpellActionLock,
+	//	ECS::RenderLight>(spellSerial);
 }
 
 
 void CSimulation::SaveSimulationData()
 {
-	// Actor related.
-	ECS::SerialiseECSOutput actorSerial;
-
-	entt::snapshot {m_actorRegistry}
-		.entities(actorSerial)
-		.component<ECS::Name, ECS::Prototype,
-		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
-		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
-		ECS::Spell,
-		ECS::ItemClass,
-		ECS::RenderLight,
-		ECS::CrowdControlNone
-		>(actorSerial);
-	actorSerial.SaveToFile("chrysalis/parameters/actor/actor-snapshot.xml");
-
 	// Spell prototypes.
 	ECS::SerialiseECSOutput spellSerial;
 
@@ -351,5 +335,20 @@ void CSimulation::SaveSimulationData()
 		ECS::RenderLight>(spellSerial);
 
 	spellSerial.SaveToFile("chrysalis/parameters/spells/spell-prototype-snapshot.xml");
+
+	// Actor related.
+	ECS::SerialiseECSOutput actorSerial;
+
+	entt::snapshot {m_actorRegistry}
+		.entities(actorSerial)
+		.component<ECS::Name, ECS::Prototype,
+		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
+		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
+		ECS::Spell,
+		ECS::ItemClass,
+		ECS::RenderLight,
+		ECS::CrowdControlNone
+		>(actorSerial);
+	actorSerial.SaveToFile("chrysalis/parameters/actor/actor-snapshot.xml");
 }
 }

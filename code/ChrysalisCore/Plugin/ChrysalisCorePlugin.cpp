@@ -119,6 +119,9 @@ void CChrysalisCorePlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UI
 			// Create a class to handle the Simulation work for the ECS.
 			ECS::Simulation.Init();
 			ECS::Simulation.LoadSimulationData();
+			
+			// HACK: Get an output version of the data immediately for inspection / testing.
+			ECS::Simulation.SaveSimulationData();
 
 			// Listen for client connection events, in order to create the local player
 			gEnv->pGameFramework->AddNetworkedClientListener(*this);
