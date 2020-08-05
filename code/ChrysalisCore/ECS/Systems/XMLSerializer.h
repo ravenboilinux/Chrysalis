@@ -23,21 +23,27 @@ struct SerialiseECSInput
 	// *** Input
 	// ***
 
-	// Input hasn't been implemented or tested as yet.
-
 	/** Called for each type to announce the number of entities of that type. */
-	void operator()(std::underlying_type_t<entt::entity>&)
+	void operator()(std::underlying_type_t<entt::entity>& count)
 	{
-		int a = 1;
-		a++;
+		count = m_entitiesNode->getChildCount();
+
+		m_currentChild = 0;
 	}
 
 
 	/** Called for each entity. */
-	void operator()(entt::entity&)
+	void operator()(entt::entity& entity)
 	{
-		int a = 1;
-		a++;
+		// Each entity get's a couple of nodes made for storing it's components.
+		XmlNodeRef entityNode = m_entitiesNode->getChild(m_currentChild);
+
+		// Dirty way to get the attribute out, since I don't have a primitive for getting an entity attribute.
+		std::underlying_type_t<entt::entity> val {0};
+		entityNode->getAttr("entityId", val);
+		entity = static_cast<entt::entity>(val);
+
+		m_currentChild++;
 	}
 
 
@@ -45,29 +51,40 @@ struct SerialiseECSInput
 	template<typename Type>
 	void operator()(entt::entity& entity, Type& component)
 	{
-		int a = 1;
-		a++;
+		// HACK: Make the entityId be the next in sequence.
+		entity = static_cast<entt::entity>(m_currentChild);
+
+		// Each entity get's a couple of nodes made for storing it's components.
+		XmlNodeRef entityNode = m_entitiesNode->getChild(m_currentChild);
+		if (XmlNodeRef componentsNode = entityNode->findChild("components"))
+		{
+			if (auto prop = entt::resolve<Type>().prop("name-hs"_hs))
+			{
+				auto hashedName = prop.value().cast<entt::hashed_string>();
+				if (XmlNodeRef node = componentsNode->findChild(hashedName.data()))
+				{
+					LoadComponent(node, component);
+				}
+			}
+		}
+		
+		// Next entity.
+		m_currentChild++;
 	}
+
 
 	void LoadFromFile(string fileName)
 	{
-		m_entitiesNode = GetISystem()->LoadXmlFromFile(fileName);
-		if (m_entitiesNode)
+		if (m_entitiesNode = GetISystem()->LoadXmlFromFile(fileName))
 		{
-			auto count = m_entitiesNode->getChildCount();
-			count++;
+			m_currentChild = 0;
 		}
-
-		//auto zzz = GetISystem()->LoadXmlFromFile(fileName);
-		//if (zzz)
-		//{
-		//	m_entitiesNode = zzz->getChild(1);
-		//}
 	}
 
 private:
 	XmlNodeRef m_entitiesNode;
 	std::map<entt::entity, XmlNodeRef> m_nodeMap;
+	std::underlying_type_t<entt::entity> m_currentChild {0};
 };
 
 

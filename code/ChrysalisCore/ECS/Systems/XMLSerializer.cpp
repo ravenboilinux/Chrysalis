@@ -26,59 +26,65 @@ void SaveComponent(const XmlNodeRef& node, const Type& component)
 }
 
 
-//template<typename Type>
-void LoadComponent(const XmlNodeRef& node, entt::hashed_string hash, entt::registry& registry, entt::entity entity)
+template<typename Type>
+void LoadComponent(const XmlNodeRef& node, const Type& component)
 {
-	if (auto component = entt::resolve_id(hash))
-	{
-		//if (auto func = entt::resolve_id(hash).func("serialize"_hs))
-		//{
-		//	auto any = component.construct(entity, &registry);
-		//	func.invoke(any, node);
-		//}
-
-		// Uses the registry to construct a default component, assign it to the entity, and then return a reference for us to use.
-		auto any = component.construct(entity, &registry);
-		
-		// Cheating, casting it to a base class and using polymorphism to copy across the values in node to iComponent.
-		auto& iComponent = any.cast<ECS::IComponent>();
-		Serialization::LoadXmlNode(iComponent, node);
-	}
+	Serialization::LoadXmlNode(component, node);
 }
 
 
-void LoadECSFromXML(string fileName, entt::registry& registry)
-{
-	// Load the file into an in-memory structure.
-	if (XmlNodeRef entitiesNode = GetISystem()->LoadXmlFromFile(fileName))
-	{
-		// Iterate through all the children which should be individual entities.
-		for (int i = 0, n = entitiesNode->getChildCount(); i < n; ++i)
-		{
-			// Grab the entity, which is basically an empty wrapper.
-			XmlNodeRef entityNode = entitiesNode->getChild(i);
+//void LoadComponent(const XmlNodeRef& node, entt::hashed_string hash, entt::registry& registry, entt::entity entity)
+//{
+//	if (auto component = entt::resolve_id(hash))
+//	{
+//		//if (auto func = entt::resolve_id(hash).func("serialize"_hs))
+//		//{
+//		//	auto any = component.construct(entity, &registry);
+//		//	func.invoke(any, node);
+//		//}
+//
+//		// Uses the registry to construct a default component, assign it to the entity, and then return a reference for us to use.
+//		auto any = component.construct(entity, &registry);
+//
+//		// Cheating, casting it to a base class and using polymorphism to copy across the values in node to iComponent.
+//		auto& iComponent = any.cast<ECS::IComponent>();
+//		Serialization::LoadXmlNode(iComponent, node);
+//	}
+//}
 
-			// We should create a fresh entity for the components to attach onto.
-			auto entity = registry.create();
 
-			// Get the properties node - this holds all the properties for this component.
-			if (XmlNodeRef componentsNode = entityNode->findChild("components"))
-			{
-				// Iterate through all the components.
-				for (int i = 0, n = componentsNode->getChildCount(); i < n; ++i)
-				{
-					// Grab the entity, which is basically an empty wrapper.
-					XmlNodeRef componentNode = componentsNode->getChild(i);
-
-					// Using the tag as a unique ID for the class for now.
-					auto hash = entt::hashed_string {componentNode->getTag()};
-
-					// Load em.
-					// TODO: Needs to work without using a base class and polymorphism.
-					LoadComponent(componentNode, hash, registry, entity);
-				}
-			}
-		}
-	}
-}
+//void LoadECSFromXML(string fileName, entt::registry& registry)
+//{
+//	// Load the file into an in-memory structure.
+//	if (XmlNodeRef entitiesNode = GetISystem()->LoadXmlFromFile(fileName))
+//	{
+//		// Iterate through all the children which should be individual entities.
+//		for (int i = 0, n = entitiesNode->getChildCount(); i < n; ++i)
+//		{
+//			// Grab the entity, which is basically an empty wrapper.
+//			XmlNodeRef entityNode = entitiesNode->getChild(i);
+//
+//			// We should create a fresh entity for the components to attach onto.
+//			auto entity = registry.create();
+//
+//			// Get the properties node - this holds all the properties for this component.
+//			if (XmlNodeRef componentsNode = entityNode->findChild("components"))
+//			{
+//				// Iterate through all the components.
+//				for (int i = 0, n = componentsNode->getChildCount(); i < n; ++i)
+//				{
+//					// Grab the entity, which is basically an empty wrapper.
+//					XmlNodeRef componentNode = componentsNode->getChild(i);
+//
+//					// Using the tag as a unique ID for the class for now.
+//					auto hash = entt::hashed_string {componentNode->getTag()};
+//
+//					// Load em.
+//					// TODO: Needs to work without using a base class and polymorphism.
+//					LoadComponent(componentNode, hash, registry, entity);
+//				}
+//			}
+//		}
+//	}
+//}
 }

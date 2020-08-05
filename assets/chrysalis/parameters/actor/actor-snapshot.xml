@@ -1,10 +1,13 @@
 <entities>
  <entity entityId="0">
   <components>
-   <name CryXmlVersion="2" name="Fireball" displayName="Fireball"/>
-   <damage CryXmlVersion="2" targetTargetType="target" quantity="14" damageType="fire"/>
-   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="7"/>
-   <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <name CryXmlVersion="2" name="Hero" displayName="Hero"/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="120" baseModifiers="0" modifiers="0"/>
+   </health>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
   </components>
  </entity>
  <entity entityId="1">
@@ -20,7 +23,7 @@
  </entity>
  <entity entityId="2">
   <components>
-   <name CryXmlVersion="2" name="Hero" displayName="Hero"/>
+   <name CryXmlVersion="2" name="Villain" displayName="Villain"/>
    <health CryXmlVersion="2" isDead="false" isImmortal="false">
     <health base="120" baseModifiers="0" modifiers="0"/>
    </health>
@@ -40,16 +43,8 @@
    </qi>
   </components>
  </entity>
- <entity entityId="4">
-  <components>
-   <name CryXmlVersion="2" name="Villain" displayName="Villain"/>
-   <health CryXmlVersion="2" isDead="false" isImmortal="false">
-    <health base="120" baseModifiers="0" modifiers="0"/>
-   </health>
-   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
-    <qi base="100" baseModifiers="0" modifiers="0"/>
-   </qi>
-  </components>
+ <entity entityId="0">
+  <components />
  </entity>
  <entity entityId="1">
   <components />
@@ -58,9 +53,6 @@
   <components />
  </entity>
  <entity entityId="3">
-  <components />
- </entity>
- <entity entityId="4">
   <components />
  </entity>
 </entities>

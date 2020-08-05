@@ -2,167 +2,790 @@
  <entity entityId="0">
   <components>
    <name CryXmlVersion="2" name="Fireball" displayName="Fireball"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
    <damage CryXmlVersion="2" targetTargetType="target" quantity="14" damageType="fire"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" damageType="acid" duration="10" interval="1"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="7"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
    <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="1">
   <components>
    <name CryXmlVersion="2" name="Shadow Word Pain" displayName="Shadow Word Pain"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="14" damageType="fire"/>
    <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="unholy" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
    <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="2">
   <components>
    <name CryXmlVersion="2" name="Scorch" displayName="Scorch"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
    <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
    <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="11"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
    <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="3">
   <components>
    <name CryXmlVersion="2" name="Heal" displayName="Heal"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
    <heal CryXmlVersion="2" targetTargetType="target" quantity="17"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
    <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="4">
   <components>
    <name CryXmlVersion="2" name="Renew" displayName="Renew"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="17"/>
    <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="3" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
    <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="5">
   <components>
    <name CryXmlVersion="2" name="HealAndRenew" displayName="HealAndRenew"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
    <heal CryXmlVersion="2" targetTargetType="target" quantity="12"/>
    <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="target" quantity="0"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
    <spell CryXmlVersion="2" spell-rewire="heal" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="6">
   <components>
    <name CryXmlVersion="2" name="Innervate" displayName="Innervate"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="fire"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="12"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="20"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="target" quantity="0"/>
    <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="regenerate" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="7">
   <components>
    <name CryXmlVersion="2" name="Mana Burn" displayName="Mana Burn"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
    <damage CryXmlVersion="2" targetTargetType="target" quantity="8" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="target" quantity="12"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="target" quantity="16"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
    <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="damage" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="8">
   <components>
    <name CryXmlVersion="2" name="Life Steal" displayName="Life Steal"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
    <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
    <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
    <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="onCompletion"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="9">
   <components>
    <name CryXmlVersion="2" name="Schematyc" displayName="Schematyc"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
    <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="10">
   <components>
    <name CryXmlVersion="2" name="DRS" displayName="DRS"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
    <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="11">
   <components>
    <name CryXmlVersion="2" name="Inspect" displayName="Inspect"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
    <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="12">
   <components>
    <name CryXmlVersion="2" name="Examine" displayName="Examine"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
    <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="13">
   <components>
    <name CryXmlVersion="2" name="Take" displayName="Take"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
    <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="14">
   <components>
    <name CryXmlVersion="2" name="Drop" displayName="Drop"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
    <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="15">
   <components>
    <name CryXmlVersion="2" name="Throw" displayName="Throw"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
    <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="16">
   <components>
    <name CryXmlVersion="2" name="Switch" displayName="Switch"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
    <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="17">
   <components>
    <name CryXmlVersion="2" name="Open" displayName="Open"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="channelledActive"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
    <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="18">
   <components>
    <name CryXmlVersion="2" name="Close" displayName="Close"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="channelledActive"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
    <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="19">
   <components>
    <name CryXmlVersion="2" name="Unlock" displayName="Unlock"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
    <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="20">
   <components>
    <name CryXmlVersion="2" name="Lock" displayName="Lock"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
    <lock CryXmlVersion="2"/>
+   <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="1" specularMultiplier="1" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="1" style="0" speed="1" shape="point" twoSided="false" texturePath="" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="10" fovAngle="0.78539819" effectSlotMaterial="">
+    <Color r="1" g="1" b="1" a="1"/>
+   </render-light>
   </components>
  </entity>
  <entity entityId="21">
   <components>
    <name CryXmlVersion="2" name="Flashlight" displayName="Flashlight"/>
+   <prototype CryXmlVersion="2" name=""/>
+   <health CryXmlVersion="2" isDead="false" isImmortal="false">
+    <health base="100" baseModifiers="0" modifiers="0"/>
+   </health>
+   <damage CryXmlVersion="2" targetTargetType="target" quantity="12" damageType="qi"/>
+   <damage-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" damageType="fire" duration="10" interval="1.5"/>
+   <heal CryXmlVersion="2" targetTargetType="source" quantity="6"/>
+   <heal-over-time CryXmlVersion="2" targetTargetType="target" quantity="2" duration="10" interval="2"/>
+   <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02">
+    <qi base="100" baseModifiers="0" modifiers="0"/>
+   </qi>
+   <utilise-qi CryXmlVersion="2" targetTargetType="source" quantity="12"/>
+   <utilise-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="0" duration="10" interval="1"/>
+   <replenish-qi CryXmlVersion="2" targetTargetType="source" quantity="8"/>
+   <replenish-qi-over-time CryXmlVersion="2" targetTargetType="target" quantity="4" duration="10" interval="2"/>
    <spell CryXmlVersion="2" spell-rewire="none" minRange="0" maxRange="30" castDuration="2" cooldown="2" globalCooldown="0" sourceTargetType="self" targetTargetType="singleTarget" spellcastPayload="immediate"/>
+   <schematyc CryXmlVersion="2"/>
+   <drs CryXmlVersion="2"/>
+   <inspect CryXmlVersion="2"/>
+   <examine CryXmlVersion="2"/>
+   <take CryXmlVersion="2"/>
+   <drop CryXmlVersion="2"/>
+   <throw CryXmlVersion="2"/>
+   <switch CryXmlVersion="2"/>
+   <open CryXmlVersion="2"/>
+   <close CryXmlVersion="2"/>
+   <unlock CryXmlVersion="2"/>
+   <lock CryXmlVersion="2"/>
    <render-light CryXmlVersion="2" lensFlareName="" attachToSun="false" flareEnable="true" flareFOV="360" attenuationBulbSize="0.1" ignoreVisAreas="false" affectVolumetricFog="true" volumetricFogOnly="false" onlyAffectThisArea="true" linkToSkyColor="false" ambient="false" fogRadialLobe="0" GIMode="none" diffuseMultiplier="12" specularMultiplier="12" shadowSpec="None" shadowBias="1" shadowSlopeBias="1" shadownResolution="1" shadowUpdateMin="4" shadowMinRes="0" shadowUpdateRatio="0" style="0" speed="1" shape="point" twoSided="false" texturePath="chrysalis/textures/lights/flashlight_projector.dds" width="1" height="1" nearPlane="0" materialPath="" angle="6.2831855" radius="13" fovAngle="0.30000001" effectSlotMaterial="">
     <Color r="1" g="1" b="1" a="1"/>
    </render-light>
