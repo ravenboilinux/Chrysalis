@@ -210,6 +210,9 @@ void CSimulation::Init()
 
 	// Items.
 	stampFunctionMap[entt::type_info<ECS::ItemClass>::id()] = &CloneComponent<ECS::ItemClass>;
+
+	stampFunctionMap[entt::type_info<ECS::SaltComponent>::id()] = &CloneComponent<ECS::SaltComponent>;
+	stampFunctionMap[entt::type_info<ECS::PepperComponent>::id()] = &CloneComponent<ECS::PepperComponent>;
 }
 
 
@@ -350,7 +353,9 @@ void CSimulation::SaveSimulationData()
 		ECS::Spell,
 		ECS::ItemClass,
 		ECS::RenderLight,
-		ECS::CrowdControlNone
+		ECS::CrowdControlNone,
+		ECS::SaltComponent,
+		ECS::PepperComponent
 		>(actorSerial);
 	actorSerial.SaveToFile("chrysalis/parameters/actor/actor-snapshot.xml");
 }

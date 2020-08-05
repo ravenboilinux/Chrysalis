@@ -37,6 +37,7 @@ struct SpellActionInspect
 	void Serialize(Serialization::IArchive& archive) { ; }
 };
 
+
 /** Examine an item while holding it in your hands. You should be close enough to pick it up before you can examine it. */
 struct SpellActionExamine
 {

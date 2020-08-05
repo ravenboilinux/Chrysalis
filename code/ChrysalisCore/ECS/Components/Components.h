@@ -1,6 +1,8 @@
 #pragma once
 
 #include <entt/entt.hpp>
+#include <CryExtension/CryGUID.h>
+
 
 /** Thinking about making this a single include header for convenience. */
 
@@ -41,13 +43,41 @@ struct AttributeType
 	/** Represents the attribute without any modifiers applied to it. */
 	TYPE base {100.0f};
 
-	/** This modifier makes changes to the base value, instead of the frame value. Typical use would be for a health / strength 
+	/** This modifier makes changes to the base value, instead of the frame value. Typical use would be for a health / strength
 	buff that increases the base value of the attribute. */
 	TYPE baseModifiers {0};
 
 	/** Modifiers for this frame. Should be calculated each frame prior to calculating the current value. */
 	TYPE modifiers {0};
 };
+
+
+template<entt::id_type label, entt::id_type description, uint64_t guidHi, uint64_t guidLo>
+struct FlagComponent
+{
+	FlagComponent() = default;
+	virtual ~FlagComponent() = default;
+
+	inline bool operator==(const FlagComponent& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+
+
+	static void ReflectType(Schematyc::CTypeDesc<FlagComponent>& desc)
+	{
+		// Make a GUID from a hi, lo combination of 64 bit values.
+		desc.SetGUID(CryGUID {guidHi, guidLo});
+		desc.SetLabel(label);
+		desc.SetDescription(description);
+	}
+
+
+	void Serialize(Serialization::IArchive& ar)
+	{
+	}
+};
+
+
+using SaltComponent = FlagComponent<"Salt"_hs, "Salt is life"_hs, 0xC0DFF277A5744EB2, 0x980B7E89C069A0A2>;
+using PepperComponent = FlagComponent<"Pepper"_hs, "Pepper is hot"_hs, 0x0E783D91BDC64AA2, 0x9CE3D3444A688ABA>;
 
 
 struct Name
@@ -89,7 +119,7 @@ struct Prototype
 		name(name)
 	{
 	}
-	
+
 
 	void Serialize(Serialization::IArchive& ar)
 	{

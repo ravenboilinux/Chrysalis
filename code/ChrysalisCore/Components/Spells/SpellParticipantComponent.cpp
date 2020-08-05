@@ -66,8 +66,8 @@ void CSpellParticipantComponent::Initialize()
 
 	// TEST: adding a tag...
 	actorRegistry->emplace<ECS::CrowdControlNone>(m_ecsEntity);
-	auto& cc = actorRegistry->get<ECS::CrowdControlNone>(m_ecsEntity);
-	CryLogAlways("value = %d", cc.value);
+	actorRegistry->emplace<ECS::SaltComponent>(m_ecsEntity);
+	actorRegistry->emplace<ECS::PepperComponent>(m_ecsEntity);
 }
 
 

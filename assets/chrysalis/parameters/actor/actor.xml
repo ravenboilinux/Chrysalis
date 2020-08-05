@@ -3,7 +3,7 @@
   <entity entityId="0"/>
  </entities>
  <components>
-  <name CryXmlVersion="2" name="Hero" displayName="Hero" entityId="0"/>
+  <name CryXmlVersion="2" name="Schmuck" displayName="Hero" entityId="0"/>
  </components>
  <meta>
   <component-types>
