@@ -135,6 +135,6 @@
       <component-type count="1" typeId="24"/>
       <component-type count="1" typeId="25"/>
     </component-types>
-    <component-type-total count="22"/>
+    <entities count="22"/>
   </meta>
 </ecs>

@@ -37,9 +37,9 @@ struct SerialiseECSInput
 			if (auto node = m_metaComponentTypesNode->getChild(m_currentType))
 			{
 				// Dirty way to get the attribute out, since I don't have a primitive for getting an entity attribute.
-				std::underlying_type_t<entt::entity> val {0};
-				node->getAttr("count", val);
-				componentCount = val;
+				std::underlying_type_t<entt::entity> count {0};
+				node->getAttr("count", count);
+				componentCount = count;
 			}
 
 			m_currentType++;
@@ -54,9 +54,9 @@ struct SerialiseECSInput
 		XmlNodeRef node = m_entitiesNode->getChild(m_currentEntity);
 
 		// Dirty way to get the attribute out, since I don't have a primitive for getting an entity attribute.
-		std::underlying_type_t<entt::entity> val {0};
-		node->getAttr("entityId", val);
-		entity = static_cast<entt::entity>(val);
+		std::underlying_type_t<entt::entity> entityId {0};
+		node->getAttr("entityId", entityId);
+		entity = static_cast<entt::entity>(entityId);
 
 		m_currentEntity++;
 	}
@@ -151,7 +151,7 @@ struct SerialiseECSOutput
 			if (m_metaNode)
 			{
 				// Each entity get's a couple of nodes made for storing it's components.
-				XmlNodeRef node = m_metaNode->newChild("component-type-total");
+				XmlNodeRef node = m_metaNode->newChild("entities");
 
 				// This static cast should be fine with common underlying types.
 				node->setAttr("count", static_cast<std::underlying_type_t<entt::entity>>(componentCount));

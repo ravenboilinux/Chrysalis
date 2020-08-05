@@ -1,54 +1,13 @@
 <ecs>
  <entities>
   <entity entityId="0"/>
-  <entity entityId="1"/>
-  <entity entityId="2"/>
-  <entity entityId="3"/>
-  <entity entityId="0"/>
-  <entity entityId="1"/>
-  <entity entityId="2"/>
-  <entity entityId="3"/>
  </entities>
  <components>
   <name CryXmlVersion="2" name="Hero" displayName="Hero" entityId="0"/>
-  <name CryXmlVersion="2" name="Hero" displayName="Hero" entityId="1"/>
-  <name CryXmlVersion="2" name="Villain" displayName="Villain" entityId="2"/>
-  <name CryXmlVersion="2" name="Villain" displayName="Villain" entityId="3"/>
-  <health CryXmlVersion="2" isDead="false" isImmortal="false" entityId="0">
-   <health base="120" baseModifiers="0" modifiers="0"/>
-  </health>
-  <health CryXmlVersion="2" isDead="false" isImmortal="false" entityId="1">
-   <health base="120" baseModifiers="0" modifiers="0"/>
-  </health>
-  <health CryXmlVersion="2" isDead="false" isImmortal="false" entityId="2">
-   <health base="120" baseModifiers="0" modifiers="0"/>
-  </health>
-  <health CryXmlVersion="2" isDead="false" isImmortal="false" entityId="3">
-   <health base="120" baseModifiers="0" modifiers="0"/>
-  </health>
-  <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02" entityId="0">
-   <qi base="100" baseModifiers="0" modifiers="0"/>
-  </qi>
-  <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02" entityId="1">
-   <qi base="100" baseModifiers="0" modifiers="0"/>
-  </qi>
-  <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02" entityId="2">
-   <qi base="100" baseModifiers="0" modifiers="0"/>
-  </qi>
-  <qi CryXmlVersion="2" timeSinceLastSpellcast="0" qiRegenerationPerSecond="0.02" entityId="3">
-   <qi base="100" baseModifiers="0" modifiers="0"/>
-  </qi>
  </components>
  <meta>
   <component-types>
-   <component-type count="4"/>
-   <component-type count="0"/>
-   <component-type count="4"/>
-   <component-type count="0"/>
-   <component-type count="0"/>
-   <component-type count="0"/>
-   <component-type count="0"/>
-   <component-type count="4"/>
+   <component-type count="1"/>
    <component-type count="0"/>
    <component-type count="0"/>
    <component-type count="0"/>
@@ -56,8 +15,15 @@
    <component-type count="0"/>
    <component-type count="0"/>
    <component-type count="0"/>
-   <component-type count="4"/>
+   <component-type count="0"/>
+   <component-type count="0"/>
+   <component-type count="0"/>
+   <component-type count="0"/>
+   <component-type count="0"/>
+   <component-type count="0"/>
+   <component-type count="0"/>
+   <component-type count="0"/>
   </component-types>
-  <component-type-total count="4"/>
+  <entities count="1"/>
  </meta>
 </ecs>

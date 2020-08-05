@@ -294,8 +294,6 @@ void CSimulation::LoadSimulationData()
 	//// Load the actor registry.
 	//ECS::LoadECSFromXML("chrysalis/parameters/actor/actor.xml", m_actorRegistry);
 
-	// TODO: WIP: Trying it the hard way.
-
 	// Spell prototypes.
 	ECS::SerialiseECSInput spellSerial;
 	spellSerial.LoadFromFile("chrysalis/parameters/spells/spell-prototype.xml");
@@ -312,6 +310,20 @@ void CSimulation::LoadSimulationData()
 		ECS::SpellActionOpen, ECS::SpellActionClose,
 		ECS::SpellActionUnlock, ECS::SpellActionLock,
 		ECS::RenderLight>(spellSerial);
+
+	// Actor related.
+	ECS::SerialiseECSInput actorSerial;
+	actorSerial.LoadFromFile("chrysalis/parameters/actor/actor.xml");
+	entt::snapshot_loader {m_actorRegistry}
+		.entities(actorSerial)
+		.component<ECS::Name, ECS::Prototype,
+		ECS::Health, ECS::Damage, ECS::DamageOverTime, ECS::Heal, ECS::HealOverTime,
+		ECS::Qi, ECS::UtiliseQi, ECS::UtiliseQiOverTime, ECS::ReplenishQi, ECS::ReplenishQiOverTime,
+		ECS::Spell,
+		ECS::ItemClass,
+		ECS::RenderLight,
+		ECS::CrowdControlNone
+		>(actorSerial);
 }
 
 
