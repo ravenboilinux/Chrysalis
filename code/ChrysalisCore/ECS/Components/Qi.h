@@ -7,7 +7,7 @@
 
 namespace Chrysalis::ECS
 {
-struct Qi : public IComponent
+struct Qi
 {
 	Qi() = default;
 	virtual ~Qi() = default;
@@ -29,7 +29,7 @@ struct Qi : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(qi, "qi", "qi");
 		ar(timeSinceLastSpellcast, "timeSinceLastSpellcast", "Time since they last cast a spell.");
@@ -47,7 +47,7 @@ struct Qi : public IComponent
 };
 
 
-struct UtiliseQi : public IComponent
+struct UtiliseQi
 {
 	UtiliseQi() = default;
 	virtual ~UtiliseQi() = default;
@@ -58,7 +58,7 @@ struct UtiliseQi : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");
@@ -72,7 +72,7 @@ struct UtiliseQi : public IComponent
 };
 
 
-struct UtiliseQiOverTime : public IComponent
+struct UtiliseQiOverTime
 {
 	UtiliseQiOverTime() = default;
 	virtual ~UtiliseQiOverTime() = default;
@@ -84,7 +84,7 @@ struct UtiliseQiOverTime : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");
@@ -112,7 +112,7 @@ struct UtiliseQiOverTime : public IComponent
 };
 
 
-struct ReplenishQi : public IComponent
+struct ReplenishQi
 {
 	ReplenishQi() = default;
 	virtual ~ReplenishQi() = default;
@@ -123,7 +123,7 @@ struct ReplenishQi : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");
@@ -137,7 +137,7 @@ struct ReplenishQi : public IComponent
 };
 
 
-struct ReplenishQiOverTime : public IComponent
+struct ReplenishQiOverTime
 {
 	ReplenishQiOverTime() = default;
 	virtual ~ReplenishQiOverTime() = default;
@@ -149,7 +149,7 @@ struct ReplenishQiOverTime : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");

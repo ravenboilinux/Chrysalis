@@ -6,16 +6,6 @@
 
 namespace Chrysalis::ECS
 {
-struct IComponent
-{
-	IComponent() = default;
-	virtual ~IComponent() = default;
-
-	// This should be pure virtual but the ECS needs to be able to instantiate the struct, so...here's nothing.
-	virtual void Serialize(Serialization::IArchive& archive) { ; }
-};
-
-
 template<typename TYPE>
 struct AttributeType
 {
@@ -60,7 +50,7 @@ struct AttributeType
 };
 
 
-struct Name : public IComponent
+struct Name
 {
 	Name() = default;
 	virtual ~Name() = default;
@@ -71,7 +61,7 @@ struct Name : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(name, "name", "The name of this entity. It should be unique.");
 		ar(displayName, "displayName", "The display name for this entity.");
@@ -90,7 +80,7 @@ struct Name : public IComponent
 
 */
 
-struct Prototype : public IComponent
+struct Prototype
 {
 	Prototype() = default;
 	virtual ~Prototype() = default;
@@ -101,7 +91,7 @@ struct Prototype : public IComponent
 	}
 	
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(name, "name", "Unique name of the prototype for this entity.");
 	}
@@ -111,7 +101,7 @@ struct Prototype : public IComponent
 };
 
 
-struct SourceAndTarget : public IComponent
+struct SourceAndTarget
 {
 	SourceAndTarget() = default;
 	virtual ~SourceAndTarget() = default;
@@ -122,7 +112,7 @@ struct SourceAndTarget : public IComponent
 	{
 	}
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		// This is really meant to be an ephemeral structure, so it shouldn't need to serialise, but I
 		// am adding one just in case.

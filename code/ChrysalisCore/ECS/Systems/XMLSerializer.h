@@ -3,10 +3,32 @@
 
 namespace Chrysalis::ECS
 {
-struct IComponent;
+template<typename Type>
+void SaveComponent(const XmlNodeRef& node, const entt::entity entity, const Type& component)
+{
+	// Components need a prop meta value that allows us to associate their type with a string used to serialise them.
+	if (auto prop = entt::resolve<Type>().prop("name-hs"_hs))
+	{
+		// Create a node for the component and mark it with the hashed name so we can lookup the class on loading.
+		auto hashedName = prop.value().cast<entt::hashed_string>();
+		XmlNodeRef componentNode = node->newChild(hashedName.data());
 
-// Loads the entities and components from an XML file.
-void LoadECSFromXML(string fileName, entt::registry& registry);
+		// Serialise it to the node we just made.
+		Serialization::SaveXmlNode(componentNode, Serialization::SStruct(component));
+		componentNode->setAttr("entityId", static_cast<std::underlying_type_t<entt::entity>>(entity));
+	}
+	else
+	{
+		CryLogAlways("The component's hashed name (.prop(\"name-hs\") isn't in the registry");
+	}
+}
+
+
+template<typename Type>
+void LoadComponent(const XmlNodeRef& node, const Type& component)
+{
+	Serialization::LoadXmlNode(component, node);
+}
 
 
 // Used by ECS snapshot code to handle calls to serialise each entity and component in a registry.

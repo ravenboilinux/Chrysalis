@@ -180,13 +180,13 @@ enum class SpellCastExecutionStatus
 };
 
 
-struct Spell : public IComponent
+struct Spell
 {
 	Spell() = default;
 	virtual ~Spell() = default;
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(spellRewire, "spell-rewire", "Actions which need to be taken before spell can be fired.");
 		ar(minRange, "minRange", "Minimum range at which this can be cast.");
@@ -236,13 +236,13 @@ struct Spell : public IComponent
 };
 
 
-struct SpellcastExecution : public IComponent
+struct SpellcastExecution
 {
 	SpellcastExecution() = default;
 	virtual ~SpellcastExecution() = default;
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(executionTime, "execution-time", "Duration the spell has been executing.");
 		ar(castExecutionStatus, "cast-execution-status", "Status of the casting mechanic.");

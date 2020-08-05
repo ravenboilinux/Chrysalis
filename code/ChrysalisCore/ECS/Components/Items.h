@@ -5,13 +5,13 @@
 
 namespace Chrysalis::ECS
 {
-struct ItemClass : public IComponent
+struct ItemClass
 {
 	ItemClass() = default;
 	virtual ~ItemClass() = default;
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(maxStackSize, "maxStackSize", "maxStackSize");
 		ar(animationTag, "animationTag", "animationTag");

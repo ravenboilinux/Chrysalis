@@ -34,7 +34,7 @@ enum class DamageType
 };
 
 
-struct Health : public IComponent
+struct Health
 {
 	Health() = default;
 	virtual ~Health() = default;
@@ -56,7 +56,7 @@ struct Health : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(health, "health", "The actor's current life force.");
 		ar(isDead, "isDead", "Are they dead?");
@@ -74,7 +74,7 @@ struct Health : public IComponent
 };
 
 
-struct Damage : public IComponent
+struct Damage
 {
 	Damage() = default;
 	virtual ~Damage() = default;
@@ -85,7 +85,7 @@ struct Damage : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");
@@ -103,7 +103,7 @@ struct Damage : public IComponent
 };
 
 
-struct DamageOverTime : public IComponent
+struct DamageOverTime
 {
 	DamageOverTime() = default;
 	virtual ~DamageOverTime() = default;
@@ -117,7 +117,7 @@ struct DamageOverTime : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");
@@ -149,7 +149,7 @@ struct DamageOverTime : public IComponent
 };
 
 
-struct Heal : public IComponent
+struct Heal
 {
 	Heal() = default;
 	virtual ~Heal() = default;
@@ -160,7 +160,7 @@ struct Heal : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");
@@ -174,7 +174,7 @@ struct Heal : public IComponent
 };
 
 
-struct HealOverTime : public IComponent
+struct HealOverTime
 {
 	HealOverTime() = default;
 	virtual ~HealOverTime() = default;
@@ -186,7 +186,7 @@ struct HealOverTime : public IComponent
 	}
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(targetTargetType, "targetTargetType", "targetTargetType");
 		ar(quantity, "quantity", "quantity");

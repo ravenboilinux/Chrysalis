@@ -169,9 +169,6 @@ void CSimulation::Init()
 	// TODO: This is bound to be a point of failure, as new components which are registered do not get added to this list.
 	// Need to find a way to do this closer to the registration code.
 
-	// The base component is required in order to call the .base function.
-	stampFunctionMap[entt::type_info<ECS::IComponent>::id()] = &CloneComponent<ECS::IComponent>;
-
 	// General.
 	stampFunctionMap[entt::type_info<ECS::Name>::id()] = &CloneComponent<ECS::Name>;
 	stampFunctionMap[entt::type_info<ECS::Prototype>::id()] = &CloneComponent<ECS::Prototype>;
@@ -288,12 +285,6 @@ void CSimulation::UpdateActors(const float deltaTime)
 
 void CSimulation::LoadSimulationData()
 {
-	// Load the spell registry.
-	//ECS::LoadECSFromXML("chrysalis/parameters/spells/spell-prototype.xml", m_spellRegistry);
-
-	//// Load the actor registry.
-	//ECS::LoadECSFromXML("chrysalis/parameters/actor/actor.xml", m_actorRegistry);
-
 	// Spell prototypes.
 	ECS::SerialiseECSInput spellSerial;
 	spellSerial.LoadFromFile("chrysalis/parameters/spells/spell-prototype.xml");

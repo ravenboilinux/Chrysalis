@@ -24,13 +24,13 @@ bool Serialize(Serialization::IArchive& ar, CProjectorLightComponent::SFlare& de
 
 namespace Chrysalis::ECS
 {
-struct RenderLight : public IComponent
+struct RenderLight
 {
 	RenderLight() = default;
 	virtual ~RenderLight() = default;
 
 
-	void Serialize(Serialization::IArchive& ar) override final
+	void Serialize(Serialization::IArchive& ar)
 	{
 		ar(optics, "optics", "optics");
 		ar(options, "options", "options");
