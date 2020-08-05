@@ -65,22 +65,18 @@ void LoadECSFromXML(string fileName, entt::registry& registry)
 				// We should create a fresh entity for the components to attach onto.
 				auto entity = registry.create();
 
-				// Get the properties node - this holds all the properties for this component.
-				//if (XmlNodeRef componentsNode = entityNode->findChild("components"))
+				// Iterate through all the components.
+				for (int i = 0, n = entityNode->getChildCount(); i < n; ++i)
 				{
-					// Iterate through all the components.
-					for (int i = 0, n = entityNode->getChildCount(); i < n; ++i)
-					{
-						// Grab the entity, which is basically an empty wrapper.
-						XmlNodeRef componentNode = entityNode->getChild(i);
+					// Grab the entity, which is basically an empty wrapper.
+					XmlNodeRef componentNode = entityNode->getChild(i);
 
-						// Using the tag as a unique ID for the class for now.
-						auto hash = entt::hashed_string {componentNode->getTag()};
+					// Using the tag as a unique ID for the class for now.
+					auto hash = entt::hashed_string {componentNode->getTag()};
 
-						// Load em.
-						// TODO: Needs to work without using a base class and polymorphism.
-						LoadComponent(componentNode, hash, registry, entity);
-					}
+					// Load em.
+					// TODO: Needs to work without using a base class and polymorphism.
+					LoadComponent(componentNode, hash, registry, entity);
 				}
 			}
 		}
